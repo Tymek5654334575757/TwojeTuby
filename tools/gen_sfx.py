@@ -13,6 +13,14 @@ PAL = {
  'record-scratch': ('Short vinyl record scratch stop, comedic twist', 0.8),
  'zap-small': ('Small electric spark zap, short crackle', 0.6),
  'tick-tock': ('Clock ticking, four ticks, quiet, dry', 2.0),
+ 'riser-short': ('Short rising tension whoosh riser building up, cinematic, ends abruptly', 1.5),
+ 'impact-soft': ('Punchy soft cinematic hit, low thump with short tail, clean', 0.8),
+ 'swoosh-fast': ('Very fast short air swoosh for a camera zoom, crisp', 0.5),
+ 'pen-tap': ('Felt marker squeak stroke on paper, quick', 0.5),
+ 'bloop-morph': ('Cartoon bubbly morph pop, playful transformation sound', 0.6),
+ 'heartbeat': ('Slow tense heartbeat, two beats, low and muffled', 1.6),
+ 'scribble-erase': ('Fast aggressive pencil scribbling to cross something out', 0.8),
+ 'paper-slide': ('Paper sheet sliding quickly across a desk', 0.5),
 }
 os.makedirs('media/sfx', exist_ok=True)
 for k,(p,d) in PAL.items():

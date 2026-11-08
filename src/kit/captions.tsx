@@ -72,10 +72,10 @@ export const Captions: React.FC<{lines: VoLine[]; top: number; left: number; wid
 							scale: String(0.6 + 0.4 * p + (speaking ? 0.06 : 0)),
 							rotate: `${(1 - p) * -8}deg`,
 							color: w.key ? C.red : C.ink,
-							backgroundImage: w.key ? `linear-gradient(${C.red}, ${C.red})` : undefined,
+							backgroundImage: w.key ? `linear-gradient(${C.red}, ${C.red}), linear-gradient(${C.yellow}, ${C.yellow})` : undefined,
 							backgroundRepeat: 'no-repeat',
-							backgroundPosition: '0 92%',
-							backgroundSize: `${under}% 6px`,
+							backgroundPosition: '0 92%, 0 78%',
+							backgroundSize: `${under}% 6px, ${Math.min(100, under * 1.2)}% 38%`,
 							paddingBottom: 4,
 						}}
 					>

@@ -6,6 +6,7 @@ import '@fontsource/caveat/700.css';
 import {C, FreezeCtx, Paper, Rough, Txt, Scribble, clamp01} from '../../kit/sketch';
 import {Person, Mini, LabCoat, Generator, Learner, Mask, QMark, Speech} from '../../kit/figures';
 import {Captions} from '../../kit/captions';
+import {Camera, Bursts, SlideIn, Doodles, Sparks, Sweat, type Hit, type Burst, type Shot} from '../../kit/dynamics';
 import {LINES} from './vo.gen';
 
 export const W = 1080;
@@ -78,6 +79,7 @@ const S1: React.FC = () => {
 	const s = pop(f, a450);
 	const sw = Math.min(1.05, s);
 	return (
+		<>
 		<HookLayout
 			needle={0.35 + 0.65 * sw}
 			lit={Math.round(3 + 7 * clamp01(s))}
@@ -88,6 +90,11 @@ const S1: React.FC = () => {
 			textScale={1 + 0.12 * Math.sin(Math.PI * clamp01((f - a450) / 10))}
 			hand={Math.sin(Math.PI * clamp01((f - a450 + 4) / 8))}
 		/>
+		<Svg>
+			<Sparks x={820} y={932} a={a450 + 6} b={a450 + 60} r={70} />
+			<Sparks x={250} y={1080} a={a450 + 2} b={a450 + 40} r={55} color={C.red} />
+		</Svg>
+		</>
 	);
 };
 
@@ -158,6 +165,7 @@ const S3: React.FC = () => {
 	return (
 		<Svg>
 			<Section draw={[prog(f, 0, 12), prog(f, 4, 14), prog(f, 8, 12), prog(f, 12, 14)]} lit={k} wallX={0} wallOp={1} wallShake={0} learnerFace={1} learnerMood="pain" />
+			<Sweat x={170} y={560} a={a15 + 4} s={0.9} />
 			<g opacity={f < aX ? 0 : 1}>
 				<Rough shape={{t: 'line', x1: 800, y1: 470, x2: 900, y2: 380}} o={{stroke: C.red, strokeWidth: 12}} draw={prog(f, aX, 5)} seed={600} />
 				<Rough shape={{t: 'line', x1: 800, y1: 380, x2: 900, y2: 470}} o={{stroke: C.red, strokeWidth: 12}} draw={prog(f, aX + 4, 5)} seed={601} />
@@ -254,6 +262,7 @@ const S5: React.FC = () => {
 						</g>
 					))}
 				</g>
+				<Sparks x={232} y={1130} a={a300 + 2} b={a300 + 30} r={60} />
 				<Txt text="…" x={870} y={560} size={130} draw={prog(f, aMil + 4, 10)} seed={940} />
 			</Svg>
 		</FreezeCtx.Provider>
@@ -357,6 +366,7 @@ const S8: React.FC = () => {
 					seed={1330 + (f % 4)}
 				/>
 			)}
+			<Sweat x={170} y={560} a={aN + 6} s={0.9} />
 			<g opacity={f >= a45 ? 1 : 0} transform={`translate(340 430) scale(${Math.min(1.08, pop(f, a45))}) translate(-340 -430)`}>
 				<Rough shape={{t: 'circle', cx: 340, cy: 430, d: 170}} o={{fill: C.yellow, fillStyle: 'solid', strokeWidth: 6}} seed={1340} />
 				<Txt text="45 V" x={340} y={452} size={64} seed={1341} />
@@ -389,11 +399,53 @@ const S9: React.FC = () => {
 
 const SCENES = [S1, S2, S3, S4, S5, S6, S7, S8, S9];
 
-const Fade: React.FC<{children: React.ReactNode; dur: number; fadeIn: boolean; fadeOut: boolean}> = ({children, dur, fadeIn, fadeOut}) => {
-	const f = useCurrentFrame();
-	const o = Math.min(fadeIn ? clamp01(f / 5) : 1, fadeOut ? clamp01((dur - f) / 6) : 1);
-	return <AbsoluteFill style={{opacity: o}}>{children}</AbsoluteFill>;
-};
+// --- dynamika: najazdy kamery, uderzenia, linie uderzeń --------------------
+const f2s = (n: number) => n / FPS;
+const SHOTS: Shot[] = B.slice(0, -1).map((from, i) => ({
+	from,
+	to: B[i + 1],
+	ox: [400, 560, 540, 500, 480, 420, 480, 560, 400][i],
+	oy: [760, 700, 700, 760, 900, 700, 900, 700, 760][i],
+	zoom: i === 8 ? 1 : 1.06,
+}));
+const HITS: Hit[] = [
+	{t: cue(0, '450'), kind: 'both', amp: 1.2},
+	{t: cue(0, 'kitlu'), kind: 'punch', amp: 0.6},
+	{t: cue(1, '1961'), kind: 'both'},
+	{t: cue(2, 'czterdziestu'), kind: 'punch', amp: 0.7},
+	{t: cue(3, 'błędy'), kind: 'punch', amp: 0.8},
+	{t: cue(4, 'piętnaście'), kind: 'punch', amp: 0.6},
+	{t: cue(5, 'jeden'), kind: 'punch', amp: 0.9},
+	{t: cue(6, 'myślisz') + f2s(8), kind: 'punch', amp: 1.1},
+	{t: cue(7, 'trzystu'), kind: 'punch', amp: 0.7},
+	{t: cue(7, 'wszyscy'), kind: 'punch', amp: 0.7},
+	{t: cue(8, 'uderza'), kind: 'shake', amp: 1.1},
+	{t: cue(8, 'uderza') + f2s(11), kind: 'shake', amp: 1.1},
+	{t: cue(10, 'powtarza'), kind: 'punch', amp: 0.6},
+	{t: cue(10, 'proszę'), kind: 'punch', amp: 0.6},
+	{t: cue(11, '26'), kind: 'both', amp: 0.9},
+	{t: cue(12, 'dwie'), kind: 'punch', amp: 0.8},
+	{t: cue(13, 'uczeń'), kind: 'punch', amp: 0.6},
+	{t: cue(13, 'aktorem') + f2s(10), kind: 'both', amp: 1.1},
+	{t: cue(14, 'nauczyciel'), kind: 'shake', amp: 0.8},
+	{t: cue(14, '45'), kind: 'punch', amp: 0.9},
+	{t: cue(16, 'kitlu'), kind: 'punch', amp: 0.6},
+];
+const BURSTS: Burst[] = [
+	{t: cue(0, '450'), x: 400, y: 470, r: 230},
+	{t: cue(1, '1961'), x: 195, y: 300, r: 150},
+	{t: cue(3, 'błędy') + f2s(4), x: 850, y: 425, r: 80},
+	{t: cue(5, 'jeden') + f2s(2), x: 575, y: 684, r: 50, color: C.red},
+	{t: cue(6, 'myślisz') + f2s(14), x: 500, y: 760, r: 230, color: C.ink},
+	{t: cue(7, 'trzystu'), x: 231, y: 1130, r: 110},
+	{t: cue(8, 'uderza'), x: 940, y: 520, r: 70, color: C.ink},
+	{t: cue(8, 'uderza') + f2s(11), x: 940, y: 720, r: 70, color: C.ink},
+	{t: cue(11, '26') + f2s(4), x: 220, y: 1050, r: 140},
+	{t: cue(12, 'dwie') + f2s(22), x: 790, y: 1040, r: 170},
+	{t: cue(13, 'aktorem') + f2s(10), x: 850, y: 1050, r: 160},
+	{t: cue(14, 'nauczyciel'), x: 270, y: 600, r: 70, color: C.yellow},
+	{t: cue(14, '45'), x: 340, y: 430, r: 110},
+];
 
 const Kicker: React.FC = () => (
 	<Svg>
@@ -414,17 +466,21 @@ export const MilgramShort: React.FC = () => {
 				<Paper w={W} h={H} />
 			</Svg>
 			<Kicker />
-			{SCENES.map((Scene, i) => {
-				const from = Math.round(B[i] * fps);
-				const dur = Math.round(B[i + 1] * fps) - from + (i < SCENES.length - 1 ? 6 : 0);
-				return (
-					<Sequence key={i} from={from} durationInFrames={dur} name={`Scena ${i + 1}`}>
-						<Fade dur={dur} fadeIn={i > 0} fadeOut={i < SCENES.length - 1}>
-							<Scene />
-						</Fade>
-					</Sequence>
-				);
-			})}
+			<Doodles />
+			<Camera shots={SHOTS} hits={HITS}>
+				{SCENES.map((Scene, i) => {
+					const from = Math.round(B[i] * fps);
+					const dur = Math.round(B[i + 1] * fps) - from + (i < SCENES.length - 1 ? 7 : 0);
+					return (
+						<Sequence key={i} from={from} durationInFrames={dur} name={`Scena ${i + 1}`}>
+							<SlideIn dur={dur} enter={i > 0} exit={i < SCENES.length - 1}>
+								<Scene />
+							</SlideIn>
+						</Sequence>
+					);
+				})}
+				<Bursts items={BURSTS} />
+			</Camera>
 			<Captions lines={LINES} top={1405} left={70} width={840} size={92} />
 			<Audio src={staticFile('milgram_vo.wav')} />
 		</AbsoluteFill>
