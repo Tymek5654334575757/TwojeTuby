@@ -1,0 +1,5 @@
+{"raw":"audio/plan_raw.mp3","words":"audio/plan_words.json","wav":"public/plan_vo.wav","ts":"src/shorts/plan/vo.gen.ts","tempo":1.1,
+ "cuts":[[4.24,0.2],[17.96,0.3],[19.64,0.25],[21.32,0.4],[26.16,0.3],[28.76,0.15],[38.64,0.3],[40.92,0.1]],
+ "groups":[{"spoken":"tysiąc dziewięćset dziewięćdziesiątym czwartym","shown":"1994"},{"spoken":"trzydzieści cztery","shown":"34"},
+  {"spoken":"czterdzieści dziewięć","shown":"49"},{"spoken":"pięćdziesiąt pięć","shown":"55"}],
+ "keys":["spóźniasz","1994","34","najgorzej","49","naprawdę","55","najczarniejszym","trzeci","błąd","planowania","gładko","korków","poprawek","życia","ostatnim"]}

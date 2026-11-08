@@ -32,6 +32,23 @@ PAL = {
  'boing': ('Short cartoon boing bounce, playful', 0.6),
  'paper-flip': ('Calendar pages flipping fast', 1.0),
  'cartoon-fall': ('Cartoon tumble and thud of several things falling over', 1.2),
+ 'alarm-ring': ('Old mechanical twin bell alarm clock ringing loudly, rapid metallic hammering', 1.5),
+ 'rain-light': ('Light rain shower falling, soft steady patter, short', 2.0),
+ 'thunder': ('Single sharp thunder crack with short rumble, cartoon storm', 1.5),
+ 'footsteps-run': ('Fast cartoon running footsteps on a wooden floor, hurried, light', 2.0),
+ 'car-horn': ('Short double honk of a small car horn in traffic, cartoonish', 0.6),
+ 'snore': ('Short comic snore, one inhale and whistle exhale', 1.2),
+ 'drawer-open': ('Wooden desk drawer sliding open smoothly, short', 0.8),
+ 'drawer-slam': ('Wooden desk drawer slammed shut hard, single bang', 0.6),
+ 'lock-click': ('Small metal padlock snapping shut, crisp click', 0.5),
+ 'touch-tap': ('Soft glassy tap on a touchscreen with a tiny UI blip', 0.5),
+ 'camera-flash': ('Several press camera flashes and shutter clicks in quick succession', 1.2),
+ 'applause': ('Excited audience applause and cheering at a product launch, short', 2.0),
+ 'retro-beep': ('Tiny 8-bit retro phone game beep, two quick tones', 0.5),
+ 'magic-shimmer': ('Bright magical shimmer sparkle, rising glow, clean', 1.2),
+ 'speed-whoosh': ('Fast vehicle zooming past, doppler whoosh, cartoon', 1.0),
+ 'deflate': ('Comic descending sad trombone slide, short, three notes', 1.2),
+ 'alert-buzz': ('Short cartoon warning buzzer, two low buzzes', 0.6),
 }
 os.makedirs('media/sfx', exist_ok=True)
 for k,(p,d) in PAL.items():

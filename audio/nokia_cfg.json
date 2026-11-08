@@ -1,0 +1,5 @@
+{"raw":"audio/nokia_raw.mp3","words":"audio/nokia_words.json","wav":"public/nokia_vo.wav","ts":"src/shorts/nokia/vo.gen.ts","tempo":1.1,
+ "cuts":[[6.44,0.35],[12.28,0.25],[25.0,0.2],[26.84,0.15],[30.16,0.3],[33.72,0.3],[43.2,0.35]],
+ "groups":[{"spoken":"dwa tysiące siódmym","shown":"2007"},{"spoken":"dwa tysiące czwartym","shown":"2004"},{"spoken":"dwa tysiące trzynastym","shown":"2013"},
+  {"spoken":"czterdziestu procent","shown":"40%"},{"spoken":"piętnaście","shown":"15"},{"spoken":"pięć i pół miliarda","shown":"5,5 mld"},{"spoken":"dwa na pięć","shown":"2 na 5"}],
+ "keys":["dotykowym","trzy","skasowała","2007","2 na 5","2004","prototyp","drogi","ryzykowny","szuflady","iphone'a","późno","40%","15","microsoft","5,5 mld","2013","rywalem"]}
