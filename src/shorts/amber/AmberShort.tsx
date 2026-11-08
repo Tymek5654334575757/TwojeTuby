@@ -23,7 +23,7 @@ export const cue = (li: number, w?: string) => {
 };
 const mid = (a: number, b: number) => (LINES[a].e + LINES[b].s) / 2;
 const END = LINES[13].e + 0.35;
-export const B = [0, mid(1, 2), mid(2, 3), mid(4, 5), mid(7, 8), mid(8, 9), mid(9, 10), mid(11, 12), mid(12, 13), END, END + 0.9];
+export const B = [0, mid(1, 2), mid(2, 3), mid(4, 5), mid(7, 8), mid(8, 9), mid(9, 10), mid(11, 12), mid(12, 13), END, END + 2.3];
 export const TOTAL_FRAMES = Math.round(B[B.length - 1] * FPS);
 
 const useScene = (start: number) => {
@@ -141,7 +141,11 @@ const S1: React.FC = () => {
 	);
 };
 
-const S10: React.FC = () => <HookLayout pulse={0} badge={0} kid={0} />;
+// Zakończenie: wraca obraz z haczyka, a na końcu obietnica z tytułu, żeby film zostawił w głowie „jak dla pięciolatka".
+const S10: React.FC = () => {
+	const {f} = useScene(B[9]);
+	return <HookLayout pulse={0} badge={Math.min(1.06, pop(f, 4))} kid={prog(f, 2, 12)} />;
+};
 
 // --- S2: kolega i obietnica 116 zł -------------------------------------------
 const S2: React.FC = () => {
@@ -155,7 +159,8 @@ const S2: React.FC = () => {
 	const q = arc(fly, 410, 1060, 640, 1060, 160);
 	const raise = interpolate(pop(f, aZ), [0, 1], [15, 150]);
 	const months = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
-	const mi = Math.min(11, Math.max(0, Math.floor((f - aR) / 1.4)));
+	// Miesiące przewijają się równo między słowem „rok" a „116", więc kalendarz idzie w tempie lektora.
+	const mi = Math.min(11, Math.max(0, Math.floor(((f - aR) / Math.max(1, a116 - aR)) * 12)));
 	const cal = pop(f, aR - 4);
 	const big116 = pop(f, a116);
 	return (
@@ -564,7 +569,8 @@ const S9: React.FC = () => {
 	const aW = at(13, 'więcej');
 	const aZ = at(13, 'zapytaj');
 	const aSk = at(13, 'skąd');
-	const fly = prog(f, 0, 24);
+	const aOb = at(13, 'obiecuje');
+	const fly = prog(f, aOb, 30);
 	const q = arc(fly, 1200, 120, 560, 520, -60);
 	const pulse = 1 + 0.1 * Math.abs(Math.sin((f - aW) / 4)) * (f >= aW ? 1 : 0);
 	const qm = pop(f, aSk);
@@ -583,18 +589,22 @@ const S9: React.FC = () => {
 			<G x={770} y={1250}>
 				<Kid look={LOOKS.kolega} armL={150} talk={f < aW + 10} seed={3} />
 			</G>
-			<G x={650} y={720} s={pulse} r={-6}>
-				<rect x={-130} y={-62} width={260} height={110} rx={20} fill={P.gold} stroke={P.navy} strokeWidth={7} />
-				<FText text="116 zł!" x={0} y={20} size={66} fill={P.navy} />
-			</G>
+			{f >= aW && (
+				<G x={650} y={720} s={Math.min(1.08, pop(f, aW)) * pulse} r={-6}>
+					<rect x={-130} y={-62} width={260} height={110} rx={20} fill={P.gold} stroke={P.navy} strokeWidth={7} />
+					<FText text="116 zł!" x={0} y={20} size={66} fill={P.navy} />
+				</G>
+			)}
 			{f >= aSk && (
 				<G x={300} y={640} s={Math.min(1.1, qm)} r={8}>
 					<FText text="?" x={0} y={0} size={300} fill={P.red} stroke={P.white} sw={14} />
 				</G>
 			)}
-			<G x={q.x} y={q.y + Math.sin(f / 8) * 14} r={Math.sin(f / 10) * 8}>
-				<Banknote face="sad" w={180} />
-			</G>
+			{f >= aOb && (
+				<G x={q.x} y={q.y + Math.sin(f / 8) * 14} r={Math.sin(f / 10) * 8}>
+					<Banknote face="sad" w={180} />
+				</G>
+			)}
 			<FlatBurst x={300} y={540} at={aSk} r={150} color={P.gold} />
 		</Svg>
 	);

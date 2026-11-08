@@ -9,7 +9,7 @@ def cue(li,w=None):
     raise Exception(w)
 mid=lambda a,b:(L[a]['e']+L[b]['s'])/2
 END=L[13]['e']+0.35
-B=[0,mid(1,2),mid(2,3),mid(4,5),mid(7,8),mid(8,9),mid(9,10),mid(11,12),mid(12,13),END,END+0.9]
+B=[0,mid(1,2),mid(2,3),mid(4,5),mid(7,8),mid(8,9),mid(9,10),mid(11,12),mid(12,13),END,END+2.3]
 fr=1/30; P=[]
 def add(id,t,g): P.append((id,max(0,t),g))
 # S1
@@ -59,11 +59,13 @@ add('pop-soft',cue(12,'15'),-13); add('pop-soft',cue(12,'11,5'),-13)
 add('whoosh-soft',B[8]+0.05,-14); add('pop-soft',cue(13,'więcej'),-15)
 add('boing',cue(13,'zapytaj'),-14); add('bloop-morph',cue(13,'skąd'),-11); add('impact-soft',cue(13,'skąd'),-15)
 add('paper-slide',B[9]-0.05,-15)
+# S10: wraca obraz haczyka, znacznik „jak dla pięciolatka” i dźwięk pojawienia się
+add('boing',B[9]+0.1,-15); add('ding-soft',B[9]+0.13,-12)
 ins=['-i','public/amber_vo.wav']; fc=[]; labs=['[0:a]']
 for k,(id,t,g) in enumerate(P):
     ins+=['-i',f'media/sfx/{id}.wav']; ms=int(t*1000)
     fc.append(f'[{k+1}:a]volume={g}dB,adelay={ms}|{ms}[s{k}]'); labs.append(f'[s{k}]')
 fc.append(f"{''.join(labs)}amix=inputs={len(labs)}:normalize=0:dropout_transition=0,alimiter=limit=0.89[a]")
 subprocess.run(['ffmpeg','-y','-loglevel','error',*ins,'-filter_complex',';'.join(fc),'-map','[a]','-ar','48000','audio/amber_mix.wav'],check=True)
-subprocess.run(['ffmpeg','-y','-loglevel','error','-i','out/amber_v1.mp4','-i','audio/amber_mix.wav','-map','0:v','-map','1:a','-c:v','copy','-af','apad','-c:a','aac','-b:a','192k','-shortest','out/amber_short_v1.mp4'],check=True)
+subprocess.run(['ffmpeg','-y','-loglevel','error','-i','out/amber_v2.mp4','-i','audio/amber_mix.wav','-map','0:v','-map','1:a','-c:v','copy','-af','apad','-c:a','aac','-b:a','192k','-shortest','out/amber_short_v2.mp4'],check=True)
 print(len(P),'cues')
