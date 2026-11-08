@@ -21,6 +21,17 @@ PAL = {
  'heartbeat': ('Slow tense heartbeat, two beats, low and muffled', 1.6),
  'scribble-erase': ('Fast aggressive pencil scribbling to cross something out', 0.8),
  'paper-slide': ('Paper sheet sliding quickly across a desk', 0.5),
+ 'ka-ching': ('Cash register ka-ching with coins, bright and short', 1.0),
+ 'coins-scatter': ('Handful of coins falling and scattering on the ground', 1.2),
+ 'plane-takeoff': ('Small propeller airplane accelerating and taking off, cartoonish, short', 2.5),
+ 'engine-sputter': ('Airplane engine sputtering, coughing and dying out, cartoon', 2.0),
+ 'crowd-murmur': ('Crowd of people murmuring, growing louder, short', 2.0),
+ 'vault-open': ('Heavy metal bank vault door unlocking and creaking open', 2.0),
+ 'gavel': ('Single wooden judge gavel strike, sharp, in a courtroom', 0.8),
+ 'bars-clank': ('Metal jail cell bars sliding shut with a clank', 1.0),
+ 'boing': ('Short cartoon boing bounce, playful', 0.6),
+ 'paper-flip': ('Calendar pages flipping fast', 1.0),
+ 'cartoon-fall': ('Cartoon tumble and thud of several things falling over', 1.2),
 }
 os.makedirs('media/sfx', exist_ok=True)
 for k,(p,d) in PAL.items():

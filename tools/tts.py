@@ -1,7 +1,7 @@
 import json, os, sys, base64, urllib.request
 env = dict(l.strip().split('=',1) for l in open('/home/claude/twojetuby/.env') if '=' in l)
 KEY = env['ELEVENLABS_API_KEY']
-VOICE = 'lOUKyWHVBvOd22Rouh6D'
+VOICE = sys.argv[3] if len(sys.argv) > 3 else 'lOUKyWHVBvOd22Rouh6D'
 text = open(sys.argv[1], encoding='utf-8').read().strip()
 out = sys.argv[2]
 body = json.dumps({"text": text, "model_id": "eleven_v4", "language_code": "pl",

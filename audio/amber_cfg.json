@@ -1,0 +1,6 @@
+{"raw":"audio/amber_raw.mp3","words":"audio/amber_words.json","wav":"public/amber_vo.wav","ts":"src/shorts/amber/vo.gen.ts","tempo":1.1,
+ "cuts":[[43.70,0.3],[44.72,0.45]],
+ "groups":[{"spoken":"osiemset pięćdziesiąt jeden","shown":"851"},{"spoken":"sto złotych","shown":"100 złotych"},{"spoken":"sto szesnaście","shown":"116"},
+  {"spoken":"osiemnaście tysięcy","shown":"18 000"},{"spoken":"trzysta","shown":"300"},{"spoken":"dwa tysiące dwunastego","shown":"2012"},
+  {"spoken":"ośmiu","shown":"8"},{"spoken":"piętnaście","shown":"15"},{"spoken":"jedenaście i pół","shown":"11,5"}],
+ "keys":["851","pięciolatkowi","100 złotych","złoto","116","mniej","18 000","nowi","piramidą","finansową","300","olt","express","latać","likwidację","skarbcu","8","15","11,5","zapytaj","skąd"]}

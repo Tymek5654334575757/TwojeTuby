@@ -2,7 +2,8 @@
 import React from 'react';
 import {useCurrentFrame, useVideoConfig, spring, interpolate} from 'remotion';
 import {C, FONT} from './sketch';
-import type {VoLine, VoWord} from '../shorts/milgram/vo.gen';
+export type VoWord = {w: string; s: number; e: number; key: boolean};
+export type VoLine = {s: number; e: number; words: VoWord[]};
 
 const chunk = (words: VoWord[], maxChars: number) => {
 	const out: VoWord[][] = [];
@@ -26,7 +27,18 @@ const chunk = (words: VoWord[], maxChars: number) => {
 	return out;
 };
 
-export const Captions: React.FC<{lines: VoLine[]; top: number; left: number; width: number; size: number}> = ({lines, top, left, width, size}) => {
+export const Captions: React.FC<{lines: VoLine[]; top: number; left: number; width: number; size: number; font?: string; weight?: number; color?: string; keyColor?: string; markColor?: string}> = ({
+	lines,
+	top,
+	left,
+	width,
+	size,
+	font = FONT,
+	weight = 700,
+	color = C.ink,
+	keyColor = C.red,
+	markColor = C.yellow,
+}) => {
 	const frame = useCurrentFrame();
 	const {fps} = useVideoConfig();
 	const t = frame / fps;
@@ -49,12 +61,12 @@ export const Captions: React.FC<{lines: VoLine[]; top: number; left: number; wid
 				display: 'flex',
 				flexWrap: 'wrap',
 				justifyContent: 'center',
-				gap: `0 ${size * 0.28}px`,
-				fontFamily: FONT,
-				fontWeight: 700,
+				gap: `0 ${size * 0.34}px`,
+				fontFamily: font,
+				fontWeight: weight,
 				fontSize: size,
 				lineHeight: 1.05,
-				color: C.ink,
+				color,
 				textAlign: 'center',
 			}}
 		>
@@ -69,10 +81,10 @@ export const Captions: React.FC<{lines: VoLine[]; top: number; left: number; wid
 						style={{
 							display: 'inline-block',
 							opacity: frame < at ? 0 : 1,
-							scale: String(0.6 + 0.4 * p + (speaking ? 0.06 : 0)),
+							scale: String(0.6 + 0.4 * p + (speaking ? 0.04 : 0)),
 							rotate: `${(1 - p) * -8}deg`,
-							color: w.key ? C.red : C.ink,
-							backgroundImage: w.key ? `linear-gradient(${C.red}, ${C.red}), linear-gradient(${C.yellow}, ${C.yellow})` : undefined,
+							color: w.key ? keyColor : color,
+							backgroundImage: w.key ? `linear-gradient(${keyColor}, ${keyColor}), linear-gradient(${markColor}, ${markColor})` : undefined,
 							backgroundRepeat: 'no-repeat',
 							backgroundPosition: '0 92%, 0 78%',
 							backgroundSize: `${under}% 6px, ${Math.min(100, under * 1.2)}% 38%`,
