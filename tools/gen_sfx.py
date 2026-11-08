@@ -1,0 +1,27 @@
+import json, os, urllib.request, subprocess
+env = dict(l.strip().split('=',1) for l in open('/home/claude/twojetuby/.env') if '=' in l)
+KEY = env['ELEVENLABS_API_KEY']
+PAL = {
+ 'hum-generator': ('Low steady electrical hum of an old 1960s laboratory machine, subtle', 2.0),
+ 'click-switch': ('Single crisp mechanical toggle switch click, close, dry', 0.5),
+ 'pop-soft': ('Soft short paper pop, playful, clean, no reverb', 0.5),
+ 'pencil-scratch': ('Quick pencil scribble on paper, short, close mic', 1.0),
+ 'whoosh-soft': ('Soft quick paper whoosh transition, airy', 0.7),
+ 'thud-wall': ('Muffled heavy fist thump on a wall heard from the next room', 0.7),
+ 'stamp': ('Rubber stamp pressed firmly on paper on a wooden desk, single hit', 0.6),
+ 'ding-soft': ('Gentle small bell ding, bright, short decay', 1.0),
+ 'record-scratch': ('Short vinyl record scratch stop, comedic twist', 0.8),
+ 'zap-small': ('Small electric spark zap, short crackle', 0.6),
+ 'tick-tock': ('Clock ticking, four ticks, quiet, dry', 2.0),
+}
+os.makedirs('media/sfx', exist_ok=True)
+for k,(p,d) in PAL.items():
+    out=f'media/sfx/{k}.wav'
+    if os.path.exists(out): continue
+    body=json.dumps({"text":p,"model_id":"eleven_text_to_sound_v3","duration_seconds":d,"prompt_influence":0.6}).encode()
+    req=urllib.request.Request("https://api.elevenlabs.io/v1/sound-generation?output_format=mp3_44100_128",data=body,headers={"xi-api-key":KEY,"Content-Type":"application/json"})
+    try: data=urllib.request.urlopen(req,timeout=120).read()
+    except urllib.error.HTTPError as e: print(k,'HTTP',e.code,e.read()[:300]); continue
+    open('/tmp/_s.mp3','wb').write(data)
+    subprocess.run(['ffmpeg','-y','-loglevel','error','-i','/tmp/_s.mp3','-af','loudnorm=I=-20:TP=-1.5','-ar','44100','-ac','1',out],check=True)
+    print('ok',k)

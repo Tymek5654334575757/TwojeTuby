@@ -1,54 +1,17 @@
-# Remotion video
+# TwojeTuby
 
-<p align="center">
-  <a href="https://github.com/remotion-dev/logo">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://github.com/remotion-dev/logo/raw/main/animated-logo-banner-dark.apng">
-      <img alt="Animated Remotion Logo" src="https://github.com/remotion-dev/logo/raw/main/animated-logo-banner-light.gif">
-    </picture>
-  </a>
-</p>
+Animacje kanałów Psychorożek i Szczęście Pieniędzy Nie Daje (Remotion, styl szkicowy).
 
-Welcome to your Remotion project!
+- `src/kit/` — wspólne komponenty: kreski rough.js, tekst Caveat, postacie, generator, napisy.
+- `src/shorts/<temat>/` — kompozycje shortów; `vo.gen.ts` generowany z czasów lektora.
+- `tools/` — lektor (ElevenLabs), biblioteka efektów, miks, klatki kontrolne.
+- `media/sfx/` — biblioteka efektów dźwiękowych (wielokrotnego użytku).
 
-## Commands
+Klucz `ELEVENLABS_API_KEY` trzymaj tylko w `.env` (plik jest w `.gitignore`).
 
-**Install Dependencies**
-
-```console
-npm i --loglevel=error
 ```
-
-**Start Preview**
-
-```console
-npm run dev
+npm i
+python3 tools/tts.py audio/<temat>.txt audio/<temat>_raw
+node tools/frames.mjs <Kompozycja> 0,100,-1 out/qa 0.5
+npx remotion render <Kompozycja> out/<plik>.mp4
 ```
-
-**Render video**
-
-```console
-npx remotion render
-```
-
-**Upgrade Remotion**
-
-```console
-npx remotion upgrade
-```
-
-## Docs
-
-Get started with Remotion by reading the [fundamentals page](https://www.remotion.dev/docs/the-fundamentals).
-
-## Help
-
-We provide help on our [Discord server](https://discord.gg/6VzzNDwUwV).
-
-## Issues
-
-Found an issue with Remotion? [File an issue here](https://github.com/remotion-dev/remotion/issues/new).
-
-## License
-
-Note that for some entities a company license is needed. [Read the terms here](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md).
