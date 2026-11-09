@@ -7,3 +7,5 @@ dist
 out
 audio/*_raw.mp3
 *.log
+tools/__pycache__/
+audio/*_mix.wav
