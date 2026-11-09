@@ -49,6 +49,14 @@ PAL = {
  'speed-whoosh': ('Fast vehicle zooming past, doppler whoosh, cartoon', 1.0),
  'deflate': ('Comic descending sad trombone slide, short, three notes', 1.2),
  'alert-buzz': ('Short cartoon warning buzzer, two low buzzes', 0.6),
+ 'police-siren': ('Short police siren wail passing by, two cycles', 1.5),
+ 'tv-on': ('Old CRT television switching on, static burst then click', 0.8),
+ 'squish': ('Juicy lemon being squeezed, wet squish', 0.6),
+ 'men-laugh': ('Two businessmen laughing out loud mockingly in an office, short', 2.0),
+ 'mail-drop': ('Envelope dropped into a metal mailbox slot, flap clank', 0.6),
+ 'power-down': ('Shop lights switching off, electric power down hum', 1.2),
+ 'sign-creak': ('Heavy metal shop sign creaking and swinging', 1.0),
+ 'cash-drawer': ('Cash register drawer opening with bell ding', 0.8),
 }
 os.makedirs('media/sfx', exist_ok=True)
 for k,(p,d) in PAL.items():

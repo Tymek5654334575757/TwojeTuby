@@ -2,23 +2,27 @@
 import React from 'react';
 import {useCurrentFrame, useVideoConfig, interpolate, spring, Easing} from 'remotion';
 
+// Paleta kanału (od 9.11 stonowana, „dorosła”: bez jaskrawej zieleni i nasyconych barw z bajek).
 export const P = {
-	bg: '#FFF7E6',
-	navy: '#1D2B53',
-	gold: '#F2B705',
-	goldDark: '#C98E00',
-	goldLight: '#FFE07A',
-	green: '#2E9E6B',
-	greenLight: '#8FDDB4',
-	red: '#E4572E',
-	skin: '#F6C8A0',
-	skin2: '#D9996B',
-	sky: '#BFE3F5',
-	grass: '#8BCF6B',
-	grassDark: '#5FAE4A',
-	white: '#FFFFFF',
-	grey: '#D8D1C2',
-	shadow: 'rgba(29,43,83,0.16)',
+	bg: '#EFE8DC',
+	navy: '#1F2B3D',
+	gold: '#C9A043',
+	goldDark: '#9C7A2E',
+	goldLight: '#E6D3A1',
+	green: '#4F7A6A',
+	greenLight: '#A9C2B5',
+	red: '#B5503A',
+	skin: '#E3BC9A',
+	skin2: '#B98863',
+	sky: '#B9CBD3',
+	grass: '#8E9C7F',
+	grassDark: '#6E7D61',
+	white: '#F8F4EC',
+	grey: '#CFC7B8',
+	slate: '#5C6B7A',
+	blue: '#4A6A8A',
+	paper: '#E4DBCB',
+	shadow: 'rgba(31,43,61,0.16)',
 };
 export const FFONT = "'Baloo 2'";
 const OL = 7; // grubość konturu
@@ -84,6 +88,114 @@ export const G: React.FC<{x?: number; y?: number; s?: number; r?: number; sq?: n
 
 // --- postać dziecka ---------------------------------------------------------
 export type KidLook = {shirt: string; hair: string; skin?: string; cap?: boolean; shades?: boolean};
+// --- Dorosła postać (kanał biznesowy). (0,0) = stopy, wysokość ok. 480. ---
+export type AdultLook = {suit: string; hair: string; skin?: string; tie?: string; shirt?: string; hairStyle?: 'short' | 'side' | 'bald'; glasses?: boolean};
+export const ADULTS: Record<string, AdultLook> = {
+	szef: {suit: '#2E3B4E', hair: '#8A8A8A', tie: '#B5503A', hairStyle: 'side'},
+	szef2: {suit: '#3A4A5E', hair: '#3B2A20', tie: '#C9A043', hairStyle: 'short', glasses: true},
+	zalozyciel: {suit: '#7A4E3A', hair: '#3B2A20', shirt: '#E4DBCB', hairStyle: 'short'},
+	zalozyciel2: {suit: '#4F7A6A', hair: '#6B4A2E', shirt: '#E4DBCB', hairStyle: 'side', glasses: true},
+	klient: {suit: '#8C7A5E', hair: '#2B2420', shirt: '#CFC7B8', hairStyle: 'short'},
+};
+export const Adult: React.FC<{
+	look: AdultLook;
+	armL?: number;
+	armR?: number;
+	talk?: boolean;
+	walk?: boolean;
+	mood?: 'neutral' | 'smile' | 'laugh' | 'sad' | 'shock' | 'angry';
+	laugh?: boolean;
+	seed?: number;
+	holdR?: React.ReactNode;
+}> = ({look, armL = 8, armR = 8, talk = false, walk = false, mood = 'neutral', laugh = false, seed = 0, holdR}) => {
+	const f = useCurrentFrame();
+	const skin = look.skin ?? P.skin;
+	const breath = Math.sin((f + seed * 13) / 16) * 0.01;
+	const bob = laugh ? Math.abs(Math.sin(f / 2.2)) * -10 : 0;
+	const blink = (f + seed * 37) % 110 < 4;
+	const talkOpen = talk && Math.floor(f / 3) % 2 === 0;
+	const sw = walk ? Math.sin(f / 4) * 22 : 0;
+	const tie = look.tie;
+	const shirt = look.shirt ?? P.white;
+	const dark = 'rgba(0,0,0,0.18)';
+	const arm = (side: -1 | 1, ang: number, hold?: React.ReactNode) => (
+		<g transform={`translate(${side * 74} -352) rotate(${side === -1 ? ang : -ang})`}>
+			<rect x={-17} y={-8} width={34} height={150} rx={17} fill={look.suit} stroke={P.navy} strokeWidth={OL} />
+			<circle cx={0} cy={160} r={18} fill={skin} stroke={P.navy} strokeWidth={OL - 1} />
+			{hold && <g transform={`translate(0 175) rotate(${side === -1 ? -ang : ang})`}>{hold}</g>}
+		</g>
+	);
+	let mouth: React.ReactNode;
+	const my = -405;
+	if (talkOpen || mood === 'laugh' || laugh) mouth = <path d={`M -16 ${my - 4} Q 0 ${my + 20} 16 ${my - 4} Z`} fill={P.navy} />;
+	else if (mood === 'smile') mouth = <path d={`M -14 ${my - 4} Q 0 ${my + 8} 14 ${my - 4}`} fill="none" stroke={P.navy} strokeWidth={5} strokeLinecap="round" />;
+	else if (mood === 'sad') mouth = <path d={`M -13 ${my + 4} Q 0 ${my - 8} 13 ${my + 4}`} fill="none" stroke={P.navy} strokeWidth={5} strokeLinecap="round" />;
+	else if (mood === 'shock') mouth = <ellipse cx={0} cy={my} rx={9} ry={12} fill={P.navy} />;
+	else if (mood === 'angry') mouth = <path d={`M -13 ${my + 2} L 13 ${my + 2}`} stroke={P.navy} strokeWidth={6} strokeLinecap="round" />;
+	else mouth = <path d={`M -11 ${my} L 11 ${my}`} stroke={P.navy} strokeWidth={5} strokeLinecap="round" />;
+	const brow = mood === 'angry' ? 8 : mood === 'sad' ? -6 : 0;
+	return (
+		<g transform={`translate(0 ${bob}) scale(${1 + breath} ${1 - breath})`}>
+			<ellipse cx={0} cy={4} rx={70} ry={12} fill={P.shadow} />
+			{/* nogi */}
+			<g transform={`rotate(${sw} 0 -190)`}>
+				<rect x={-44} y={-195} width={36} height={190} rx={10} fill={look.suit} stroke={P.navy} strokeWidth={OL} />
+				<ellipse cx={-30} cy={-4} rx={30} ry={13} fill={P.navy} />
+			</g>
+			<g transform={`rotate(${-sw} 0 -190)`}>
+				<rect x={8} y={-195} width={36} height={190} rx={10} fill={look.suit} stroke={P.navy} strokeWidth={OL} />
+				<ellipse cx={30} cy={-4} rx={30} ry={13} fill={P.navy} />
+			</g>
+			{arm(-1, armL)}
+			{/* tułów */}
+			<path d="M -80 -362 Q -84 -260 -66 -180 L 66 -180 Q 84 -260 80 -362 Q 0 -384 -80 -362 Z" fill={look.suit} stroke={P.navy} strokeWidth={OL} strokeLinejoin="round" />
+			<path d="M -30 -372 L 0 -300 L 30 -372 Z" fill={shirt} stroke={P.navy} strokeWidth={5} strokeLinejoin="round" />
+			{tie && <path d="M -9 -366 L 9 -366 L 13 -300 L 0 -284 L -13 -300 Z" fill={tie} stroke={P.navy} strokeWidth={4} strokeLinejoin="round" />}
+			<line x1={0} y1={-300} x2={0} y2={-190} stroke={dark} strokeWidth={4} />
+			{arm(1, armR, holdR)}
+			{/* głowa */}
+			<rect x={-16} y={-392} width={32} height={26} fill={skin} stroke={P.navy} strokeWidth={5} />
+			<circle cx={0} cy={-438} r={52} fill={skin} stroke={P.navy} strokeWidth={OL} />
+			{look.hairStyle !== 'bald' && (
+				<path
+					d={look.hairStyle === 'side' ? 'M -54 -440 Q -56 -500 0 -496 Q 50 -496 54 -446 Q 30 -478 -20 -470 Q -40 -466 -54 -440 Z' : 'M -53 -444 Q -50 -498 0 -496 Q 50 -498 53 -444 Q 40 -470 0 -472 Q -40 -470 -53 -444 Z'}
+					fill={look.hair}
+					stroke={P.navy}
+					strokeWidth={5}
+					strokeLinejoin="round"
+				/>
+			)}
+			{look.hairStyle === 'bald' && <path d="M -53 -430 Q -60 -460 -46 -462 M 53 -430 Q 60 -460 46 -462" stroke={look.hair} strokeWidth={10} fill="none" />}
+			<line x1={-27} y1={-456 + brow} x2={-9} y2={-458} stroke={P.navy} strokeWidth={5} strokeLinecap="round" />
+			<line x1={27} y1={-456 + brow} x2={9} y2={-458} stroke={P.navy} strokeWidth={5} strokeLinecap="round" />
+			{laugh || mood === 'laugh' ? (
+				<>
+					<path d="M -26 -436 Q -18 -446 -10 -436" fill="none" stroke={P.navy} strokeWidth={5} strokeLinecap="round" />
+					<path d="M 10 -436 Q 18 -446 26 -436" fill="none" stroke={P.navy} strokeWidth={5} strokeLinecap="round" />
+				</>
+			) : blink ? (
+				<>
+					<line x1={-25} y1={-438} x2={-11} y2={-438} stroke={P.navy} strokeWidth={5} />
+					<line x1={11} y1={-438} x2={25} y2={-438} stroke={P.navy} strokeWidth={5} />
+				</>
+			) : (
+				<>
+					<circle cx={-18} cy={-438} r={mood === 'shock' ? 8 : 6} fill={P.navy} />
+					<circle cx={18} cy={-438} r={mood === 'shock' ? 8 : 6} fill={P.navy} />
+				</>
+			)}
+			{look.glasses && (
+				<g fill="none" stroke={P.navy} strokeWidth={4}>
+					<circle cx={-18} cy={-438} r={15} />
+					<circle cx={18} cy={-438} r={15} />
+					<line x1={-3} y1={-438} x2={3} y2={-438} />
+				</g>
+			)}
+			{mouth}
+		</g>
+	);
+};
+
 export const LOOKS: Record<string, KidLook> = {
 	ty: {shirt: P.green, hair: '#6B3E26'},
 	kolega: {shirt: P.red, hair: '#2B1B12', cap: true, shades: true},

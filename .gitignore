@@ -1,11 +1,11 @@
-node_modules
-dist
-.DS_Store
-.env
 
 # Ignore the output video from Git but not videos you import into src/.
-out
-audio/*_raw.mp3
 *.log
-tools/__pycache__/
+.DS_Store
+.env
 audio/*_mix.wav
+audio/*_raw.mp3
+dist
+node_modules
+out
+tools/__pycache__/
