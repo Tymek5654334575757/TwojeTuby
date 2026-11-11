@@ -1,18 +1,19 @@
-// Długi film Psychorożka „5 sztuczek polityków”, część 1: wstęp + „zdechły kot” (1920×1080).
-// Jedno płótno z trzema salami (wstęp, test uwagi, stół obrad). Kamera jedzie między nimi bez cięć.
+// Długi film Psychorożka „5 sztuczek polityków”, część 1: wstęp + „zdechły kot” (1920×1080), wersja 2.
+// Eksperyment jest opisany (nie robimy go na widzu), potem pokaz użycia w polityce.
+// Jedno płótno z czterema salami: wstęp, eksperyment z gorylem, stół obrad, afera i ustawa.
 // Każdy ruch startuje na słowie lektora (vo1.gen.ts).
 import React, {useEffect, useState} from 'react';
 import {AbsoluteFill, delayRender, continueRender, useCurrentFrame, interpolate, spring, Easing, staticFile} from 'remotion';
 import {Audio} from '@remotion/media';
 import '@fontsource/caveat/700.css';
-import {C, Paper, Rough, Txt, Scribble, clamp01} from '../../kit/sketch';
-import {Mini, Person} from '../../kit/figures';
+import {C, Paper, Rough, Txt, clamp01} from '../../kit/sketch';
+import {Mini, Person, LabCoat} from '../../kit/figures';
 import {LINES} from './vo1.gen';
 
 export const W = 1920;
 export const H = 1080;
 export const FPS = 30;
-const RX = [0, 2200, 4400];
+const RX = [0, 2200, 4400, 6600];
 
 // --- czasy -------------------------------------------------------------------
 const norm = (s: string) => s.toLowerCase().replace(/[,.?:!]/g, '');
@@ -24,7 +25,7 @@ export const cue = (li: number, w?: string) => {
 	return hit.s;
 };
 const T = (li: number, w?: string) => Math.round(cue(li, w) * FPS);
-export const SALA1_FRAMES = Math.round((LINES[41].e + 0.8) * FPS);
+export const SALA1_FRAMES = Math.round((LINES[34].e + 1.0) * FPS);
 
 const ease = Easing.bezier(0.22, 1, 0.36, 1);
 const prog = (f: number, a: number, dur: number) => interpolate(f, [a, a + dur], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: ease});
@@ -45,88 +46,58 @@ const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 const live = (f: number, a: number, b: number, fade = 8) => prog(f, a, fade) * (1 - prog(f, b, fade));
 
 // --- kluczowe momenty ----------------------------------------------------------
-const tPiec = T(0, 'pięć');
-const tWiek = T(1, 'większość');
-const tStul = T(2, 'stuleci');
-const tPol = T(2, 'politycy');
-const tOpc = T(2, 'wszystkich');
-const tKlam = T(3, 'kłamstwa');
-const tGlowa = T(4, 'głowa');
-const tRyb = T(5, 'złota');
-const tTrzy = T(5, 'trzy');
-const tZap = T(6);
-const tPros = T(7);
-const tPier = T(8, 'pierwszą');
-const tDwie = T(9, 'dwie');
-const tDalej = T(10, 'co');
-const tTest = T(11, 'testu');
-const tZol = T(12, 'żółtą');
-const tNie = T(12, 'niebieską');
-const tPolicz = T(13);
-const tStart = T(15);
-const tStop = T(16);
-const tJed = T(17, 'jedenaście');
-const tUni = T(19, 'jednorożca');
-const tPrzesz = T(20);
-const tPom = T(21, 'pomachał');
-const tCof = T(22);
-const t99 = T(23);
-const tBad = T(24);
-const tPod = T(24, 'podania');
-const tGor = T(25, 'goryla');
-const tBil = T(25, 'bił');
-const tPolowa = T(26, 'połowa');
-const tPatrz = T(27);
-const tSlep = T(28, 'ślepotą');
-const tLat = T(29, 'latarka');
-const tZnika = T(30, 'znika');
-const tOcz = T(30, 'choć');
-const tKto = T(31);
-const tDecy = T(31, 'decyduje');
-const tNazw = T(32, 'zdechły');
-const tBoris = T(33, 'Boris');
-const tPrzeg = T(34);
-const tRzuc = T(34, 'rzuć');
-const tKota = T(34, 'kota');
-const tKrzyk = T(35, 'krzykną');
-const tNikt = T(35, 'nikt');
-const tJak = T(36);
-const tGdy = T(37);
-const tWcz = T(37, 'wczoraj');
-const tRybka2 = T(38, 'złota');
-const tPierwsza = T(39);
-const tUmow = T(40);
-const tZostan = T(41);
-
-// --- test uwagi: tor piłek -----------------------------------------------------
-// Żółta piłka uderza o ziemię dokładnie 11 razy, niebieska 9 razy (dla zmylenia).
-export const TEST_OFFSET = 12; // klatek po słowie „Start”
-export const YELLOW_HITS = [0.5, 1.5, 2.4, 3.5, 4.3, 5.3, 6.5, 7.4, 8.4, 9.5, 10.4];
-export const BLUE_HITS = [0.8, 2.1, 3.2, 4.6, 5.8, 7.1, 8.2, 9.6, 10.9];
-const TAU_MAX = (tStop - tStart - TEST_OFFSET) / FPS;
-const GROUND = 820;
-const tri = (v: number, lo: number, hi: number) => {
-	const span = hi - lo;
-	const m = (((v - lo) % (2 * span)) + 2 * span) % (2 * span);
-	return lo + (m < span ? m : 2 * span - m);
-};
-const ballPos = (hits: number[], tau: number, xs: number, vx: number, r: number) => {
-	const g = GROUND - r;
-	const x = tri(xs + vx * Math.max(0, tau), 260, 1660);
-	if (tau <= 0) return {x, y: 170, sq: 0};
-	if (tau < hits[0]) {
-		const u = tau / hits[0];
-		return {x, y: 170 + (g - 170) * u * u, sq: 0};
-	}
-	const all = [...hits, hits[hits.length - 1] + 3.4];
-	let i = 0;
-	while (i < all.length - 2 && tau >= all[i + 1]) i++;
-	const d = all[i + 1] - all[i];
-	const u = clamp01((tau - all[i]) / d);
-	const h = Math.min(500, 420 * d * d);
-	const sq = Math.max(0, 1 - (tau - all[i]) / 0.09);
-	return {x, y: g - 4 * h * u * (1 - u), sq};
-};
+const tPolityk = T(0, 'polityk');
+const tKlam = T(0, 'kłamać');
+const tGlowa = T(1, 'głowa');
+const tPiec = T(2, 'pięć');
+const tCiebie = T(2, 'ciebie');
+const tTych = T(2, 'tych');
+const tPsy = T(3, 'psycholodzy');
+const tWiad = T(4, 'wiadomościach');
+const tSzt = T(5);
+const tTytul = T(5, 'zdechły');
+const t99 = T(6);
+const tNagr = T(6, 'nagranie');
+const tSzesc = T(7);
+const tPod = T(8, 'podania');
+const tGor = T(9, 'goryla');
+const tBil = T(10, 'bije');
+const tWych = T(10, 'wychodzi');
+const tPolowa = T(11, 'połowa');
+const tPatrz = T(12);
+const tSlep = T(13, 'ślepota');
+const tLat = T(14, 'latarka');
+const tZnika = T(15, 'znika');
+const tOcz = T(15, 'choć');
+const tKto = T(16);
+const tDecy = T(16, 'decyduje');
+const tNazw = T(17, 'zdechły');
+const tBoris = T(18, 'Boris');
+const tPrzeg = T(19);
+const tRzuc = T(19, 'rzuć');
+const tKota = T(19, 'kota');
+const tKrzyk = T(20, 'krzykną');
+const tNikt = T(21, 'nikt');
+const tDruga = T(22);
+const tDzien = T(23, 'dzień');
+const t911 = T(24);
+const tDorad = T(24, 'doradczyni');
+const tDobry = T(24, 'bardzo');
+const tPogrz = T(24, 'pogrzebać');
+const tGdyNie = T(25);
+const tStworz = T(25, 'stworzyć');
+const tAfera = T(26, 'afera');
+const tOstra = T(26, 'ostra');
+const tKontr = T(26, 'kontrowersyjny');
+const tAwant = T(26, 'awantura');
+const tMedia = T(27);
+const tWiecz = T(28, 'późnym');
+const tUstawa = T(28, 'ustawa');
+const tKotaW = T(29);
+const tUstNikt = T(30);
+const tJak = T(31);
+const tWcz = T(33);
+const tCo = T(34);
 
 // --- rekwizyty ------------------------------------------------------------------
 const Guy: React.FC<{x: number; y: number; s?: number; draw?: number; seed?: number; arms?: 'down' | 'up'; color?: string; look?: number}> = ({
@@ -168,85 +139,59 @@ const Guy: React.FC<{x: number; y: number; s?: number; draw?: number; seed?: num
 };
 
 // Widz na krześle, patrzy w prawo.
-const SeatGuy: React.FC<{x: number; y: number; s?: number; shock?: number}> = ({x, y, s = 1, shock = 0}) => (
+const SeatGuy: React.FC<{x: number; y: number; s?: number}> = ({x, y, s = 1}) => (
 	<g transform={`translate(${x} ${y}) scale(${s})`}>
 		<Rough shape={{t: 'lpath', pts: [[-70, -40], [-70, 250], [-70, 130], [60, 130], [60, 250]]}} o={{strokeWidth: 7, stroke: '#8A8072'}} seed={610} />
 		<Rough shape={{t: 'circle', cx: 0, cy: -60, d: 86}} o={{fill: C.paper, fillStyle: 'solid'}} seed={611} />
 		<Rough shape={{t: 'lpath', pts: [[0, -16], [-6, 110], [90, 112], [96, 240]]}} seed={612} />
-		<Rough shape={{t: 'lpath', pts: [[-2, 30], [70, 70 - shock * 70]]}} seed={613} />
-		<circle cx={10} cy={-66} r={5 + shock * 4} fill={C.ink} />
-		<circle cx={32} cy={-66} r={5 + shock * 4} fill={C.ink} />
+		<Rough shape={{t: 'lpath', pts: [[-2, 30], [70, 70]]}} seed={613} />
+		<circle cx={10} cy={-66} r={5} fill={C.ink} />
+		<circle cx={32} cy={-66} r={5} fill={C.ink} />
 	</g>
 );
 
-const Fishbowl: React.FC<{x: number; y: number; s?: number; draw?: number; flip?: boolean}> = ({x, y, s = 1, draw = 1, flip = false}) => {
-	const f = useCurrentFrame();
-	const sw = Math.sin(Math.floor(f / 3) * 0.5) * 16;
-	if (draw <= 0) return null;
-	return (
-		<g transform={`translate(${x} ${y}) scale(${s})`}>
-			<Rough shape={{t: 'ellipse', cx: 0, cy: 34, w: 210, h: 150}} o={{fill: C.blue, fillStyle: 'hachure', hachureGap: 11, fillWeight: 3, stroke: 'none'}} draw={draw} seed={640} />
-			<g transform={`translate(${sw} 30) scale(${flip ? -1 : 1} 1)`} opacity={draw}>
-				<Rough shape={{t: 'ellipse', cx: 0, cy: 0, w: 84, h: 50}} o={{fill: C.yellow, fillStyle: 'solid', strokeWidth: 5}} seed={641} />
-				<Rough shape={{t: 'poly', pts: [[-40, 0], [-76, -26], [-76, 26]]}} o={{fill: C.yellow, fillStyle: 'solid', strokeWidth: 5}} seed={642} />
-				<circle cx={22} cy={-6} r={4.5} fill={C.ink} />
+// Symbol sztuczki w kratce 150×150.
+const Glyph: React.FC<{i: number}> = ({i}) => {
+	if (i === 0)
+		return (
+			<g>
+				<Rough shape={{t: 'circle', cx: 75, cy: 86, d: 78}} o={{fill: C.paper, fillStyle: 'solid', strokeWidth: 6}} seed={630} />
+				<Rough shape={{t: 'poly', pts: [[44, 62], [40, 26], [68, 50]]}} o={{fill: C.paper, fillStyle: 'solid', strokeWidth: 5}} seed={631} />
+				<Rough shape={{t: 'poly', pts: [[106, 62], [110, 26], [82, 50]]}} o={{fill: C.paper, fillStyle: 'solid', strokeWidth: 5}} seed={632} />
+				{[60, 90].map((ex) => (
+					<g key={ex}>
+						<line x1={ex - 7} y1={74} x2={ex + 7} y2={88} stroke={C.red} strokeWidth={5} strokeLinecap="round" />
+						<line x1={ex + 7} y1={74} x2={ex - 7} y2={88} stroke={C.red} strokeWidth={5} strokeLinecap="round" />
+					</g>
+				))}
 			</g>
-			<Rough shape={{t: 'circle', cx: 0, cy: 0, d: 250}} o={{strokeWidth: 7}} draw={draw} seed={643} />
-			<Rough shape={{t: 'ellipse', cx: 0, cy: -112, w: 150, h: 26}} o={{strokeWidth: 6, fill: C.paper, fillStyle: 'solid'}} draw={draw} seed={644} />
-		</g>
-	);
-};
-
-// Pasek pięciu sztuczek. lit = ile odcinków zapalonych, pulse = który pulsuje (-1 = żaden).
-const Bar: React.FC<{x: number; y: number; draw: number; lit: number; pulse?: number; checks?: number}> = ({x, y, draw, lit, pulse = -1, checks = 0}) => {
-	const f = useCurrentFrame();
-	if (draw <= 0) return null;
-	const w = 170;
-	const gap = 16;
-	const x0 = x - (5 * w + 4 * gap) / 2;
+		);
+	if (i === 1)
+		return (
+			<g>
+				<Rough shape={{t: 'circle', cx: 48, cy: 75, d: 56}} o={{fill: C.blue, fillStyle: 'solid', strokeWidth: 5}} seed={633} />
+				<Rough shape={{t: 'circle', cx: 104, cy: 75, d: 56}} o={{fill: C.red, fillStyle: 'solid', strokeWidth: 5}} seed={634} />
+			</g>
+		);
+	if (i === 2)
+		return (
+			<g>
+				<Rough shape={{t: 'rect', x: 26, y: 30, w: 98, h: 90}} o={{stroke: C.red, strokeWidth: 12}} seed={635} />
+				<Rough shape={{t: 'circle', cx: 75, cy: 75, d: 30}} o={{fill: C.ink, fillStyle: 'solid'}} seed={636} />
+			</g>
+		);
+	if (i === 3)
+		return (
+			<g>
+				<Rough shape={{t: 'poly', pts: [[28, 62], [28, 92], [60, 92], [112, 122], [112, 30], [60, 62]]}} o={{fill: C.paper, fillStyle: 'solid', strokeWidth: 6}} seed={637} />
+				<Rough shape={{t: 'arc', cx: 118, cy: 76, w: 34, h: 60, a0: -1.2, a1: 1.2}} o={{stroke: C.red, strokeWidth: 6}} seed={638} />
+			</g>
+		);
 	return (
 		<g>
-			{[0, 1, 2, 3, 4].map((i) => {
-				const on = i < lit || (i === pulse && Math.floor(f / 8) % 2 === 0);
-				return (
-					<g key={i}>
-						<Rough
-							shape={{t: 'rect', x: x0 + i * (w + gap), y, w, h: 54}}
-							o={{fill: on ? C.yellow : undefined, fillStyle: 'hachure', hachureGap: 8, fillWeight: 4, strokeWidth: 6}}
-							draw={clamp01(draw * 1.6 - i * 0.12)}
-							seed={660 + i}
-						/>
-						<Txt text={`${i + 1}`} x={x0 + i * (w + gap) + w / 2} y={y + 42} size={46} draw={clamp01(draw * 1.6 - i * 0.12)} seed={670 + i} />
-						{i < checks && <Rough shape={{t: 'lpath', pts: [[x0 + i * (w + gap) + 110, y + 16], [x0 + i * (w + gap) + 128, y + 40], [x0 + i * (w + gap) + 164, y - 14]]}} o={{stroke: C.red, strokeWidth: 9}} seed={680 + i} />}
-					</g>
-				);
-			})}
-		</g>
-	);
-};
-
-// Jednorożec z żarówką zamiast rogu (maskotka kanału), idzie w lewo.
-const Unicorn: React.FC<{x: number; y: number; s?: number; walk: number; wave: number}> = ({x, y, s = 1, walk, wave}) => {
-	const f = useCurrentFrame();
-	const legs = [-62, -30, 42, 72];
-	const wv = Math.sin(Math.floor(f / 2) * 0.9) * 26;
-	return (
-		<g transform={`translate(${x} ${y + Math.abs(Math.sin(walk)) * -8}) scale(${s})`}>
-			{legs.map((lx, i) => {
-				const sh = Math.sin(walk + (i % 2) * Math.PI) * 22;
-				if (i === 0 && wave > 0.01) {
-					return <Rough key={i} shape={{t: 'lpath', pts: [[lx, 30], [lx - 46, lerp(60, 4, wave)], [lx - 86, lerp(110, -50 + wv, wave)]]}} seed={700 + i} />;
-				}
-				return <Rough key={i} shape={{t: 'line', x1: lx, y1: 40, x2: lx + sh, y2: 150}} seed={700 + i} />;
-			})}
-			<Rough shape={{t: 'lpath', pts: [[92, -10], [140, -30], [150, 40], [128, 90]]}} o={{stroke: C.red, strokeWidth: 7}} seed={705} />
-			<Rough shape={{t: 'ellipse', cx: 0, cy: 0, w: 200, h: 112}} o={{fill: C.paper, fillStyle: 'solid', strokeWidth: 7}} seed={706} />
-			<Rough shape={{t: 'poly', pts: [[-70, -30], [-118, -130], [-78, -140], [-40, -40]]}} o={{fill: C.paper, fillStyle: 'solid', strokeWidth: 7}} seed={707} />
-			<Rough shape={{t: 'ellipse', cx: -128, cy: -128, w: 104, h: 66}} o={{fill: C.paper, fillStyle: 'solid', strokeWidth: 7}} seed={708} />
-			<Rough shape={{t: 'lpath', pts: [[-80, -150], [-62, -110], [-74, -80], [-50, -52]]}} o={{stroke: C.red, strokeWidth: 7}} seed={709} />
-			<Rough shape={{t: 'line', x1: -120, y1: -160, x2: -134, y2: -196}} o={{strokeWidth: 6}} seed={710} />
-			<Rough shape={{t: 'circle', cx: -140, cy: -220, d: 54}} o={{fill: C.yellow, fillStyle: 'solid', strokeWidth: 6}} seed={711} />
-			<circle cx={-146} cy={-134} r={5} fill={C.ink} />
+			<Rough shape={{t: 'ellipse', cx: 62, cy: 78, w: 86, h: 56}} o={{fill: C.red, fillStyle: 'hachure', hachureGap: 7, fillWeight: 4, strokeWidth: 6}} seed={639} />
+			<Rough shape={{t: 'ellipse', cx: 112, cy: 78, w: 16, h: 54}} o={{strokeWidth: 5}} seed={640} />
+			<Rough shape={{t: 'ellipse', cx: 130, cy: 80, w: 14, h: 50}} o={{strokeWidth: 5}} seed={641} />
 		</g>
 	);
 };
@@ -291,149 +236,149 @@ const DeadCat: React.FC<{x: number; y: number; s?: number; rot?: number}> = ({x,
 	</g>
 );
 
+// Dokument „USTAWA” z pieczęcią; col = kolor kreski (papierowy w ciemności).
+const Bill: React.FC<{x: number; y: number; draw: number; stamp: number; col: string; seed: number}> = ({x, y, draw, stamp, col, seed}) => {
+	if (draw <= 0) return null;
+	return (
+		<g transform={`translate(${x} ${y}) rotate(4)`}>
+			<Rough shape={{t: 'rect', x: -150, y: -200, w: 300, h: 400}} o={{stroke: col, strokeWidth: 7}} draw={draw} seed={seed} />
+			<Txt text="USTAWA" x={0} y={-120} size={70} color={col} draw={draw} seed={seed + 1} />
+			{[-70, -30, 10, 50].map((ly, i) => (
+				<Rough key={i} shape={{t: 'line', x1: -110, y1: ly, x2: i === 3 ? 30 : 110, y2: ly}} o={{stroke: col, strokeWidth: 5}} draw={clamp01(draw * 2 - 0.3 - i * 0.15)} seed={seed + 2 + i} />
+			))}
+			{stamp > 0 && (
+				<g transform={`translate(30 120) rotate(-14) scale(${stamp})`}>
+					<Rough shape={{t: 'rect', x: -120, y: -40, w: 240, h: 80}} o={{stroke: C.red, strokeWidth: 8}} seed={seed + 8} />
+					<Txt text="PRZYJĘTO" x={0} y={20} size={58} color={C.red} seed={seed + 9} />
+				</g>
+			)}
+		</g>
+	);
+};
+
 // --- świat --------------------------------------------------------------------------
 const World: React.FC = () => {
 	const f = useCurrentFrame();
+	const [X1, X2, X3] = [RX[1], RX[2], RX[3]];
 
 	// ===== SALA 0: wstęp =====
-	const merge = prog(f, tStul - 12, 16);
-	const boxes = [0, 1, 2, 3, 4].map((i) => {
-		const bx = lerp(760 + i * 200, 1230, merge);
-		const by = lerp(170, 470, merge);
-		const lit = f >= tPiec + i * 4;
-		const sc = (lit ? 0.9 + 0.1 * pk(f, tPiec + i * 4) : 1) * (1 - merge * 0.75);
-		return (
-			<g key={i} transform={`translate(${bx + 75} ${by + 75}) scale(${sc}) translate(-75 -75)`} opacity={1 - merge}>
-				<Rough shape={{t: 'rect', x: 0, y: 0, w: 150, h: 150}} o={{fill: lit ? C.yellow : undefined, fillStyle: 'hachure', hachureGap: 9, fillWeight: 4, strokeWidth: 7}} seed={800 + i} />
-				<Txt text={`${i + 1}`} x={75} y={108} size={110} seed={810 + i} opacity={lit ? 1 : 0.25} />
-				{i < 4 && f >= tWiek + i * 4 && (
-					<Rough shape={{t: 'lpath', pts: [[20, 70], [62, 124], [150, -10]]}} o={{stroke: C.red, strokeWidth: 12}} draw={prog(f, tWiek + i * 4, 6)} seed={820 + i} />
-				)}
-			</g>
-		);
-	});
+	const hat = f < tPolityk ? 1 : 1 + (Math.floor((f - tPolityk) / 22) % 3);
+	const card = live(f, tSzt - 2, t99 + 2, 8);
 
-	const lectern = live(f, tStul - 6, tRyb - 12, 10);
-	const hat = f < tPol ? 0 : f < tOpc ? 1 : 2 + (Math.floor((f - tOpc) / 7) % 3);
-	const polVisible = f >= tStul - 2 && f < tRyb - 4;
-
-	const bowl0 = prog(f, tRyb - 4, 14) * (1 - prog(f, tTest + 10, 10));
-	const bar0 = prog(f, tPros, 16);
-
-	// ===== SALA 1: test uwagi =====
-	const X1 = RX[1];
-	let tau = clamp01((f - tStart - TEST_OFFSET) / (TAU_MAX * FPS)) * TAU_MAX;
-	const REW = 6.4; // chwila, w której jednorożec macha
-	if (f >= tUni + 6) tau = lerp(TAU_MAX, REW, prog(f, tUni + 6, 26));
-	if (f >= tPom) tau = REW + (((f - tPom) / FPS) * 0.6) % 0.9;
-	const testOn = f < t99 + 14;
-	const yb = ballPos(YELLOW_HITS, tau, 520, 150, 46);
-	const bb = ballPos(BLUE_HITS, tau, 1380, -190, 46);
-	const uniX = kf(tau * FPS, [
-		[3.5 * FPS, 2150],
-		[5.5 * FPS, 960],
-		[7.5 * FPS, 960],
-		[9.7 * FPS, -260],
-	]);
-	const uniWalk = tau > 3.5 && tau < 5.5 ? tau * 9 : tau > 7.5 && tau < 9.7 ? tau * 9 : 0;
-	const uniWave = tau >= 5.5 && tau <= 7.5 ? Math.min(1, (tau - 5.5) * 4, (7.5 - tau) * 4) : 0;
-	const uniOut = prog(f, t99, 12);
-
-	// eksperyment z gorylem
+	// ===== SALA 1: eksperyment z gorylem =====
 	const players: [number, number][] = [
-		[470, 300],
-		[800, 250],
-		[1120, 250],
-		[1450, 300],
-		[620, 470],
-		[1300, 470],
+		[470, 330],
+		[800, 280],
+		[1120, 280],
+		[1450, 330],
+		[620, 500],
+		[1300, 500],
 	];
-	const plDraw = prog(f, tBad, 22);
-	const passI = Math.max(0, Math.floor((f - tPod) / 12));
-	const passU = ease(clamp01(((f - tPod) % 12) / 9));
+	const plDraw = prog(f, tSzesc, 22);
+	const passI = Math.max(0, Math.floor((f - tSzesc - 14) / 12));
+	const passU = ease(clamp01(((f - tSzesc - 14) % 12) / 9));
 	const order = [0, 2, 4, 1, 5, 3];
 	const pa = players[order[passI % 6]];
 	const pb = players[order[(passI + 1) % 6]];
-	const ballX = f < tPod ? lerp(yb.x, players[0][0] + 60, prog(f, tBad, 18)) : lerp(pa[0], pb[0], passU) + 60;
-	const ballY = f < tPod ? lerp(yb.y, players[0][1] + 90, prog(f, tBad, 18)) : lerp(pa[1], pb[1], passU) + 90 - Math.sin(passU * Math.PI) * 50;
-	const gorX = lerp(2150, 960, prog(f, tGor - 16, 34));
-	const gorOn = f >= tGor - 16;
+	const ballX = lerp(pa[0], pb[0], passU) + 60;
+	const ballY = lerp(pa[1], pb[1], passU) + 90 - Math.sin(passU * Math.PI) * 50;
+	const count = f < tPod ? 0 : Math.floor((f - tPod) / 12) + 1;
+	const gorX = f < tWych ? lerp(2150, 960, prog(f, tGor - 14, tBil - tGor + 6)) : lerp(960, 330, prog(f, tWych, 50));
+	const gorOn = f >= tGor - 14;
 
-	// ciemność i latarka (obejmuje salę 1 i 2)
-	const X2 = RX[2];
-	const dk = prog(f, tZnika - 4, 16) * (1 - prog(f, tJak, 14));
-	const FOLD = {x: X2 + 760, y: 590};
-	const CAT = {x: X2 + 1180, y: 560};
+	// ===== ciemność i plama światła (sale 1–3) =====
+	const dk = prog(f, tZnika - 4, 16) * (1 - prog(f, tJak, 16));
+	const FOLD = {x: X2 + 760, y: 560};
+	const CAT = {x: X2 + 1180, y: 540};
+	const TV = {x: X2 + 1640, y: 300};
+	const CROWD = {x: X3 + 640, y: 560};
 	let sx = X1 + ballX;
 	let sy = ballY;
 	let sr = 190;
 	if (f >= tKto) {
 		const u = prog(f, tKto, tDecy - tKto + 14);
 		sx = lerp(X1 + ballX, FOLD.x, u);
-		sy = lerp(ballY, FOLD.y - 30, u);
+		sy = lerp(ballY, FOLD.y, u);
 		sr = lerp(190, 300, u);
 	}
 	if (f >= tKota - 3) {
 		const u = prog(f, tKota - 3, 9);
 		sx = lerp(FOLD.x, CAT.x, u);
-		sy = lerp(FOLD.y - 30, CAT.y - 20, u);
+		sy = lerp(FOLD.y, CAT.y, u);
 		sr = 310;
+	}
+	if (f >= tDzien - 4) {
+		const u = prog(f, tDzien - 4, 16);
+		sx = lerp(CAT.x, TV.x, u);
+		sy = lerp(CAT.y, TV.y, u);
+		sr = lerp(310, 270, u);
+	}
+	if (f >= tGdyNie) {
+		const u = prog(f, tGdyNie, tStworz - tGdyNie + 26);
+		sx = lerp(TV.x, CROWD.x, u);
+		sy = lerp(TV.y, CROWD.y, u);
+		sr = lerp(270, 640, u);
 	}
 	const overCol = dk > 0.5 ? C.paper : C.ink;
 
 	// ===== SALA 2: stół obrad =====
 	const tableDraw = prog(f, tDecy - 6, 20);
 	const catFall = f < tRzuc ? 0 : prog(f, tRzuc + 4, Math.max(6, tKota - tRzuc - 4));
-	const catY = lerp(-420, CAT.y - X2 * 0, catFall * catFall);
-	const catGone = prog(f, tJak + 4, 10);
 	const heads = [560, 820, 1100, 1360];
-	const alarm = f >= tKrzyk - 2;
-	const cal = prog(f, tGdy + 20, 14);
-	const flip = prog(f, tWcz, 12);
-	const fishX = lerp(-300, 2300, clamp01((f - tRybka2 + 10) / 150));
-	const bar2 = prog(f, tPierwsza - 4, 14);
+	const alarm = f >= tKrzyk - 2 && f < tDruga;
+	const tvDraw = prog(f, tDzien - 8, 14);
+
+	// ===== SALA 3: afera i ustawa =====
+	const crowd: [number, number][] = [
+		[300, 560],
+		[470, 600],
+		[640, 560],
+		[810, 600],
+		[980, 560],
+	];
+	const crowdDraw = prog(f, tStworz + 4, 20);
+	const bubbles: [number, string, number, number][] = [
+		[tOstra, 'wypowiedź', 330, 250],
+		[tKontr, 'pomysł', 660, 190],
+		[tAwant, 'symbol', 970, 260],
+	];
+	const billDraw = prog(f, tUstawa - 6, 16);
+	const stamp = pk(f, tUstawa + 16);
+	const fadeQ = 1 - prog(f, tJak - 4, 10);
 
 	return (
 		<g>
 			{/* ---------- SALA 0 ---------- */}
 			<g>
-				<SeatGuy x={380} y={500} s={1.45} shock={f >= tPiec ? Math.max(0, 1 - (f - tPiec) / 40) : 0} />
-				{boxes}
-				{/* mównica i polityk */}
-				{lectern > 0 && (
-					<g opacity={lectern}>
-						{polVisible && (
-							<g>
-								<Guy x={1300} y={262} s={1.6} seed={840} arms={hat >= 2 ? 'up' : 'down'} />
-								{hat === 0 && <Rough shape={{t: 'arc', cx: 1300, cy: 246, w: 170, h: 130, a0: Math.PI, a1: Math.PI * 2}} o={{stroke: '#6B8F4E', strokeWidth: 12}} seed={845} />}
-								{(hat === 1 || hat === 3) && (
-									<g>
-										<Rough shape={{t: 'rect', x: 1252, y: 86, w: 96, h: 120}} o={{fill: C.ink, fillStyle: 'solid'}} seed={846} />
-										<Rough shape={{t: 'line', x1: 1216, y1: 208, x2: 1384, y2: 208}} o={{strokeWidth: 10}} seed={847} />
-									</g>
-								)}
-								{(hat === 2 || hat === 4) && <Rough shape={{t: 'poly', pts: [[1300, 330], [1278, 366], [1300, 440], [1322, 366]]}} o={{fill: hat === 2 ? C.red : C.blue, fillStyle: 'solid', strokeWidth: 4}} seed={848} />}
-							</g>
-						)}
-						<Rough shape={{t: 'poly', pts: [[1180, 470], [1420, 470], [1390, 800], [1210, 800]]}} o={{fill: C.paper, fillStyle: 'solid', strokeWidth: 8}} draw={prog(f, tStul - 6, 16)} seed={850} />
-						<Rough shape={{t: 'rect', x: 1160, y: 440, w: 280, h: 34}} o={{fill: C.yellow, fillStyle: 'hachure', hachureGap: 7, strokeWidth: 7}} draw={prog(f, tStul - 2, 14)} seed={851} />
-						<Rough shape={{t: 'lpath', pts: [[1380, 440], [1380, 380], [1350, 350]]}} o={{strokeWidth: 6}} draw={prog(f, tStul + 2, 10)} seed={852} />
-						<circle cx={1344} cy={344} r={14} fill={C.ink} opacity={prog(f, tStul + 8, 6)} />
-					</g>
-				)}
+				<SeatGuy x={380} y={470} s={1.4} />
+				<g>
+					<Guy x={1300} y={232} s={1.6} seed={840} arms={f >= tPolityk && f < tGlowa ? 'up' : 'down'} look={-1} />
+					{hat === 1 && (
+						<g>
+							<Rough shape={{t: 'rect', x: 1252, y: 56, w: 96, h: 120}} o={{fill: C.ink, fillStyle: 'solid'}} seed={846} />
+							<Rough shape={{t: 'line', x1: 1216, y1: 178, x2: 1384, y2: 178}} o={{strokeWidth: 10}} seed={847} />
+						</g>
+					)}
+					{hat === 2 && <Rough shape={{t: 'arc', cx: 1300, cy: 216, w: 170, h: 130, a0: Math.PI, a1: Math.PI * 2}} o={{stroke: '#6B8F4E', strokeWidth: 12}} seed={845} />}
+					{hat === 3 && <Rough shape={{t: 'poly', pts: [[1300, 300], [1278, 336], [1300, 410], [1322, 336]]}} o={{fill: C.red, fillStyle: 'solid', strokeWidth: 4}} seed={848} />}
+					<Rough shape={{t: 'poly', pts: [[1180, 440], [1420, 440], [1390, 770], [1210, 770]]}} o={{fill: C.paper, fillStyle: 'solid', strokeWidth: 8}} seed={850} />
+					<Rough shape={{t: 'rect', x: 1160, y: 410, w: 280, h: 34}} o={{fill: C.yellow, fillStyle: 'hachure', hachureGap: 7, strokeWidth: 7}} seed={851} />
+					<Rough shape={{t: 'lpath', pts: [[1380, 410], [1380, 350], [1350, 320]]}} o={{strokeWidth: 6}} seed={852} />
+					<circle cx={1344} cy={314} r={14} fill={C.ink} />
+				</g>
 				{/* „kłamstwo” skreślone */}
-				<g opacity={live(f, tKlam - 8, tGlowa - 2)}>
-					<Txt text="kłamstwo" x={1620} y={330} size={96} draw={prog(f, tKlam - 8, 10)} seed={855} rotate={-4} />
-					<Rough shape={{t: 'line', x1: 1470, y1: 318, x2: 1780, y2: 290}} o={{stroke: C.red, strokeWidth: 12}} draw={prog(f, tKlam, 8)} seed={856} />
+				<g opacity={live(f, tKlam - 10, tPiec - 4)}>
+					<Txt text="kłamstwo" x={1650} y={300} size={110} draw={prog(f, tKlam - 10, 10)} seed={855} rotate={-4} />
+					<Rough shape={{t: 'line', x1: 1480, y1: 290, x2: 1830, y2: 256}} o={{stroke: C.red, strokeWidth: 14}} draw={prog(f, tKlam + 2, 8)} seed={856} />
 				</g>
 				{/* trybiki w głowie */}
-				<g opacity={live(f, tGlowa - 14, tRyb - 6)}>
-					<Rough shape={{t: 'ellipse', cx: 640, cy: 300, w: 300, h: 210}} o={{stroke: C.blue, strokeWidth: 6}} draw={prog(f, tGlowa - 14, 14)} seed={860} />
-					<circle cx={520} cy={420} r={14} fill="none" stroke={C.blue} strokeWidth={5} />
-					<circle cx={488} cy={458} r={8} fill="none" stroke={C.blue} strokeWidth={5} />
+				<g opacity={live(f, tGlowa - 16, tPiec - 4)}>
+					<Rough shape={{t: 'ellipse', cx: 660, cy: 250, w: 320, h: 220}} o={{stroke: C.blue, strokeWidth: 6}} draw={prog(f, tGlowa - 16, 14)} seed={860} />
+					<circle cx={530} cy={360} r={14} fill="none" stroke={C.blue} strokeWidth={5} />
+					<circle cx={490} cy={392} r={8} fill="none" stroke={C.blue} strokeWidth={5} />
 					{[
-						[600, 300, 100, 1],
-						[694, 318, 70, -1.5],
+						[620, 250, 100, 1],
+						[716, 268, 70, -1.5],
 					].map(([gx, gy, gd, dir], i) => (
 						<g key={i} transform={`rotate(${Math.floor(f / 3) * 9 * dir} ${gx} ${gy})`}>
 							<Rough shape={{t: 'circle', cx: gx, cy: gy, d: gd}} o={{strokeWidth: 7}} seed={862 + i} />
@@ -443,71 +388,63 @@ const World: React.FC = () => {
 						</g>
 					))}
 				</g>
-				{/* złota rybka */}
-				<Fishbowl x={1250} y={520} s={1.25} draw={bowl0} />
-				<g opacity={bowl0} transform={`translate(1560 430) scale(${pk(f, tTrzy)}) translate(-1560 -430)`}>
-					<Txt text="3 s" x={1560} y={470} size={190} color={C.red} seed={870} />
-					<Rough shape={{t: 'line', x1: 1470, y1: 500, x2: 1660, y2: 492}} o={{stroke: C.red, strokeWidth: 10}} draw={prog(f, tZap, 10)} seed={871} />
+				{/* pięć sztuczek */}
+				{[0, 1, 2, 3, 4].map((i) => {
+					const t0 = tPiec + i * 5;
+					if (f < t0) return null;
+					return (
+						<g key={i} transform={`translate(${560 + i * 170 + 75} ${925}) scale(${pk(f, t0)}) translate(-75 -75)`}>
+							<Rough shape={{t: 'rect', x: 0, y: 0, w: 150, h: 150}} o={{fill: C.yellow, fillStyle: 'hachure', hachureGap: 10, fillWeight: 3, strokeWidth: 7}} seed={800 + i} />
+							<Glyph i={i} />
+						</g>
+					);
+				})}
+				{f >= tCiebie && f < tPsy && <Rough shape={{t: 'ellipse', cx: 390, cy: 520, w: 380, h: 640}} o={{stroke: C.red, strokeWidth: 10}} draw={prog(f, tCiebie, 10)} seed={870} />}
+				{f >= tTych && f < tPsy && <Rough shape={{t: 'ellipse', cx: 1300, cy: 420, w: 440, h: 780}} o={{stroke: C.red, strokeWidth: 10}} draw={prog(f, tTych, 10)} seed={871} />}
+				{/* psycholog i wiadomości */}
+				{f >= tPsy - 8 && <LabCoat x={860} y={330} s={1.25} draw={prog(f, tPsy - 8, 16)} highlight={prog(f, tPsy + 6, 10)} />}
+				<g opacity={prog(f, tWiad - 14, 8)} transform={`translate(1680 600) scale(${0.7 + 0.3 * pk(f, tWiad - 14)}) translate(-1680 -600)`}>
+					<Rough shape={{t: 'rect', x: 1560, y: 450, w: 250, h: 310}} o={{fill: C.paper, fillStyle: 'solid', strokeWidth: 7}} seed={880} />
+					<Txt text="WIADOMOŚCI" x={1685} y={510} size={42} color={C.red} seed={881} />
+					{[550, 590, 630, 670, 710].map((ly, i) => (
+						<Rough key={i} shape={{t: 'line', x1: 1590, y1: ly, x2: i === 4 ? 1700 : 1780, y2: ly}} o={{strokeWidth: 5}} seed={882 + i} />
+					))}
 				</g>
-				{/* pasek pięciu sztuczek */}
-				<g opacity={1 - prog(f, tTest + 10, 10)}>
-					<Bar x={960} y={900} draw={bar0} lit={f >= tPier ? 1 : 0} />
-					<g opacity={pk(f, tDwie)}>
-						<Txt text="tylko 2 minuty" x={700} y={856} size={70} color={C.red} seed={875} rotate={-3} />
+				{/* plansza tytułowa */}
+				{card > 0 && (
+					<g opacity={card}>
+						<rect x={-200} y={-200} width={2400} height={1500} fill={C.paper} opacity={0.94} />
+						<Txt text="sztuczka pierwsza" x={960} y={400} size={110} draw={prog(f, tSzt, 14)} seed={890} />
+						<g transform={`translate(960 600) scale(${pk(f, tTytul)}) translate(-960 -600)`}>
+							<Txt text="zdechły kot" x={960} y={660} size={260} color={C.red} seed={891} />
+						</g>
 					</g>
-					<g opacity={pk(f, tDalej)}>
-						<Txt text="?" x={1150} y={880} size={90} seed={876} />
-					</g>
-				</g>
+				)}
 			</g>
 
 			{/* ---------- SALA 1 ---------- */}
 			<g transform={`translate(${X1} 0)`}>
-				<Rough shape={{t: 'line', x1: 120, y1: GROUND, x2: 1800, y2: GROUND}} o={{strokeWidth: 8}} draw={prog(f, tTest, 20)} seed={900} />
-				<g opacity={live(f, tPolicz, tStop + 4)}>
-					<Txt text="policz odbicia ŻÓŁTEJ piłki" x={960} y={120} size={104} draw={prog(f, tPolicz, 16)} seed={901} />
+				<Rough shape={{t: 'line', x1: 120, y1: 850, x2: 1800, y2: 850}} o={{strokeWidth: 8}} draw={prog(f, t99, 20)} seed={900} />
+				<g opacity={live(f, t99 + 4, tSlep - 6)}>
+					<Txt text="Simons i Chabris, 1999" x={960} y={130} size={100} draw={prog(f, t99 + 30, 24)} seed={918} />
 				</g>
-				{/* jednorożec */}
-				{testOn && uniOut < 1 && (
-					<g opacity={1 - uniOut}>
-						<Unicorn x={uniX} y={640} s={1.25} walk={uniWalk} wave={uniWave} />
-					</g>
-				)}
-				{f >= tPrzesz && f < t99 + 6 && <Rough shape={{t: 'ellipse', cx: 900, cy: 520, w: 520, h: 600}} o={{stroke: C.red, strokeWidth: 12}} draw={prog(f, tPrzesz, 14)} seed={905} />}
-				<g opacity={live(f, tUni + 4, tUni + 36, 4) + live(f, tCof, t99 - 4, 4)}>
-					<Txt text="◀◀" x={1700} y={150} size={110} color={C.red} seed={906} />
-				</g>
-				<Scribble x={700} y={330} w={420} h={480} draw={live(f, t99 - 2, t99 + 14, 6)} seed={907} />
-				{/* piłki testowe */}
-				{f < tBad + 18 && (
-					<g opacity={1 - prog(f, tBad + 6, 10)}>
-						<g transform={`translate(${bb.x} ${bb.y + bb.sq * 8}) scale(${pk(f, tNie) * (1 + bb.sq * 0.18)} ${pk(f, tNie) * (1 - bb.sq * 0.2)})`}>
-							<Rough shape={{t: 'circle', cx: 0, cy: 0, d: 92}} o={{fill: C.blue, fillStyle: 'solid', strokeWidth: 7}} seed={910} />
-						</g>
-					</g>
-				)}
-				{f < tPod && (
-					<g transform={`translate(${f < tBad ? yb.x : ballX} ${(f < tBad ? yb.y : ballY) + yb.sq * 8}) scale(${pk(f, tZol) * (1 + yb.sq * 0.18)} ${pk(f, tZol) * (1 - yb.sq * 0.2)})`}>
-						<Rough shape={{t: 'circle', cx: 0, cy: 0, d: 92}} o={{fill: C.yellow, fillStyle: 'solid', strokeWidth: 7}} seed={911} />
-					</g>
-				)}
-				{/* wynik: 11 */}
-				<g opacity={live(f, tJed, tUni - 4)} transform={`translate(960 560) scale(${pk(f, tJed)}) translate(-960 -560)`}>
-					<Txt text="11 odbić" x={960} y={640} size={250} color={C.red} seed={915} />
-				</g>
-				{/* eksperyment 1999 */}
-				<g opacity={live(f, t99 + 4, tBad - 2)}>
-					<Txt text="Simons i Chabris, 1999" x={960} y={480} size={120} draw={prog(f, t99 + 4, 20)} seed={918} />
-				</g>
-				{f >= tBad && (
+				{/* kadr nagrania */}
+				<Rough shape={{t: 'rect', x: 280, y: 180, w: 1360, h: 640}} o={{strokeWidth: 6, stroke: '#8A8072', strokeLineDash: [26, 18]}} draw={prog(f, tNagr - 6, 22) * (1 - prog(f, tSlep - 6, 8))} seed={919} />
+				{f >= tSzesc && (
 					<g>
 						{players.map(([px, py], i) => (
-							<Person key={i} x={px} y={py} s={0.9} draw={clamp01(plDraw * 1.5 - i * 0.08)} seed={920 + i * 5} color={i % 2 ? C.ink : '#8A8072'} arms={order[passI % 6] === i || order[(passI + 1) % 6] === i ? 'reach' : 'down'} />
+							<Person key={i} x={px} y={py} s={0.9} draw={clamp01(plDraw * 1.5 - i * 0.08)} seed={920 + i * 5} color={i % 2 ? C.ink : '#8A8072'} arms={f >= tSzesc + 14 && (order[passI % 6] === i || order[(passI + 1) % 6] === i) ? 'reach' : 'down'} />
 						))}
-						{gorOn && <Gorilla x={gorX} y={520} s={1.05} beat={f >= tBil ? 1 : 0} />}
-						{f >= tPod && (
+						{gorOn && <Gorilla x={gorX} y={550} s={1.05} beat={f >= tBil && f < tWych ? 1 : 0} />}
+						{f >= tSzesc + 14 && (
 							<g transform={`translate(${ballX} ${ballY})`}>
 								<Rough shape={{t: 'circle', cx: 0, cy: 0, d: 78}} o={{fill: C.yellow, fillStyle: 'solid', strokeWidth: 7}} seed={911} />
+							</g>
+						)}
+						{/* licznik podań */}
+						{count > 0 && f < tSlep - 6 && (
+							<g opacity={1 - prog(f, tSlep - 14, 8)}>
+								<Txt text={`podania: ${count}`} x={1460} y={250} size={70} color={C.red} seed={915} anchor="middle" />
 							</g>
 						)}
 						{/* połowa badanych */}
@@ -515,78 +452,94 @@ const World: React.FC = () => {
 							const miss = i < 5 && f >= tPolowa + i * 3;
 							return (
 								<g key={i} opacity={prog(f, tPolowa - 14 + i * 2, 8)}>
-									<Mini x={555 + i * 90} y={930} s={1.5} seed={950 + i} color={miss ? C.red : C.ink} filled={miss} />
-									{miss && <Txt text="?" x={555 + i * 90} y={896} size={70} color={C.red} seed={960 + i} />}
+									<Mini x={555 + i * 90} y={950} s={1.5} seed={950 + i} color={miss ? C.red : C.ink} filled={miss} />
+									{miss && <Txt text="?" x={555 + i * 90} y={916} size={70} color={C.red} seed={960 + i} />}
 								</g>
 							);
 						})}
-						{f >= tPatrz && f < tSlep && [0, 1, 2, 3, 4].map((i) => <Rough key={i} shape={{t: 'line', x1: 555 + i * 90, y1: 880, x2: 960, y2: 620}} o={{stroke: C.red, strokeWidth: 4, strokeLineDash: [12, 12]}} draw={prog(f, tPatrz + i * 2, 10)} seed={970 + i} />)}
+						{f >= tPatrz && f < tSlep && [0, 1, 2, 3, 4].map((i) => <Rough key={i} shape={{t: 'line', x1: 555 + i * 90, y1: 900, x2: gorX, y2: 600}} o={{stroke: C.red, strokeWidth: 4, strokeLineDash: [12, 12]}} draw={prog(f, tPatrz + i * 2, 10)} seed={970 + i} />)}
 					</g>
 				)}
 				{/* latarka */}
 				{f >= tLat - 4 && (
 					<g opacity={prog(f, tLat - 4, 8) * (1 - prog(f, tKto + 10, 10))}>
-						<polygon points={`250,960 ${ballX - 120},${ballY - 120} ${ballX + 130},${ballY + 120}`} fill={C.yellow} opacity={0.28} />
-						<Rough shape={{t: 'poly', pts: [[150, 1010], [240, 930], [280, 975], [190, 1050]]}} o={{fill: C.ink, fillStyle: 'solid'}} seed={975} />
+						<polygon points={`250,990 ${ballX - 120},${ballY - 120} ${ballX + 130},${ballY + 120}`} fill={C.yellow} opacity={0.28} />
+						<Rough shape={{t: 'poly', pts: [[150, 1040], [240, 960], [280, 1005], [190, 1080]]}} o={{fill: C.ink, fillStyle: 'solid'}} seed={975} />
 					</g>
 				)}
 			</g>
 
 			{/* ---------- SALA 2 ---------- */}
 			<g transform={`translate(${X2} 0)`}>
-				{heads.map((hx, i) => (
-					<g key={i} opacity={tableDraw}>
-						<Guy x={hx} y={alarm ? 372 : 380} s={1.05} seed={1000 + i * 5} draw={tableDraw} arms={alarm && f < tJak ? 'up' : 'down'} look={f >= tKota && f < tJak ? (hx < 1180 ? 1 : -1) : f < tKota ? (hx < 760 ? 1 : -1) : 0} />
-					</g>
-				))}
+				{heads.map((hx, i) => {
+					const look = f >= tDzien - 2 ? 1 : f >= tKota ? (hx < 1180 ? 1 : -1) : hx < 760 ? 1 : -1;
+					return <Guy key={i} x={hx} y={alarm ? 372 : 380} s={1.05} seed={1000 + i * 5} draw={tableDraw} arms={alarm ? 'up' : 'down'} look={look} />;
+				})}
 				<Rough shape={{t: 'poly', pts: [[380, 640], [1540, 640], [1620, 720], [300, 720]]}} o={{fill: C.paper, fillStyle: 'solid', strokeWidth: 8}} draw={tableDraw} seed={1030} />
 				<Rough shape={{t: 'line', x1: 420, y1: 724, x2: 400, y2: 980}} o={{strokeWidth: 8}} draw={tableDraw} seed={1031} />
 				<Rough shape={{t: 'line', x1: 1500, y1: 724, x2: 1520, y2: 980}} o={{strokeWidth: 8}} draw={tableDraw} seed={1032} />
-				{/* teczka */}
-				<g transform={`rotate(-5 760 600)`} opacity={tableDraw}>
+				<g transform="rotate(-5 760 600)" opacity={tableDraw}>
 					<Rough shape={{t: 'rect', x: 650, y: 540, w: 230, h: 130}} o={{fill: C.yellow, fillStyle: 'hachure', hachureGap: 9, fillWeight: 4, strokeWidth: 7}} draw={tableDraw} seed={1035} />
 					<Txt text="niewygodna" x={765} y={600} size={44} seed={1036} draw={prog(f, tDecy + 6, 10)} />
 					<Txt text="sprawa" x={765} y={644} size={44} seed={1037} draw={prog(f, tDecy + 12, 8)} />
 				</g>
-				{/* kot */}
-				{f >= tRzuc && catGone < 1 && (
-					<g opacity={1 - catGone}>
-						<DeadCat x={CAT.x - X2} y={f < tKota ? catY : 560 - Math.max(0, 22 * Math.exp(-(f - tKota) / 4) * Math.cos((f - tKota) * 0.9))} s={1.15} rot={f < tKota ? (1 - catFall) * -200 : 0} />
-					</g>
-				)}
-				<Scribble x={1010} y={430} w={360} h={230} draw={live(f, tJak + 2, tJak + 16, 5)} seed={1040} />
-				{f >= tJak + 10 && (
-					<g transform={`translate(1180 500) scale(${pk(f, tJak + 10)}) translate(-1180 -500)`} opacity={1 - prog(f, tPierwsza - 6, 8)}>
-						<Txt text="?" x={1180} y={600} size={330} color={C.red} seed={1042} />
-					</g>
-				)}
-				{/* kalendarz */}
-				<g opacity={cal * (1 - prog(f, tPierwsza - 6, 8))}>
-					<Rough shape={{t: 'rect', x: 1560, y: 150, w: 250, h: 250}} o={{fill: C.paper, fillStyle: 'solid', strokeWidth: 7}} draw={cal} seed={1045} />
-					<Rough shape={{t: 'rect', x: 1560, y: 150, w: 250, h: 60}} o={{fill: C.red, fillStyle: 'solid', strokeWidth: 7}} draw={cal} seed={1046} />
-					<g transform={`translate(0 ${-flip * 20})`} opacity={1 - flip}>
-						<Txt text="DZIŚ" x={1685} y={335} size={96} seed={1047} />
-					</g>
-					<g opacity={flip}>
-						<Txt text="WCZORAJ" x={1685} y={325} size={54} color={C.red} seed={1048} />
+				{f >= tRzuc && <DeadCat x={CAT.x - X2} y={f < tKota ? lerp(-420, 560, catFall * catFall) : 560 - Math.max(0, 22 * Math.exp(-(f - tKota) / 4) * Math.cos((f - tKota) * 0.9))} s={1.15} rot={f < tKota ? (1 - catFall) * -200 : 0} />}
+				{/* telewizor */}
+				<g opacity={tvDraw}>
+					<Rough shape={{t: 'rect', x: 1470, y: 170, w: 340, h: 250}} o={{fill: C.paper, fillStyle: 'solid', strokeWidth: 9}} draw={tvDraw} seed={1045} />
+					<Rough shape={{t: 'lpath', pts: [[1590, 170], [1640, 110], [1700, 170]]}} o={{strokeWidth: 6}} draw={tvDraw} seed={1046} />
+					<Txt text="NA ŻYWO" x={1640} y={235} size={44} color={C.red} seed={1047} opacity={f >= tDzien && Math.floor(f / 10) % 2 === 0 ? 1 : 0.35} />
+					<g opacity={pk(f, t911)}>
+						<Txt text="11.09.2001" x={1640} y={340} size={78} seed={1048} />
 					</g>
 				</g>
-				{f >= tWcz && (
-					<g opacity={1 - prog(f, tPierwsza - 6, 8)}>
-						<Rough shape={{t: 'ellipse', cx: 762, cy: 600, w: 330, h: 230}} o={{stroke: C.red, strokeWidth: 12}} draw={prog(f, tWcz + 4, 12)} seed={1050} />
-						<Rough shape={{t: 'lpath', pts: [[1560, 400], [1300, 470], [960, 560]]}} o={{stroke: C.red, strokeWidth: 8}} draw={prog(f, tWcz + 2, 12)} seed={1051} />
+			</g>
+
+			{/* ---------- SALA 3 ---------- */}
+			<g transform={`translate(${X3} 0)`}>
+				{crowd.map(([cx, cy], i) => (
+					<Guy key={i} x={cx} y={cy} s={1.0} seed={1200 + i * 5} draw={clamp01(crowdDraw * 1.5 - i * 0.1)} arms={f >= tAfera && f < tJak && i % 2 === Math.floor(f / 9) % 2 ? 'up' : 'down'} look={f >= tJak + 6 ? 1 : 0} />
+				))}
+				<g opacity={fadeQ}>
+					{bubbles.map(([t0, label, bx, by], i) =>
+						f >= t0 - 2 ? (
+							<g key={i} transform={`translate(${bx} ${by}) scale(${pk(f, t0 - 2)}) translate(${-bx} ${-by})`}>
+								<Rough shape={{t: 'ellipse', cx: bx, cy: by, w: 330, h: 150}} o={{fill: C.paper, fillStyle: 'solid', strokeWidth: 7}} seed={1230 + i} />
+								<Rough shape={{t: 'lpath', pts: [[bx - 30, by + 70], [bx - 10, by + 130], [bx + 30, by + 72]]}} o={{strokeWidth: 6}} seed={1235 + i} />
+								<Txt text={label} x={bx} y={by + 24} size={72} seed={1240 + i} />
+							</g>
+						) : null,
+					)}
+					{f >= tAfera && (
+						<g transform={`translate(650 430) rotate(-5) scale(${pk(f, tAfera)}) translate(-650 -430)`}>
+							<Txt text="AFERA!" x={650} y={470} size={210} color={C.red} seed={1250} />
+						</g>
+					)}
+					{/* tydzień */}
+					{f >= tMedia && f < tKotaW + 8 && ['pn', 'wt', 'śr', 'cz', 'pt', 'sb', 'nd'].map((d, i) => {
+						const on = f >= tMedia + 8 + i * 6;
+						return (
+							<g key={i} opacity={prog(f, tMedia + i * 2, 6) * (1 - prog(f, tKotaW - 4, 8))}>
+								<Rough shape={{t: 'rect', x: 250 + i * 116, y: 880, w: 100, h: 90}} o={{fill: on ? C.red : undefined, fillStyle: 'hachure', hachureGap: 8, strokeWidth: 6}} seed={1260 + i} />
+								<Txt text={d} x={300 + i * 116} y={942} size={52} seed={1270 + i} />
+							</g>
+						);
+					})}
+				</g>
+				{/* ustawa (po zapaleniu światła widoczna tuszem) */}
+				<Bill x={1560} y={540} draw={billDraw} stamp={stamp} col={C.ink} seed={1300} />
+				{/* pytania */}
+				{f >= tJak && (
+					<g>
+						<g opacity={prog(f, tJak + 6, 10)}>
+							<rect x={200} y={60} width={1000} height={330} fill={C.paper} opacity={0.9} />
+						</g>
+						<Txt text="o czym mówiliśmy wczoraj?" x={700} y={190} size={104} draw={prog(f, tWcz - 4, 26)} seed={1320} />
+						<Txt text="co przeszło bez rozgłosu?" x={700} y={320} size={104} color={C.red} draw={prog(f, tCo, 30)} seed={1321} />
+						<Rough shape={{t: 'lpath', pts: [[1180, 300], [1300, 330], [1370, 420]]}} o={{stroke: C.red, strokeWidth: 9}} draw={prog(f, tCo + 30, 12)} seed={1322} />
+						<Rough shape={{t: 'ellipse', cx: 1560, cy: 540, w: 480, h: 560}} o={{stroke: C.red, strokeWidth: 11}} draw={prog(f, tCo + 38, 14)} seed={1323} />
 					</g>
 				)}
-				{/* rybka przepływa */}
-				{f >= tRybka2 - 10 && fishX < 2250 && <Fishbowl x={fishX} y={850} s={0.7} flip />}
-				{/* pasek: druga sztuczka */}
-				<g opacity={bar2}>
-					<rect x={380} y={830} width={1160} height={190} fill={C.paper} opacity={0.94} />
-					<Bar x={960} y={900} draw={bar2} lit={1} checks={1} pulse={f >= tUmow ? 1 : -1} />
-					<g opacity={pk(f, tZostan)}>
-						<Txt text="jeszcze jedna?" x={726} y={870} size={64} color={C.red} seed={1060} rotate={-3} />
-					</g>
-				</g>
 			</g>
 
 			{/* ---------- ciemność z plamą światła ---------- */}
@@ -597,120 +550,142 @@ const World: React.FC = () => {
 							<stop offset="0.72" stopColor="black" />
 							<stop offset="1" stopColor="white" />
 						</radialGradient>
-						<mask id="s1spotm" maskUnits="userSpaceOnUse" x={X1 - 500} y={-400} width={5600} height={1900}>
-							<rect x={X1 - 500} y={-400} width={5600} height={1900} fill="white" />
+						<mask id="s1spotm" maskUnits="userSpaceOnUse" x={X1 - 500} y={-400} width={7800} height={1900}>
+							<rect x={X1 - 500} y={-400} width={7800} height={1900} fill="white" />
 							<circle cx={sx} cy={sy} r={sr} fill="url(#s1spotg)" />
 						</mask>
 					</defs>
-					<rect x={X1 - 500} y={-400} width={5600} height={1900} fill="#14110F" opacity={dk * 0.93} mask="url(#s1spotm)" />
+					<rect x={X1 - 500} y={-400} width={7800} height={1900} fill="#14110F" opacity={dk * 0.93} mask="url(#s1spotm)" />
 				</g>
 			)}
 			{/* oczy goryla w ciemności */}
 			{f >= tOcz && f < tKto + 30 && Math.floor(f / 20) % 4 !== 3 && (
 				<g opacity={dk}>
-					<circle cx={X1 + 960 - 19} cy={520 - 172} r={8} fill={C.paper} />
-					<circle cx={X1 + 960 + 19} cy={520 - 172} r={8} fill={C.paper} />
+					<circle cx={X1 + gorX - 19} cy={550 - 172} r={8} fill={C.paper} />
+					<circle cx={X1 + gorX + 19} cy={550 - 172} r={8} fill={C.paper} />
 				</g>
 			)}
 			{/* napisy nad ciemnością */}
 			<g opacity={live(f, tSlep - 2, tKto + 4)}>
 				<Txt text="ślepota z nieuwagi" x={X1 + 960} y={130} size={120} color={overCol} draw={prog(f, tSlep - 2, 16)} seed={1100} />
 			</g>
-			<g opacity={live(f, tNazw - 2, tPierwsza - 8)} transform={`translate(${X2 + 960} 150) scale(${0.9 + 0.1 * pk(f, tNazw)}) translate(${-(X2 + 960)} -150)`}>
-				<Txt text="„zdechły kot”" x={X2 + 960} y={205} size={130} color={dk > 0.5 ? C.yellow : C.red} draw={prog(f, tNazw - 2, 12)} seed={1101} />
+			<g opacity={live(f, tNazw - 2, tDruga)} transform={`translate(${X2 + 860} 150) scale(${0.9 + 0.1 * pk(f, tNazw)}) translate(${-(X2 + 860)} -150)`}>
+				<Txt text="„zdechły kot”" x={X2 + 860} y={205} size={130} color={C.yellow} draw={prog(f, tNazw - 2, 12)} seed={1101} />
 			</g>
 			<g opacity={live(f, tBoris - 2, tPrzeg + 6)}>
-				<Txt text="Boris Johnson, „The Telegraph”, 2013" x={X2 + 960} y={290} size={62} color={overCol} draw={prog(f, tBoris - 2, 18)} seed={1102} />
+				<Txt text="Boris Johnson, „The Telegraph”, 2013" x={X2 + 860} y={290} size={62} color={overCol} draw={prog(f, tBoris - 2, 18)} seed={1102} />
 			</g>
-			{alarm && f < tJak && heads.map((hx, i) => (
+			{alarm && heads.map((hx, i) => (
 				<g key={i} transform={`translate(${X2 + hx} 300) scale(${pk(f, tKrzyk - 2 + i * 2)}) translate(${-(X2 + hx)} -300)`}>
 					<Txt text="!" x={X2 + hx + 70} y={350} size={120} color={C.yellow} seed={1110 + i} />
 				</g>
 			))}
-			<g opacity={live(f, tNikt, tJak)}>
+			<g opacity={live(f, tNikt, tDruga)}>
 				<Txt text="sprawa? jaka sprawa?" x={X2 + 660} y={900} size={72} color={C.paper} draw={prog(f, tNikt, 16)} seed={1120} rotate={-2} />
 			</g>
-			<g opacity={live(f, tGdy + 4, tPierwsza - 8)}>
-				<Txt text="o czym mówiliśmy wczoraj?" x={X2 + 960} y={1052} size={92} draw={prog(f, tWcz - 20, 22)} seed={1121} />
+			{/* e-mail z 11.09.2001 (w ciemności, pod stołem) */}
+			<g opacity={live(f, tDorad - 4, tGdyNie + 6) * dk}>
+				<g transform={`translate(${lerp(-500, 0, prog(f, tDorad - 4, 18))} 0)`}>
+					<Rough shape={{t: 'rect', x: X2 + 330, y: 790, w: 1010, h: 250}} o={{stroke: C.paper, strokeWidth: 6}} seed={1130} />
+					<Txt text="do: biuro prasowe" x={X2 + 370} y={850} size={50} color={C.yellow} anchor="start" seed={1131} />
+					<Txt text="„To teraz bardzo dobry dzień, żeby ogłosić" x={X2 + 370} y={930} size={58} color={C.paper} anchor="start" draw={prog(f, tDobry - 4, 30)} seed={1132} />
+					<Txt text="wszystko, co chcemy pogrzebać.”" x={X2 + 370} y={1000} size={58} color={C.paper} anchor="start" draw={prog(f, tPogrz - 40, 30)} seed={1133} />
+				</g>
 			</g>
+			{/* ustawa w ciemności: ledwo widoczny zarys */}
+			<g opacity={dk * 0.5}>
+				<g transform={`translate(${X3} 0)`}>
+					<Bill x={1560} y={540} draw={billDraw} stamp={stamp} col={C.paper} seed={1300} />
+					{f >= tWiecz && <Rough shape={{t: 'arc', cx: 1700, cy: 160, w: 120, h: 120, a0: 0.6, a1: 4.4}} o={{stroke: C.paper, strokeWidth: 8}} draw={prog(f, tWiecz, 10)} seed={1340} />}
+				</g>
+			</g>
+			<g opacity={live(f, tUstNikt, tJak)}>
+				<Txt text="nikt nie patrzy" x={X3 + 1560} y={900} size={84} color={C.paper} draw={prog(f, tUstNikt, 12)} seed={1341} />
+			</g>
+			<g opacity={live(f, tKotaW, tJak)}>
+				<Txt text="wszyscy patrzą tutaj" x={X3 + 640} y={950} size={84} draw={prog(f, tKotaW, 12)} seed={1342} />
+			</g>
+			{f >= tDruga && f < tGdyNie + 30 && (
+				<g opacity={live(f, tDruga, tGdyNie + 10)}>
+					<Txt text="…i w drugą stronę" x={X2 + 800} y={205} size={110} color={C.yellow} draw={prog(f, tDruga, 14)} seed={1343} />
+				</g>
+			)}
 		</g>
 	);
 };
 
 // --- kamera -------------------------------------------------------------------------
 const HITS: [number, number][] = [
-	[tPiec, 0.6],
-	[tTrzy, 0.7],
-	[tStop, 0.8],
-	[tJed, 1],
-	[tUni, 1.2],
+	[tKlam + 2, 0.7],
+	[tPiec, 0.5],
+	[tTytul, 1.2],
 	[tGor, 0.8],
 	[tPolowa, 0.6],
 	[tNazw, 1],
 	[tKota, 1.6],
 	[tKrzyk, 0.7],
-	[tWcz, 0.8],
+	[t911, 0.8],
+	[tAfera, 1.2],
+	[tUstawa + 16, 1],
+	[tCo, 0.7],
 ];
 const CamWorld: React.FC<{children: React.ReactNode}> = ({children}) => {
 	const f = useCurrentFrame();
 	const cx = kf(f, [
 		[0, 960],
-		[tGlowa - 12, 960],
-		[tGlowa + 6, 640],
-		[tRyb - 12, 640],
-		[tRyb + 8, 1180],
-		[tPros - 4, 1180],
-		[tPros + 14, 960],
-		[tTest - 4, 960],
-		[tTest + 24, RX[1] + 960],
-		[tPrzesz - 6, RX[1] + 960],
-		[tPrzesz + 12, RX[1] + 900],
-		[t99 - 6, RX[1] + 900],
-		[t99 + 12, RX[1] + 960],
+		[tGlowa - 18, 960],
+		[tGlowa, 700],
+		[tPiec - 10, 700],
+		[tPiec + 8, 960],
+		[t99 - 2, 960],
+		[t99 + 26, RX[1] + 960],
 		[tKto, RX[1] + 960],
-		[tDecy + 14, RX[2] + 900],
-		[tRzuc, RX[2] + 900],
+		[tDecy + 14, RX[2] + 860],
+		[tRzuc, RX[2] + 860],
 		[tKota - 2, RX[2] + 1000],
-		[tJak, RX[2] + 1000],
-		[tJak + 16, RX[2] + 960],
+		[tDruga, RX[2] + 1000],
+		[tDruga + 16, RX[2] + 960],
+		[tGdyNie, RX[2] + 960],
+		[tStworz + 26, RX[3] + 760],
+		[tWiecz - 10, RX[3] + 760],
+		[tWiecz + 12, RX[3] + 1160],
+		[tKotaW - 4, RX[3] + 1160],
+		[tKotaW + 14, RX[3] + 960],
 	]);
 	const cy = kf(f, [
 		[0, 540],
-		[tGlowa - 12, 540],
-		[tGlowa + 6, 420],
-		[tRyb - 12, 420],
-		[tRyb + 8, 520],
-		[tPros + 14, 560],
-		[tTest + 24, 540],
-		[tPrzesz - 6, 540],
-		[tPrzesz + 12, 500],
-		[t99 - 6, 500],
-		[t99 + 12, 540],
-		[tPolowa - 18, 540],
-		[tPolowa - 4, 590],
-		[tSlep - 8, 590],
+		[tGlowa - 18, 540],
+		[tGlowa, 400],
+		[tPiec - 10, 400],
+		[tPiec + 8, 560],
+		[t99 + 26, 560],
+		[tPolowa - 18, 560],
+		[tPolowa - 4, 610],
+		[tSlep - 8, 610],
 		[tSlep + 8, 540],
+		[tDorad - 10, 540],
+		[tDorad + 8, 620],
+		[tGdyNie, 620],
+		[tStworz + 26, 540],
 	]);
 	const z = kf(f, [
 		[0, 1],
-		[tGlowa - 12, 1],
-		[tGlowa + 6, 1.45],
-		[tRyb - 12, 1.45],
-		[tRyb + 8, 1.2],
-		[tPros - 4, 1.2],
-		[tPros + 14, 1],
-		[tPrzesz - 6, 1],
-		[tPrzesz + 12, 1.3],
-		[t99 - 6, 1.3],
-		[t99 + 12, 1],
+		[tGlowa - 18, 1],
+		[tGlowa, 1.4],
+		[tPiec - 10, 1.4],
+		[tPiec + 8, 1],
 		[tGor - 6, 1],
 		[tGor + 12, 1.1],
 		[tPolowa - 18, 1.1],
 		[tPolowa - 4, 1],
 		[tRzuc, 1],
 		[tKota - 2, 1.12],
-		[tJak, 1.12],
-		[tJak + 16, 1],
+		[tDruga, 1.12],
+		[tDruga + 16, 1],
+		[tWiecz - 10, 1],
+		[tWiecz + 12, 1.12],
+		[tKotaW - 4, 1.12],
+		[tKotaW + 14, 1],
 	]);
 	let punch = 0;
 	let shake = 0;
@@ -728,7 +703,7 @@ const CamWorld: React.FC<{children: React.ReactNode}> = ({children}) => {
 export const Sala1: React.FC = () => {
 	const [handle] = useState(() => delayRender('Ładowanie fontu Caveat'));
 	useEffect(() => {
-		document.fonts.load('700 80px Caveat', 'ąćęłńóśźżĄĆĘŁŃÓŚŹŻ„”◀?!').then(() => continueRender(handle));
+		document.fonts.load('700 80px Caveat', 'ąćęłńóśźżĄĆĘŁŃÓŚŹŻ„”…?!').then(() => continueRender(handle));
 	}, [handle]);
 	return (
 		<AbsoluteFill style={{backgroundColor: C.paper}}>
