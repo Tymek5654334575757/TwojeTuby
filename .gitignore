@@ -9,3 +9,5 @@ dist
 node_modules
 out
 tools/__pycache__/
+public/*_full.mp4
+public/klip*_seg.mp4

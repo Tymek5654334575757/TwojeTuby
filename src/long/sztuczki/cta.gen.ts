@@ -1,0 +1,5 @@
+// AUTO-GENERATED przez tools/voice_post.py. Nie edytować ręcznie.
+export type VoWord={w:string;s:number;e:number;key:boolean};
+export type VoLine={s:number;e:number;words:VoWord[]};
+export const VO_DURATION=4.58;
+export const LINES: VoLine[] = [{"s": 0.0, "e": 1.636, "words": [{"w": "To", "s": 0.0, "e": 0.145, "key": false}, {"w": "jedna", "s": 0.182, "e": 0.436, "key": false}, {"w": "z", "s": 0.582, "e": 0.618, "key": false}, {"w": "pięciu", "s": 0.655, "e": 0.945, "key": true}, {"w": "sztuczek.", "s": 0.982, "e": 1.636, "key": false}]}, {"s": 1.818, "e": 4.655, "words": [{"w": "Pozostałe", "s": 1.818, "e": 2.182, "key": false}, {"w": "cztery", "s": 2.255, "e": 2.618, "key": false}, {"w": "pokazuję", "s": 2.764, "e": 3.127, "key": false}, {"w": "w", "s": 3.2, "e": 3.273, "key": false}, {"w": "całym", "s": 3.345, "e": 3.564, "key": true}, {"w": "filmie", "s": 3.636, "e": 3.855, "key": false}, {"w": "na", "s": 3.891, "e": 3.927, "key": false}, {"w": "kanale.", "s": 4.0, "e": 4.655, "key": false}]}];
