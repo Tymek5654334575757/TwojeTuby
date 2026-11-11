@@ -39,25 +39,31 @@ const Grin: React.FC<{x: number; y: number; s?: number; hl: [number, number]; hr
 		<Rough shape={{t: 'poly', pts: [[0, 100], [-14, 120], [0, 200], [14, 120]]}} o={{fill: C.yellow, fillStyle: 'solid', strokeWidth: 4}} seed={306} />
 		<Rough shape={{t: 'lpath', pts: [[-40, 88], [-20, 150], [-55, 120]]}} o={{strokeWidth: 5}} seed={307} />
 		<Rough shape={{t: 'lpath', pts: [[40, 88], [20, 150], [55, 120]]}} o={{strokeWidth: 5}} seed={308} />
-		{/* głowa */}
-		<Rough shape={{t: 'circle', cx: 0, cy: 0, d: 150}} o={{fill: '#F2C9A0', fillStyle: 'solid', strokeWidth: 7}} seed={309} />
-		{/* blond włosy z przedziałkiem po lewej stronie, zaczesane w prawo */}
-		<Rough shape={{t: 'path', d: 'M -74 -2 C -82 -46 -64 -78 -34 -84 C 6 -94 60 -82 78 -40 C 82 -24 78 -10 74 -2 C 66 -30 46 -48 14 -54 C -6 -56 -22 -54 -30 -50 C -44 -46 -62 -30 -74 -2 Z'}} o={{fill: '#E8C25A', fillStyle: 'solid', strokeWidth: 6}} seed={310} />
-		<Rough shape={{t: 'lpath', pts: [[-34, -84], [-36, -66], [-31, -50]]}} o={{strokeWidth: 8, stroke: '#7A5E20'}} seed={324} />
-		<Rough shape={{t: 'arc', cx: 20, cy: -60, w: 90, h: 40, a0: Math.PI * 1.05, a1: Math.PI * 1.7}} o={{strokeWidth: 5, stroke: '#9C7A2E'}} seed={325} />
-		{/* łagodne oczy i brwi */}
-		<circle cx={-27} cy={-8} r={7} fill={C.ink} />
-		<circle cx={27} cy={-8} r={7} fill={C.ink} />
-		<circle cx={-24} cy={-11} r={2.5} fill="#F8F4EC" />
-		<circle cx={30} cy={-11} r={2.5} fill="#F8F4EC" />
-		<Rough shape={{t: 'arc', cx: -27, cy: -24, w: 34, h: 14, a0: Math.PI * 1.15, a1: Math.PI * 1.85}} o={{strokeWidth: 5}} seed={313} />
-		<Rough shape={{t: 'arc', cx: 27, cy: -24, w: 34, h: 14, a0: Math.PI * 1.15, a1: Math.PI * 1.85}} o={{strokeWidth: 5}} seed={314} />
-		{/* spokojny uśmiech */}
-		<Rough shape={{t: 'path', d: 'M -34 24 Q 0 52 34 24 Q 0 36 -34 24 Z'}} o={{fill: '#F8F4EC', fillStyle: 'solid', strokeWidth: 5}} seed={315} />
-		<Rough shape={{t: 'arc', cx: -40, cy: 22, w: 14, h: 16, a0: Math.PI * 0.6, a1: Math.PI * 1.3}} o={{strokeWidth: 4}} seed={322} />
-		<Rough shape={{t: 'arc', cx: 40, cy: 22, w: 14, h: 16, a0: -Math.PI * 0.3, a1: Math.PI * 0.4}} o={{strokeWidth: 4}} seed={323} />
-		<circle cx={-48} cy={14} r={11} fill={C.red} opacity={0.18} />
-		<circle cx={48} cy={14} r={11} fill={C.red} opacity={0.18} />
+		{/* szyja i uszy */}
+		<Rough shape={{t: 'rect', x: -24, y: 60, w: 48, h: 40}} o={{fill: '#F2C9A0', fillStyle: 'solid', strokeWidth: 5}} seed={330} />
+		<Rough shape={{t: 'ellipse', cx: -68, cy: 4, w: 24, h: 38}} o={{fill: '#F2C9A0', fillStyle: 'solid', strokeWidth: 5}} seed={331} />
+		<Rough shape={{t: 'ellipse', cx: 68, cy: 4, w: 24, h: 38}} o={{fill: '#F2C9A0', fillStyle: 'solid', strokeWidth: 5}} seed={332} />
+		{/* głowa, lekko owalna */}
+		<Rough shape={{t: 'ellipse', cx: 0, cy: 0, w: 136, h: 164}} o={{fill: '#F2C9A0', fillStyle: 'solid', strokeWidth: 6, roughness: 1.1}} seed={309} />
+		{/* blond włosy: przedziałek po lewej, zaczesane w prawo */}
+		<Rough shape={{t: 'path', d: 'M -68 -8 C -74 -50 -56 -82 -28 -90 C 4 -98 52 -92 70 -58 C 78 -42 76 -22 70 -6 C 64 -30 48 -44 24 -50 C 4 -54 -14 -56 -28 -58 C -44 -50 -58 -32 -68 -8 Z'}} o={{fill: '#E8C25A', fillStyle: 'solid', strokeWidth: 5, roughness: 1.1}} seed={310} />
+		<Rough shape={{t: 'lpath', pts: [[-28, -58], [-30, -76], [-26, -92]]}} o={{strokeWidth: 6, stroke: '#8A6A1E', roughness: 0.8}} seed={324} />
+		<Rough shape={{t: 'arc', cx: 22, cy: -66, w: 96, h: 34, a0: Math.PI * 1.05, a1: Math.PI * 1.75}} o={{strokeWidth: 4, stroke: '#B8902E', roughness: 0.8}} seed={325} />
+		<Rough shape={{t: 'arc', cx: 30, cy: -54, w: 80, h: 26, a0: Math.PI * 1.1, a1: Math.PI * 1.8}} o={{strokeWidth: 4, stroke: '#B8902E', roughness: 0.8}} seed={326} />
+		{/* brwi */}
+		<Rough shape={{t: 'arc', cx: -27, cy: -22, w: 34, h: 12, a0: Math.PI * 1.1, a1: Math.PI * 1.9}} o={{strokeWidth: 6, stroke: '#A07C24', roughness: 0.6}} seed={313} />
+		<Rough shape={{t: 'arc', cx: 27, cy: -22, w: 34, h: 12, a0: Math.PI * 1.1, a1: Math.PI * 1.9}} o={{strokeWidth: 6, stroke: '#A07C24', roughness: 0.6}} seed={314} />
+		{/* oczy */}
+		<ellipse cx={-26} cy={-6} rx={6.5} ry={8.5} fill={C.ink} />
+		<ellipse cx={26} cy={-6} rx={6.5} ry={8.5} fill={C.ink} />
+		<circle cx={-24} cy={-9} r={2.2} fill="#F8F4EC" />
+		<circle cx={28} cy={-9} r={2.2} fill="#F8F4EC" />
+		{/* nos */}
+		<Rough shape={{t: 'lpath', pts: [[2, 0], [-6, 22], [6, 25]]}} o={{strokeWidth: 4, roughness: 0.6}} seed={327} />
+		{/* łagodny uśmiech */}
+		<Rough shape={{t: 'arc', cx: 0, cy: 34, w: 60, h: 26, a0: Math.PI * 0.15, a1: Math.PI * 0.85}} o={{strokeWidth: 5, roughness: 0.6}} seed={315} />
+		<Rough shape={{t: 'line', x1: -32, y1: 37, x2: -26, y2: 42}} o={{strokeWidth: 4, roughness: 0.4}} seed={322} />
+		<Rough shape={{t: 'line', x1: 32, y1: 37, x2: 26, y2: 42}} o={{strokeWidth: 4, roughness: 0.4}} seed={323} />
 	</g>
 );
 
@@ -82,7 +88,6 @@ const Puppets: React.FC<{text: string[]}> = ({text}) => {
 				{heads.map(([hx, hy, col], i) => (
 					<Guy key={i} x={hx} y={hy} s={0.85} seed={40 + i * 5} arms="up" look={i < 2 ? 1 : -1} badge={col} />
 				))}
-				<Rough shape={{t: 'lpath', pts: [[380, 560], [430, 610], [400, 650], [480, 660], [520, 610], [500, 690]]}} o={{stroke: C.red, strokeWidth: 12}} seed={70} />
 				{/* polityk z krzyżakiem */}
 				<Grin x={1060} y={300} hl={[-150, -95]} hr={[100, -95]} />
 				<Rough shape={{t: 'poly', pts: [[920, 470], [1200, 470], [1170, 740], [950, 740]]}} o={{fill: C.paper, fillStyle: 'solid', strokeWidth: 9}} seed={80} />
