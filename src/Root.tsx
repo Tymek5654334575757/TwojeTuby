@@ -14,6 +14,7 @@ import {PlanShort, TOTAL_FRAMES as PLAN_FRAMES} from './shorts/plan/PlanShort';
 import {NokiaShort, TOTAL_FRAMES as NOKIA_FRAMES} from './shorts/nokia/NokiaShort';
 import {DkShort, TOTAL_FRAMES as DK_FRAMES} from './shorts/dk/DkShort';
 import {BbShort, TOTAL_FRAMES as BB_FRAMES} from './shorts/bb/BbShort';
+import {BelfortShort, TOTAL_FRAMES as BELFORT_FRAMES} from './shorts/belfort/BelfortShort';
 
 export const RemotionRoot: React.FC = () => {
 	return (
@@ -38,6 +39,7 @@ export const RemotionRoot: React.FC = () => {
 			<Composition id="Sala4" component={Sala4} durationInFrames={SALA4_FRAMES} fps={30} width={1920} height={1080} />
 			<Composition id="Sala5" component={Sala5} durationInFrames={SALA5_FRAMES} fps={30} width={1920} height={1080} />
 			<Composition id="BbShort" component={BbShort} durationInFrames={BB_FRAMES} fps={30} width={1080} height={1920} />
+			<Composition id="BelfortShort" component={BelfortShort} durationInFrames={BELFORT_FRAMES} fps={30} width={1080} height={1920} />
 			<Still id="SzThumbA" component={SzThumbA} width={1280} height={720} />
 			<Still id="SzThumbB" component={SzThumbB} width={1280} height={720} />
 			<Still id="SzThumbC" component={SzThumbC} width={1280} height={720} />

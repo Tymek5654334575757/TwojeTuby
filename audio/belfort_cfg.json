@@ -1,0 +1,17 @@
+{
+  "raw": "audio/belfort_raw.mp3",
+  "words": "audio/belfort_words.json",
+  "wav": "public/belfort_vo.wav",
+  "ts": "src/shorts/belfort/vo.gen.ts",
+  "tempo": 1.2,
+  "cuts": [],
+  "groups": [
+    {"spoken": "tysiąc dziewięćset osiemdziesiątego dziewiątego", "shown": "1989"},
+    {"spoken": "tysiąc dziewięćset dziewięćdziesiątym szóstym", "shown": "1996"},
+    {"spoken": "ponad tysiąc", "shown": "1000+"},
+    {"spoken": "dwustu milionów dolarów", "shown": "200 mln $"},
+    {"spoken": "dwadzieścia dwa miesiące", "shown": "22 miesiące"},
+    {"spoken": "stu dziesięciu milionów dolarów", "shown": "110 mln $"}
+  ],
+  "keys": ["napompował", "wyprzedawał", "telefonów", "1000+", "zawyżali", "zyskiem", "lupą", "1989", "1996", "200 mln $", "winy", "22 miesiące", "FBI", "110 mln $", "telefon", "pewny"]
+}

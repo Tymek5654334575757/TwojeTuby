@@ -107,7 +107,9 @@ export const Adult: React.FC<{
 	laugh?: boolean;
 	seed?: number;
 	holdR?: React.ReactNode;
-}> = ({look, armL = 8, armR = 8, talk = false, walk = false, mood = 'neutral', laugh = false, seed = 0, holdR}) => {
+	// phone: prawa ręka zgięta, słuchawka przy uchu (koniec kabla w PHONE_CORD)
+	phone?: boolean;
+}> = ({look, armL = 8, armR = 8, talk = false, walk = false, mood = 'neutral', laugh = false, seed = 0, holdR, phone = false}) => {
 	const f = useCurrentFrame();
 	const skin = look.skin ?? P.skin;
 	const breath = Math.sin((f + seed * 13) / 16) * 0.01;
@@ -152,7 +154,7 @@ export const Adult: React.FC<{
 			<path d="M -30 -372 L 0 -300 L 30 -372 Z" fill={shirt} stroke={P.navy} strokeWidth={5} strokeLinejoin="round" />
 			{tie && <path d="M -9 -366 L 9 -366 L 13 -300 L 0 -284 L -13 -300 Z" fill={tie} stroke={P.navy} strokeWidth={4} strokeLinejoin="round" />}
 			<line x1={0} y1={-300} x2={0} y2={-190} stroke={dark} strokeWidth={4} />
-			{arm(1, armR, holdR)}
+			{!phone && arm(1, armR, holdR)}
 			{/* głowa */}
 			<rect x={-16} y={-392} width={32} height={26} fill={skin} stroke={P.navy} strokeWidth={5} />
 			<circle cx={0} cy={-438} r={52} fill={skin} stroke={P.navy} strokeWidth={OL} />
@@ -192,9 +194,23 @@ export const Adult: React.FC<{
 				</g>
 			)}
 			{mouth}
+			{phone && (
+				<g>
+					<path d="M 74 -352 L 140 -262 L 78 -420" fill="none" stroke={P.navy} strokeWidth={34 + OL * 2} strokeLinecap="round" strokeLinejoin="round" />
+					<path d="M 74 -352 L 140 -262 L 78 -420" fill="none" stroke={look.suit} strokeWidth={34} strokeLinecap="round" strokeLinejoin="round" />
+					<g transform="translate(58 -420) rotate(14)">
+						<rect x={-13} y={-50} width={26} height={100} rx={12} fill={P.navy} />
+						<rect x={-21} y={-64} width={42} height={30} rx={13} fill={P.navy} />
+						<rect x={-21} y={34} width={42} height={30} rx={13} fill={P.navy} />
+					</g>
+					<circle cx={80} cy={-418} r={19} fill={skin} stroke={P.navy} strokeWidth={OL - 1} />
+				</g>
+			)}
 		</g>
 	);
 };
+// Koniec kabla słuchawki (współrzędne postaci, gdy phone = true).
+export const PHONE_CORD = {x: 46, y: -366};
 
 export const LOOKS: Record<string, KidLook> = {
 	ty: {shirt: P.green, hair: '#6B3E26'},
