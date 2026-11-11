@@ -1,4 +1,5 @@
 import {Composition, Still} from 'remotion';
+import {Sala1, SALA1_FRAMES} from './long/sztuczki/Sala1';
 import {MilgramThumb} from './thumbs/MilgramThumb';
 import {FlatKitTest} from './test/FlatKitTest';
 import {AmberShort, TOTAL_FRAMES as AMBER_FRAMES} from './shorts/amber/AmberShort';
@@ -16,6 +17,7 @@ export const RemotionRoot: React.FC = () => {
 			<Composition id="PlanShort" component={PlanShort} durationInFrames={PLAN_FRAMES} fps={30} width={1080} height={1920} />
 			<Composition id="NokiaShort" component={NokiaShort} durationInFrames={NOKIA_FRAMES} fps={30} width={1080} height={1920} />
 			<Composition id="DkShort" component={DkShort} durationInFrames={DK_FRAMES} fps={30} width={1080} height={1920} />
+			<Composition id="Sala1" component={Sala1} durationInFrames={SALA1_FRAMES} fps={30} width={1920} height={1080} />
 			<Composition id="BbShort" component={BbShort} durationInFrames={BB_FRAMES} fps={30} width={1080} height={1920} />
 			<Still id="MilgramThumb" component={MilgramThumb} width={1080} height={1920} />
 			<Still id="FlatKitTest" component={FlatKitTest} width={1080} height={1920} />
