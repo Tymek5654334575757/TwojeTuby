@@ -1,5 +1,9 @@
 import {Composition, Still} from 'remotion';
 import {Sala1, SALA1_FRAMES} from './long/sztuczki/Sala1';
+import {Sala2, SALA2_FRAMES} from './long/sztuczki/Sala2';
+import {Sala3, SALA3_FRAMES} from './long/sztuczki/Sala3';
+import {Sala4, SALA4_FRAMES} from './long/sztuczki/Sala4';
+import {Sala5, SALA5_FRAMES} from './long/sztuczki/Sala5';
 import {MilgramThumb} from './thumbs/MilgramThumb';
 import {FlatKitTest} from './test/FlatKitTest';
 import {AmberShort, TOTAL_FRAMES as AMBER_FRAMES} from './shorts/amber/AmberShort';
@@ -18,6 +22,10 @@ export const RemotionRoot: React.FC = () => {
 			<Composition id="NokiaShort" component={NokiaShort} durationInFrames={NOKIA_FRAMES} fps={30} width={1080} height={1920} />
 			<Composition id="DkShort" component={DkShort} durationInFrames={DK_FRAMES} fps={30} width={1080} height={1920} />
 			<Composition id="Sala1" component={Sala1} durationInFrames={SALA1_FRAMES} fps={30} width={1920} height={1080} />
+			<Composition id="Sala2" component={Sala2} durationInFrames={SALA2_FRAMES} fps={30} width={1920} height={1080} />
+			<Composition id="Sala3" component={Sala3} durationInFrames={SALA3_FRAMES} fps={30} width={1920} height={1080} />
+			<Composition id="Sala4" component={Sala4} durationInFrames={SALA4_FRAMES} fps={30} width={1920} height={1080} />
+			<Composition id="Sala5" component={Sala5} durationInFrames={SALA5_FRAMES} fps={30} width={1920} height={1080} />
 			<Composition id="BbShort" component={BbShort} durationInFrames={BB_FRAMES} fps={30} width={1080} height={1920} />
 			<Still id="MilgramThumb" component={MilgramThumb} width={1080} height={1920} />
 			<Still id="FlatKitTest" component={FlatKitTest} width={1080} height={1920} />
