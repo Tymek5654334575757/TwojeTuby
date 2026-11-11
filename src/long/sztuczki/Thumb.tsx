@@ -4,6 +4,7 @@ import {AbsoluteFill, delayRender, continueRender} from 'remotion';
 import '@fontsource/caveat/700.css';
 import {C, Paper, Rough} from '../../kit/sketch';
 import {Guy, DeadCat, Doc} from './common';
+export {Guy};
 
 const useFont = () => {
 	const [h] = useState(() => delayRender('font'));
@@ -18,6 +19,43 @@ const Big: React.FC<{text: string; x: number; y: number; size: number; fill: str
 		<text x={x} y={y} fontFamily="Caveat" fontWeight={700} fontSize={size} textAnchor={anchor} fill={fill} stroke={stroke} strokeWidth={size * 0.12} strokeLinejoin="round" paintOrder="stroke">
 			{text}
 		</text>
+	</g>
+);
+
+
+// Szczerzący się polityk w niebieskim garniturze (postać ogólna, nie wzorowana na nikim).
+// (x, y) = środek głowy; hl / hr = dłonie w układzie lokalnym (przed skalą).
+const NAVY = '#2F5DA8';
+const Grin: React.FC<{x: number; y: number; s?: number; hl: [number, number]; hr: [number, number]}> = ({x, y, s = 1, hl, hr}) => (
+	<g transform={`translate(${x} ${y}) scale(${s})`}>
+		{/* ręce */}
+		<Rough shape={{t: 'lpath', pts: [[-80, 110], [(-80 + hl[0]) / 2 - 20, (110 + hl[1]) / 2 + 20], hl]}} o={{stroke: NAVY, strokeWidth: 34, roughness: 1}} seed={300} />
+		<Rough shape={{t: 'lpath', pts: [[80, 110], [(80 + hr[0]) / 2 + 20, (110 + hr[1]) / 2 + 20], hr]}} o={{stroke: NAVY, strokeWidth: 34, roughness: 1}} seed={301} />
+		<Rough shape={{t: 'circle', cx: hl[0], cy: hl[1], d: 40}} o={{fill: '#F2C9A0', fillStyle: 'solid', strokeWidth: 5}} seed={302} />
+		<Rough shape={{t: 'circle', cx: hr[0], cy: hr[1], d: 40}} o={{fill: '#F2C9A0', fillStyle: 'solid', strokeWidth: 5}} seed={303} />
+		{/* marynarka */}
+		<Rough shape={{t: 'poly', pts: [[-95, 90], [95, 90], [85, 340], [-85, 340]]}} o={{fill: NAVY, fillStyle: 'solid', strokeWidth: 7}} seed={304} />
+		<Rough shape={{t: 'poly', pts: [[-40, 88], [40, 88], [0, 190]]}} o={{fill: '#F8F4EC', fillStyle: 'solid', strokeWidth: 5}} seed={305} />
+		<Rough shape={{t: 'poly', pts: [[0, 100], [-14, 120], [0, 200], [14, 120]]}} o={{fill: C.yellow, fillStyle: 'solid', strokeWidth: 4}} seed={306} />
+		<Rough shape={{t: 'lpath', pts: [[-40, 88], [-20, 150], [-55, 120]]}} o={{strokeWidth: 5}} seed={307} />
+		<Rough shape={{t: 'lpath', pts: [[40, 88], [20, 150], [55, 120]]}} o={{strokeWidth: 5}} seed={308} />
+		{/* głowa */}
+		<Rough shape={{t: 'circle', cx: 0, cy: 0, d: 150}} o={{fill: '#F2C9A0', fillStyle: 'solid', strokeWidth: 7}} seed={309} />
+		{/* blond włosy: krótka fryzura z przedziałkiem */}
+		<Rough shape={{t: 'path', d: 'M -74 -6 C -80 -60 -40 -86 0 -84 C 44 -86 80 -60 74 -10 C 60 -40 30 -52 -6 -48 C -30 -46 -56 -34 -74 -6 Z'}} o={{fill: '#E8C25A', fillStyle: 'solid', strokeWidth: 6}} seed={310} />
+		{/* oczy zmrużone */}
+		<Rough shape={{t: 'arc', cx: -28, cy: -6, w: 34, h: 22, a0: Math.PI * 1.1, a1: Math.PI * 1.9}} o={{strokeWidth: 6}} seed={311} />
+		<Rough shape={{t: 'arc', cx: 28, cy: -6, w: 34, h: 22, a0: Math.PI * 1.1, a1: Math.PI * 1.9}} o={{strokeWidth: 6}} seed={312} />
+		<Rough shape={{t: 'line', x1: -46, y1: -30, x2: -12, y2: -22}} o={{strokeWidth: 6}} seed={313} />
+		<Rough shape={{t: 'line', x1: 46, y1: -30, x2: 12, y2: -22}} o={{strokeWidth: 6}} seed={314} />
+		{/* szeroki uśmiech z zębami */}
+		<Rough shape={{t: 'path', d: 'M -46 20 Q 0 30 46 20 Q 40 62 0 64 Q -40 62 -46 20 Z'}} o={{fill: '#F8F4EC', fillStyle: 'solid', strokeWidth: 6}} seed={315} />
+		<Rough shape={{t: 'line', x1: -42, y1: 32, x2: 42, y2: 32}} o={{strokeWidth: 3}} seed={316} />
+		{[-24, -8, 8, 24].map((tx, i) => (
+			<Rough key={i} shape={{t: 'line', x1: tx, y1: 24, x2: tx, y2: 46}} o={{strokeWidth: 3}} seed={317 + i} />
+		))}
+		<Rough shape={{t: 'arc', cx: -56, cy: 20, w: 20, h: 26, a0: Math.PI * 0.6, a1: Math.PI * 1.3}} o={{strokeWidth: 4}} seed={322} />
+		<Rough shape={{t: 'arc', cx: 56, cy: 20, w: 20, h: 26, a0: -Math.PI * 0.3, a1: Math.PI * 0.4}} o={{strokeWidth: 4}} seed={323} />
 	</g>
 );
 
@@ -44,8 +82,7 @@ const Puppets: React.FC<{text: string[]}> = ({text}) => {
 				))}
 				<Rough shape={{t: 'lpath', pts: [[380, 560], [430, 610], [400, 650], [480, 660], [520, 610], [500, 690]]}} o={{stroke: C.red, strokeWidth: 12}} seed={70} />
 				{/* polityk z krzyżakiem */}
-				<Guy x={1060} y={290} s={1.55} seed={90} arms="up" look={-1} />
-				<Rough shape={{t: 'poly', pts: [[1060, 360], [1040, 396], [1060, 460], [1080, 396]]}} o={{fill: C.red, fillStyle: 'solid', strokeWidth: 4}} seed={95} />
+				<Grin x={1060} y={300} hl={[-150, -95]} hr={[100, -95]} />
 				<Rough shape={{t: 'poly', pts: [[920, 470], [1200, 470], [1170, 740], [950, 740]]}} o={{fill: C.paper, fillStyle: 'solid', strokeWidth: 9}} seed={80} />
 				<Rough shape={{t: 'rect', x: 895, y: 440, w: 330, h: 40}} o={{fill: C.yellow, fillStyle: 'hachure', hachureGap: 8, strokeWidth: 8}} seed={81} />
 				<Rough shape={{t: 'line', x1: 890, y1: 205, x2: 1210, y2: 205}} o={{strokeWidth: 14}} seed={96} />
@@ -76,11 +113,13 @@ export const SzThumbB: React.FC = () => {
 					<mask id="tbm" maskUnits="userSpaceOnUse" x={0} y={0} width={1280} height={720}>
 						<rect x={0} y={0} width={1280} height={720} fill="white" />
 						<circle cx={400} cy={430} r={300} fill="url(#tb)" />
+						<circle cx={690} cy={290} r={230} fill="url(#tb)" />
 					</mask>
 				</defs>
 				<Rough shape={{t: 'poly', pts: [[40, 540], [1240, 540], [1280, 600], [0, 600]]}} o={{fill: C.paper, fillStyle: 'solid', strokeWidth: 9}} seed={10} />
 				<DeadCat x={400} y={470} s={1.5} />
 				<Doc x={1020} y={360} title="USTAWA" draw={1} stamp={1} seed={30} w={300} h={380} rot={6} />
+				<Grin x={680} y={230} s={0.95} hl={[-170, 190]} hr={[300, 250]} />
 				<rect x={0} y={0} width={1280} height={720} fill="#14110F" opacity={0.94} mask="url(#tbm)" />
 				{/* ustawa ledwo widoczna */}
 				<g opacity={0.5}>
