@@ -390,3 +390,37 @@ export const CardScene: React.FC<{num: string; title: string; icon?: React.React
 		</AbsoluteFill>
 	);
 };
+
+// Końcówka shortu (9:16): zaproszenie do całego filmu, lektor amcta.
+import {LINES as CTA_LINES} from './amcta.gen';
+export const CTA_FRAMES = endOf(CTA_LINES) + 24;
+export const CtaScene: React.FC = () => (
+	<AmberStage v lines={CTA_LINES} vo="amcta_vo.wav" keys={[{f: 0, x: 540, y: 760, z: 1.08}, {f: CTA_FRAMES, x: 540, y: 760, z: 1}]}>
+		{(f) => (
+			<g>
+				<Room w={VW} h={VH} floor={1180} dark />
+				<rect x={290} y={170} width={500} height={92} rx={16} fill={P.gold} stroke={P.navy} strokeWidth={7} />
+				<FText text="AMBER GOLD" x={540} y={236} size={60} fill={P.navy} />
+				<G x={540} y={620} s={pk(f, 0) || 1}>
+					<VaultDoor r={260} spin={f * 4} open={ip(f, 20, 40, 0, 0.6, EOUT)} />
+				</G>
+				<G x={540} y={620} s={pk(f, 34)}>
+					<circle r={120} fill={P.gold} stroke={P.navy} strokeWidth={8} />
+					<path d="M -36 -60 L 66 0 L -36 60 Z" fill={P.navy} />
+				</G>
+				<FText text="cały film" x={540} y={1010} size={110} fill={P.gold} stroke={P.navy} sw={12} opacity={prog(f, 10, 8)} />
+			</g>
+		)}
+	</AmberStage>
+);
+// Short = scena rozdziału (v) + końcówka.
+export const ShortWithCta: React.FC<{sceneFrames: number; children: React.ReactNode}> = ({sceneFrames, children}) => (
+	<AbsoluteFill>
+		<Sequence durationInFrames={sceneFrames} layout="none">
+			{children}
+		</Sequence>
+		<Sequence from={sceneFrames} layout="none">
+			<CtaScene />
+		</Sequence>
+	</AbsoluteFill>
+);
