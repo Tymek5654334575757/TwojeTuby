@@ -1,0 +1,30 @@
+{
+ "raw": "audio/am3b_raw.mp3",
+ "words": "audio/am3b_words.json",
+ "wav": "public/am3b_vo.wav",
+ "ts": "src/long/amber/am3b.gen.ts",
+ "tempo": 1.05,
+ "cuts": [],
+ "groups": [
+  {
+   "spoken": "dziesięć groszy",
+   "shown": "10 gr"
+  },
+  {
+   "spoken": "marcin pe",
+   "shown": "Marcin P."
+  }
+ ],
+ "keys": [
+  "skarbonkę",
+  "Ania",
+  "Bartka",
+  "Celiny",
+  "nowi",
+  "znajomym",
+  "mniej",
+  "nic",
+  "piramidy",
+  "Samoloty"
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "raw": "audio/am3_raw.mp3",
+ "words": "audio/am3_words.json",
+ "wav": "public/am3_vo.wav",
+ "ts": "src/long/amber/am3.gen.ts",
+ "tempo": 1.05,
+ "cuts": [],
+ "groups": [
+  {
+   "spoken": "osiemset pięćdziesiąt jeden milionów złotych",
+   "shown": "851 mln zł"
+  },
+  {
+   "spoken": "dziesięć milionów",
+   "shown": "10 mln"
+  },
+  {
+   "spoken": "jeden procent",
+   "shown": "1%"
+  },
+  {
+   "spoken": "dwieście dziewięćdziesiąt milionów",
+   "shown": "290 mln"
+  },
+  {
+   "spoken": "stu czterdziestu milionów",
+   "shown": "140 mln"
+  },
+  {
+   "spoken": "siedemdziesiąt trzy miliony",
+   "shown": "73 mln"
+  },
+  {
+   "spoken": "trzystu tysięcy złotych",
+   "shown": "300 tys. zł"
+  },
+  {
+   "spoken": "małżeństwo pe",
+   "shown": "małżeństwo P."
+  },
+  {
+   "spoken": "dziewiętnaście milionów",
+   "shown": "19 mln"
+  },
+  {
+   "spoken": "trzysta milionów",
+   "shown": "300 mln"
+  }
+ ],
+ "keys": [
+  "851 mln zł",
+  "10 mln",
+  "1%",
+  "290 mln",
+  "kolejnych",
+  "140 mln",
+  "73 mln",
+  "19 mln",
+  "300 mln",
+  "odleciała",
+  "reklamowym"
+ ]
+}

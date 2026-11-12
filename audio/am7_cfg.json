@@ -1,0 +1,31 @@
+{
+ "raw": "audio/am7_raw.mp3",
+ "words": "audio/am7_words.json",
+ "wav": "public/am7_vo.wav",
+ "ts": "src/long/amber/am7.gen.ts",
+ "tempo": 1.05,
+ "cuts": [],
+ "groups": [
+  {
+   "spoken": "ka en ef",
+   "shown": "KNF"
+  },
+  {
+   "spoken": "dwa tysiące dziewiątego",
+   "shown": "2009"
+  }
+ ],
+ "keys": [
+  "pierwsze",
+  "gwarantowany",
+  "ryzyko",
+  "drugie",
+  "ostrzeżenie",
+  "trzecie",
+  "przejrzystości",
+  "czwarte",
+  "gwarancji",
+  "odsetki",
+  "zasubskrybuj"
+ ]
+}

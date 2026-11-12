@@ -1,0 +1,91 @@
+{
+ "raw": "audio/am6_raw.mp3",
+ "words": "audio/am6_words.json",
+ "wav": "public/am6_vo.wav",
+ "ts": "src/long/amber/am6.gen.ts",
+ "tempo": 1.05,
+ "cuts": [],
+ "groups": [
+  {
+   "spoken": "pięć miesięcy",
+   "shown": "5 miesięcy"
+  },
+  {
+   "spoken": "dwa tysiące szesnastego",
+   "shown": "2016"
+  },
+  {
+   "spoken": "sto osiemdziesiąt",
+   "shown": "180"
+  },
+  {
+   "spoken": "siedemset trzydzieści",
+   "shown": "730"
+  },
+  {
+   "spoken": "dwadzieścia pięć lat",
+   "shown": "25 lat"
+  },
+  {
+   "spoken": "marcina pe",
+   "shown": "Marcina P."
+  },
+  {
+   "spoken": "katarzyny pe",
+   "shown": "Katarzyny P."
+  },
+  {
+   "spoken": "katarzynę pe",
+   "shown": "Katarzynę P."
+  },
+  {
+   "spoken": "katarzynie pe",
+   "shown": "Katarzynie P."
+  },
+  {
+   "spoken": "piętnaście lat",
+   "shown": "15 lat"
+  },
+  {
+   "spoken": "dwanaście i pół roku",
+   "shown": "12,5 roku"
+  },
+  {
+   "spoken": "dwa tysiące dwudziestym drugim",
+   "shown": "2022"
+  },
+  {
+   "spoken": "jedenastu i pół roku",
+   "shown": "11,5 roku"
+  },
+  {
+   "spoken": "dwa tysiące dwudziestym czwartym",
+   "shown": "2024"
+  },
+  {
+   "spoken": "dwustu",
+   "shown": "200"
+  },
+  {
+   "spoken": "dwadzieścia milionów złotych",
+   "shown": "20 mln zł"
+  },
+  {
+   "spoken": "dwa tysiące dwudziestego piątego",
+   "shown": "2025"
+  }
+ ],
+ "keys": [
+  "5 miesięcy",
+  "180",
+  "730",
+  "25 lat",
+  "15 lat",
+  "12,5 roku",
+  "11,5 roku",
+  "oddalił",
+  "państwo",
+  "20 mln zł",
+  "całości"
+ ]
+}

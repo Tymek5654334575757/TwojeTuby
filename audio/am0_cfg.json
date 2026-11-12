@@ -1,0 +1,37 @@
+{
+ "raw": "audio/am0_raw.mp3",
+ "words": "audio/am0_words.json",
+ "wav": "public/am0_vo.wav",
+ "ts": "src/long/amber/am0.gen.ts",
+ "tempo": 1.05,
+ "cuts": [],
+ "groups": [
+  {
+   "spoken": "dwa tysiące dwunastym",
+   "shown": "2012"
+  },
+  {
+   "spoken": "osiemnaście tysięcy",
+   "shown": "18 tysięcy"
+  },
+  {
+   "spoken": "osiemset pięćdziesiąt jeden milionów złotych",
+   "shown": "851 mln zł"
+  },
+  {
+   "spoken": "jeden procent",
+   "shown": "1%"
+  }
+ ],
+ "keys": [
+  "18 tysięcy",
+  "851 mln zł",
+  "1%",
+  "samoloty",
+  "biura",
+  "wypłaty",
+  "odsetki",
+  "ostrzeżenie",
+  "opakowanie"
+ ]
+}

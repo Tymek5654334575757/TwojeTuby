@@ -1,0 +1,84 @@
+{
+ "raw": "audio/am4_raw.mp3",
+ "words": "audio/am4_words.json",
+ "wav": "public/am4_vo.wav",
+ "ts": "src/long/amber/am4.gen.ts",
+ "tempo": 1.05,
+ "cuts": [],
+ "groups": [
+  {
+   "spoken": "dwa tysiące jedenastego",
+   "shown": "2011"
+  },
+  {
+   "spoken": "dżet er",
+   "shown": "Jet Air"
+  },
+  {
+   "spoken": "jes erłejs",
+   "shown": "Yes Airways"
+  },
+  {
+   "spoken": "o el te ekspres",
+   "shown": "OLT Express"
+  },
+  {
+   "spoken": "pierwszego kwietnia dwa tysiące dwunastego",
+   "shown": "1 kwietnia 2012"
+  },
+  {
+   "spoken": "trzydziestu ośmiu",
+   "shown": "38"
+  },
+  {
+   "spoken": "trzydziestu pięciu",
+   "shown": "35"
+  },
+  {
+   "spoken": "stu pięćdziesięciu pięciu złotych",
+   "shown": "155 zł"
+  },
+  {
+   "spoken": "jedenaście procent",
+   "shown": "11%"
+  },
+  {
+   "spoken": "dwa miliony złotych",
+   "shown": "2 mln zł"
+  },
+  {
+   "spoken": "sześciuset tysięcy euro",
+   "shown": "600 tys. €"
+  },
+  {
+   "spoken": "dwudziestego siódmego lipca dwa tysiące dwunastego",
+   "shown": "27 lipca 2012"
+  },
+  {
+   "spoken": "lipca dwa tysiące dwunastego",
+   "shown": "lipca 2012"
+  },
+  {
+   "spoken": "trzysta milionów złotych",
+   "shown": "300 mln zł"
+  },
+  {
+   "spoken": "siedemnaście",
+   "shown": "17"
+  }
+ ],
+ "keys": [
+  "lotnicze",
+  "OLT Express",
+  "38",
+  "35",
+  "155 zł",
+  "11%",
+  "2 mln zł",
+  "600 tys. €",
+  "300 mln zł",
+  "trzecią",
+  "27 lipca 2012",
+  "upadł"
+ ]
+}

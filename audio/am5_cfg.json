@@ -1,0 +1,59 @@
+{
+ "raw": "audio/am5_raw.mp3",
+ "words": "audio/am5_words.json",
+ "wav": "public/am5_vo.wav",
+ "ts": "src/long/amber/am5.gen.ts",
+ "tempo": 1.05,
+ "cuts": [],
+ "groups": [
+  {
+   "spoken": "trzynastego sierpnia dwa tysiące dwunastego",
+   "shown": "13 sierpnia 2012"
+  },
+  {
+   "spoken": "osiemnaście tysięcy",
+   "shown": "18 tysięcy"
+  },
+  {
+   "spoken": "osiemset pięćdziesiąt jeden milionów złotych",
+   "shown": "851 mln zł"
+  },
+  {
+   "spoken": "czterdziestu pięciu tysięcy złotych",
+   "shown": "45 tys. zł"
+  },
+  {
+   "spoken": "dwudziestu procent",
+   "shown": "20%"
+  },
+  {
+   "spoken": "dwa tysiące trzynastym",
+   "shown": "2013"
+  },
+  {
+   "spoken": "dwa tysiące osiemnastego",
+   "shown": "2018"
+  },
+  {
+   "spoken": "dziesięć tysięcy złotych",
+   "shown": "10 tys. zł"
+  },
+  {
+   "spoken": "dwa tysiące",
+   "shown": "2 tysiące"
+  }
+ ],
+ "keys": [
+  "likwidację",
+  "18 tysięcy",
+  "851 mln zł",
+  "45 tys. zł",
+  "20%",
+  "końcu",
+  "nic",
+  "raport",
+  "2018",
+  "10 tys. zł",
+  "2 tysiące"
+ ]
+}

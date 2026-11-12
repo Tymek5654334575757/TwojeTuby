@@ -15,6 +15,7 @@ m=lambda t: round((t+sum(s for c,s in cuts if t>=c))/T,3)
 W=[[w,m(a),m(b)] for w,a,b in W]
 groups=[(g['spoken'].split(),g['shown']) for g in cfg['groups']]
 strip=lambda x: x.lower().strip(',.?:')
+# end = czy słowo kończy zdanie (liczone z mówionego słowa, więc skrót „P.” w pokazanym tekście nie tnie linii)
 disp=[];i=0
 while i<len(W):
     hit=False
@@ -22,13 +23,14 @@ while i<len(W):
         n=len(pat)
         if [strip(x[0]) for x in W[i:i+n]]==pat:
             tail=W[i+n-1][0]; punct=tail[len(tail.rstrip(',.?:')):]
-            disp.append([rep+punct,W[i][1],W[i+n-1][2]]); i+=n; hit=True; break
-    if not hit: disp.append(W[i]); i+=1
+            shown=rep+(punct[1:] if rep.endswith('.') and punct.startswith('.') else punct)
+            disp.append([shown,W[i][1],W[i+n-1][2],bool(punct) and punct[-1] in '.?']); i+=n; hit=True; break
+    if not hit: disp.append([*W[i],W[i][0][-1] in '.?']); i+=1
 KEYS=set(k.lower() for k in cfg['keys'])
 lines=[];cur=[]
-for w,s,e in disp:
+for w,s,e,end in disp:
     cur.append({"w":w,"s":s,"e":e,"key":strip(w) in KEYS})
-    if w[-1] in '.?':
+    if end:
         lines.append({"s":cur[0]["s"],"e":cur[-1]["e"],"words":cur}); cur=[]
 if cur: lines.append({"s":cur[0]["s"],"e":cur[-1]["e"],"words":cur})
 dur=float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','csv=p=0',cfg['wav']]))

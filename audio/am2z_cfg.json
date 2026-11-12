@@ -1,0 +1,12 @@
+{
+ "raw": "audio/am2z_raw.mp3",
+ "words": "audio/am2z_words.json",
+ "wav": "public/am2z_vo.wav",
+ "ts": "src/long/amber/am2z.gen.ts",
+ "tempo": 1.05,
+ "cuts": [],
+ "groups": [],
+ "keys": [
+  "zasubskrybuj"
+ ]
+}

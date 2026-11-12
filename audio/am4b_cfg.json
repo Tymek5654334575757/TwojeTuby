@@ -1,0 +1,17 @@
+{
+ "raw": "audio/am4b_raw.mp3",
+ "words": "audio/am4b_words.json",
+ "wav": "public/am4b_vo.wav",
+ "ts": "src/long/amber/am4b.gen.ts",
+ "tempo": 1.05,
+ "cuts": [],
+ "groups": [],
+ "keys": [
+  "samoloty",
+  "potęgę",
+  "odsetki",
+  "kolejce",
+  "sądzie",
+  "państwu"
+ ]
+}

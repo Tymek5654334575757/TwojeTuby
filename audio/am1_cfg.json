@@ -1,0 +1,50 @@
+{
+ "raw": "audio/am1_raw.mp3",
+ "words": "audio/am1_words.json",
+ "wav": "public/am1_vo.wav",
+ "ts": "src/long/amber/am1.gen.ts",
+ "tempo": 1.05,
+ "cuts": [],
+ "groups": [
+  {
+   "spoken": "dwa tysiące dziewiątego",
+   "shown": "2009"
+  },
+  {
+   "spoken": "dwa tysiące jedenastego",
+   "shown": "2011"
+  },
+  {
+   "spoken": "tysiąc dziewięćset",
+   "shown": "1900"
+  },
+  {
+   "spoken": "sześciu",
+   "shown": "6"
+  },
+  {
+   "spoken": "szesnastu i pół",
+   "shown": "16,5"
+  },
+  {
+   "spoken": "jedenaście i dwie dziesiąte",
+   "shown": "11,2"
+  },
+  {
+   "spoken": "stu tysięcy",
+   "shown": "100 tysięcy"
+  }
+ ],
+ "keys": [
+  "2009",
+  "1900",
+  "Amber",
+  "16,5",
+  "11,2",
+  "gwarantowane",
+  "bankiem",
+  "certyfikat",
+  "kartkę",
+  "linie"
+ ]
+}

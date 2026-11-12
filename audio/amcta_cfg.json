@@ -1,0 +1,13 @@
+{
+ "raw": "audio/amcta_raw.mp3",
+ "words": "audio/amcta_words.json",
+ "wav": "public/amcta_vo.wav",
+ "ts": "src/long/amber/amcta.gen.ts",
+ "tempo": 1.05,
+ "cuts": [],
+ "groups": [],
+ "keys": [
+  "cała",
+  "kanale"
+ ]
+}

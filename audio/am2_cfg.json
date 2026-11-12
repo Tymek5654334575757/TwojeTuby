@@ -1,0 +1,41 @@
+{
+ "raw": "audio/am2_raw.mp3",
+ "words": "audio/am2_words.json",
+ "wav": "public/am2_vo.wav",
+ "ts": "src/long/amber/am2.gen.ts",
+ "tempo": 1.05,
+ "cuts": [],
+ "groups": [
+  {
+   "spoken": "osiemset pięćdziesiąt jeden milionów złotych",
+   "shown": "851 mln zł"
+  },
+  {
+   "spoken": "marcin pe",
+   "shown": "Marcin P."
+  },
+  {
+   "spoken": "od dwa tysiące piątego do dwa tysiące dziewiątego",
+   "shown": "2005–2009"
+  },
+  {
+   "spoken": "dwa tysiące dziewiątym",
+   "shown": "2009"
+  },
+  {
+   "spoken": "ka en ef",
+   "shown": "KNF"
+  }
+ ],
+ "keys": [
+  "skazany",
+  "zawieszeniu",
+  "ostrzeżeń",
+  "umarzano",
+  "dalej",
+  "sprawozdań",
+  "sprawdzić",
+  "płacił",
+  "najgroźniejsze"
+ ]
+}
