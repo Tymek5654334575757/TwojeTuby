@@ -366,3 +366,27 @@ export const ChapterCard: React.FC<{f: number; at: number; dur?: number; num: st
 
 export {P, FFONT, G, Adult, Coin, FText, clamp01, prog, pop};
 export type {AdultLook, Hit, VoLine};
+
+// Plansza rozdziału jako osobna scena (pierwsze cardFrames klatek rozdziału).
+export const CardScene: React.FC<{num: string; title: string; icon?: React.ReactNode; v?: boolean; frames?: number}> = ({num, title, icon, v = false, frames = 60}) => {
+	const f = useCurrentFrame();
+	const [handle] = useState(() => delayRender('Ładowanie fontu Baloo 2'));
+	useEffect(() => {
+		document.fonts.load("800 80px 'Baloo 2'", 'ąćęłńóśźżĄĆĘŁŃÓŚŹŻ0123456789').then(() => continueRender(handle));
+	}, [handle]);
+	const W = v ? VW : HW;
+	const H = v ? VH : HH;
+	return (
+		<AbsoluteFill style={{backgroundColor: P.navy}}>
+			<svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>
+				<rect x={0} y={0} width={W} height={H} fill="url(#am-kpD2)" />
+				<defs>
+					<pattern id="am-kpD2" width={240} height={300} patternUnits="userSpaceOnUse">
+						{[0, 1, 2].map((c) => [0, 1, 2, 3].map((r) => <circle key={`${c}${r}`} cx={30 + c * 34} cy={40 + r * 34} r={5} fill={P.bg} opacity={0.06} />))}
+					</pattern>
+				</defs>
+				<ChapterCard f={f + 0.0001} at={0} dur={frames} num={num} title={title} w={W} h={H} icon={icon} />
+			</svg>
+		</AbsoluteFill>
+	);
+};
