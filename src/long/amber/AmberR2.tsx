@@ -66,10 +66,10 @@ const K = {
 };
 
 // --- układ ---------------------------------------------------------------------------------------
-type Lay = {v: boolean; W: number; H: number; FL: number};
-const LAY = (v: boolean): Lay => ({v, W: v ? VW : HW, H: v ? VH : HH, FL: v ? 1120 : 800});
+export type Lay = {v: boolean; W: number; H: number; FL: number};
+export const LAY = (v: boolean): Lay => ({v, W: v ? VW : HW, H: v ? VH : HH, FL: v ? 1120 : 800});
 // Klucz kamery z ograniczeniem: kadr nigdy nie wychodzi poza pokój (bez pasa z sąsiedniego pokoju).
-const kk = (v: boolean, f: number, i: number, h: [number, number, number], vv: [number, number, number], e?: CK['e']): CK => {
+export const kk = (v: boolean, f: number, i: number, h: [number, number, number], vv: [number, number, number], e?: CK['e']): CK => {
 	const [dx, dy, z] = v ? vv : h;
 	const W = v ? VW : HW;
 	const H = v ? VH : HH;
@@ -143,7 +143,7 @@ const HITS: Hit[] = [
 // --- rekwizyty -------------------------------------------------------------------------------------
 type Stamp = {t: string; c: string; a: number; on: number; dy?: number};
 // Teczka z aktami, środek w 0,0.
-const Folder: React.FC<{w?: number; label?: string; stamps?: Stamp[]}> = ({w = 200, label = 'WYROK', stamps = []}) => {
+export const Folder: React.FC<{w?: number; label?: string; stamps?: Stamp[]}> = ({w = 200, label = 'WYROK', stamps = []}) => {
 	const h = w * 0.7;
 	return (
 		<g>
@@ -163,7 +163,7 @@ const Folder: React.FC<{w?: number; label?: string; stamps?: Stamp[]}> = ({w = 2
 	);
 };
 // Młotek sędziowski: oś w końcu trzonka (0,0), głowica po lewej; ang > 0 podnosi.
-const Gavel: React.FC<{ang: number}> = ({ang}) => (
+export const Gavel: React.FC<{ang: number}> = ({ang}) => (
 	<g>
 		<ellipse cx={-170} cy={22} rx={58} ry={14} fill="#6E5139" stroke={P.navy} strokeWidth={5} />
 		<g transform={`rotate(${ang})`}>
@@ -174,7 +174,7 @@ const Gavel: React.FC<{ang: number}> = ({ang}) => (
 		</g>
 	</g>
 );
-const strike = (f: number, times: number[], up = 48) => {
+export const strike = (f: number, times: number[], up = 48) => {
 	for (const t of times) {
 		if (f >= t - 9 && f < t - 2) return ip(f, t - 9, t - 2, 0, up, EOUT);
 		if (f >= t - 2 && f < t) return ip(f, t - 2, t, up, 0, EIN);
@@ -183,7 +183,7 @@ const strike = (f: number, times: number[], up = 48) => {
 	return 0;
 };
 // Pieczątka (trzonek) opuszczana na teczkę: lift 0 = dotyka.
-const StampTool: React.FC<{lift: number; color: string}> = ({lift, color}) => (
+export const StampTool: React.FC<{lift: number; color: string}> = ({lift, color}) => (
 	<g transform={`translate(0 ${-lift})`}>
 		<rect x={-60} y={-20} width={120} height={26} rx={6} fill={color} stroke={P.navy} strokeWidth={5} />
 		<rect x={-44} y={-40} width={88} height={24} rx={5} fill="#5C4A3A" stroke={P.navy} strokeWidth={5} />
@@ -191,7 +191,7 @@ const StampTool: React.FC<{lift: number; color: string}> = ({lift, color}) => (
 		<circle cx={0} cy={-112} r={26} fill="#6E5139" stroke={P.navy} strokeWidth={5} />
 	</g>
 );
-const Calendar: React.FC<{text: string; w?: number}> = ({text, w = 200}) => (
+export const Calendar: React.FC<{text: string; w?: number}> = ({text, w = 200}) => (
 	<g>
 		<rect x={-w / 2} y={-w * 0.55} width={w} height={w} rx={16} fill={P.white} stroke={P.navy} strokeWidth={7} />
 		<rect x={-w / 2} y={-w * 0.55} width={w} height={w * 0.26} rx={16} fill={P.red} />
@@ -199,7 +199,7 @@ const Calendar: React.FC<{text: string; w?: number}> = ({text, w = 200}) => (
 	</g>
 );
 // Obrotowa lampa ostrzegawcza (podstawa w 0,0), wiązki obracają się, gdy on > 0.
-const Lamp: React.FC<{f: number; on: number; s?: number; beam?: number}> = ({f, on, s: sc = 1, beam = 620}) => (
+export const Lamp: React.FC<{f: number; on: number; s?: number; beam?: number}> = ({f, on, s: sc = 1, beam = 620}) => (
 	<g transform={`scale(${sc})`}>
 		{on > 0 &&
 			[0, 180].map((k) => (
@@ -210,7 +210,7 @@ const Lamp: React.FC<{f: number; on: number; s?: number; beam?: number}> = ({f, 
 		{on > 0 && <circle cy={-40} r={24} fill="#FFE6B8" opacity={on * (0.55 + 0.45 * Math.sin(f / 2.2))} />}
 	</g>
 );
-const Pencil: React.FC = () => (
+export const Pencil: React.FC = () => (
 	<g transform="rotate(-35)">
 		<rect x={-14} y={-150} width={28} height={130} fill={P.gold} stroke={P.navy} strokeWidth={5} />
 		<path d="M -14 -20 L 0 12 L 14 -20 Z" fill={P.skin} stroke={P.navy} strokeWidth={5} strokeLinejoin="round" />
@@ -218,14 +218,14 @@ const Pencil: React.FC = () => (
 		<rect x={-14} y={-172} width={28} height={26} rx={4} fill={P.red} stroke={P.navy} strokeWidth={5} />
 	</g>
 );
-const Magnifier: React.FC<{r?: number}> = ({r = 50}) => (
+export const Magnifier: React.FC<{r?: number}> = ({r = 50}) => (
 	<g>
 		<line x1={r * 0.7} y1={r * 0.7} x2={r * 1.9} y2={r * 1.9} stroke={P.navy} strokeWidth={r * 0.32} strokeLinecap="round" />
 		<circle r={r} fill={P.sky} fillOpacity={0.55} stroke={P.navy} strokeWidth={r * 0.18} />
 		<path d={`M ${-r * 0.5} ${-r * 0.2} Q ${-r * 0.45} ${-r * 0.5} ${-r * 0.15} ${-r * 0.55}`} stroke={P.white} strokeWidth={r * 0.12} fill="none" strokeLinecap="round" />
 	</g>
 );
-const Dial: React.FC<{f: number; r: number; label: string; q: number; seed: number}> = ({f, r, label, q, seed}) => {
+export const Dial: React.FC<{f: number; r: number; label: string; q: number; seed: number}> = ({f, r, label, q, seed}) => {
 	const ang = Math.sin(f / 4 + seed) * 55 + Math.sin(f / 1.7 + seed * 3) * 30;
 	return (
 		<g>
@@ -246,7 +246,7 @@ const Dial: React.FC<{f: number; r: number; label: string; q: number; seed: numb
 		</g>
 	);
 };
-const Shop: React.FC<{w?: number; sign?: string}> = ({w = 220, sign = 'AMBER GOLD'}) => (
+export const Shop: React.FC<{w?: number; sign?: string}> = ({w = 220, sign = 'AMBER GOLD'}) => (
 	<g>
 		<rect x={-w / 2} y={-w * 0.8} width={w} height={w * 0.8} fill={P.paper} stroke={P.navy} strokeWidth={6} />
 		<rect x={-w / 2 + 12} y={-w * 0.8 + 12} width={w - 24} height={w * 0.2} rx={6} fill={P.gold} stroke={P.navy} strokeWidth={4} />
@@ -255,7 +255,7 @@ const Shop: React.FC<{w?: number; sign?: string}> = ({w = 220, sign = 'AMBER GOL
 		<rect x={w * 0.08} y={-w * 0.46} width={w * 0.3} height={w * 0.46} fill={P.navy} />
 	</g>
 );
-const Pile: React.FC<{n: number; r?: number}> = ({n, r = 20}) => (
+export const Pile: React.FC<{n: number; r?: number}> = ({n, r = 20}) => (
 	<g>
 		{Array.from({length: n}).map((_, i) => (
 			<G key={i} x={((i % 3) - 1) * r * 0.9 + (Math.floor(i / 3) % 2) * r * 0.45} y={-Math.floor(i / 3) * r * 0.75}>
@@ -264,14 +264,14 @@ const Pile: React.FC<{n: number; r?: number}> = ({n, r = 20}) => (
 		))}
 	</g>
 );
-const fall = (f: number, at: number, dur: number, y0: number, y1: number) => {
+export const fall = (f: number, at: number, dur: number, y0: number, y1: number) => {
 	const p = clamp01((f - (at - dur)) / dur);
 	const y = y0 + (y1 - y0) * p * p;
 	const b = f > at ? Math.abs(Math.sin(((f - at) / 8) * Math.PI)) * 22 * Math.exp(-(f - at) / 6) : 0;
 	return y - b;
 };
 
-const FloorDeco: React.FC<{l: Lay; dark?: boolean}> = ({l, dark = false}) =>
+export const FloorDeco: React.FC<{l: Lay; dark?: boolean}> = ({l, dark = false}) =>
 	l.v ? (
 		<g stroke={dark ? '#0B111A' : P.navy} strokeWidth={4} opacity={dark ? 0.5 : 0.08}>
 			{Array.from({length: 9}).map((_, k) => {
