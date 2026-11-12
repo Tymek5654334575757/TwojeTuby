@@ -27,7 +27,7 @@ const chunk = (words: VoWord[], maxChars: number) => {
 	return out;
 };
 
-export const Captions: React.FC<{lines: VoLine[]; top: number; left: number; width: number; size: number; font?: string; weight?: number; color?: string; keyColor?: string; markColor?: string}> = ({
+export const Captions: React.FC<{lines: VoLine[]; top: number; left: number; width: number; size: number; font?: string; weight?: number; color?: string; keyColor?: string; markColor?: string; outline?: string; outlineW?: number}> = ({
 	lines,
 	top,
 	left,
@@ -38,7 +38,13 @@ export const Captions: React.FC<{lines: VoLine[]; top: number; left: number; wid
 	color = C.ink,
 	keyColor = C.red,
 	markColor = C.yellow,
+	outline,
+	outlineW = 6,
 }) => {
+	// obrys (napisy na animacji w pionowych shortach): 16 cieni dookoła
+	const halo = outline
+		? Array.from({length: 16}, (_, k) => `${(Math.cos((k / 16) * Math.PI * 2) * outlineW).toFixed(1)}px ${(Math.sin((k / 16) * Math.PI * 2) * outlineW).toFixed(1)}px 0 ${outline}`).join(', ')
+		: undefined;
 	const frame = useCurrentFrame();
 	const {fps} = useVideoConfig();
 	const t = frame / fps;
@@ -68,6 +74,7 @@ export const Captions: React.FC<{lines: VoLine[]; top: number; left: number; wid
 				lineHeight: 1.05,
 				color,
 				textAlign: 'center',
+				textShadow: halo,
 			}}
 		>
 			{active.map((w, i) => {
