@@ -191,11 +191,12 @@ export const StampTool: React.FC<{lift: number; color: string}> = ({lift, color}
 		<circle cx={0} cy={-112} r={26} fill="#6E5139" stroke={P.navy} strokeWidth={5} />
 	</g>
 );
-export const Calendar: React.FC<{text: string; w?: number}> = ({text, w = 200}) => (
+export const Calendar: React.FC<{text: string; w?: number; top?: string}> = ({text, w = 200, top}) => (
 	<g>
 		<rect x={-w / 2} y={-w * 0.55} width={w} height={w} rx={16} fill={P.white} stroke={P.navy} strokeWidth={7} />
 		<rect x={-w / 2} y={-w * 0.55} width={w} height={w * 0.26} rx={16} fill={P.red} />
-		<FText text={text} x={0} y={w * 0.3} size={w * 0.3} fill={P.navy} />
+		{top && <FText text={top} x={0} y={-w * 0.36} size={w * 0.15} fill={P.white} />}
+		<FText text={text} x={0} y={w * 0.3} size={Math.min(w * 0.3, (w * 0.86) / (0.56 * text.length))} fill={P.navy} />
 	</g>
 );
 // Obrotowa lampa ostrzegawcza (podstawa w 0,0), wiązki obracają się, gdy on > 0.
