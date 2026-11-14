@@ -218,7 +218,9 @@ def render_part(p, name):
         labs.append(f'[s{i}]')
     fc.append(f"{''.join(labs)}amix=inputs={len(labs)}:normalize=0:dropout_transition=0:duration=first[a]")
     out = f'{TMP}/{name}_mix.wav'
-    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', *ins, '-filter_complex', ';'.join(fc), '-map', '[a]', '-ar', '48000', '-ac', '2', out], check=True)
+    # dźwięk przycięty do długości obrazu części, żeby po sklejeniu nie narastało przesunięcie
+    vdur = float(subprocess.run(['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=duration', '-of', 'csv=p=0', p.video], capture_output=True, text=True).stdout.strip().rstrip(','))
+    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', *ins, '-filter_complex', ';'.join(fc), '-map', '[a]', '-ar', '48000', '-ac', '2', '-t', f'{vdur:.6f}', out], check=True)
     print(name, len(p.ev), 'efektów')
     return out
 
