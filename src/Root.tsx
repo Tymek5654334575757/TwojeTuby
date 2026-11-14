@@ -25,6 +25,7 @@ import {AmberR4, AmberS3, R4_FRAMES, S3_FRAMES} from './long/amber/AmberR4';
 import {AmberL9, L9_FRAMES} from './long/amber/AmberL9';
 import {AmberR5, R5_FRAMES} from './long/amber/AmberR5';
 import {AmberR6, AmberS4, R6_FRAMES, S4_FRAMES} from './long/amber/AmberR6';
+import {AmberE, E_FRAMES} from './long/amber/AmberE';
 
 export const RemotionRoot: React.FC = () => {
 	return (
@@ -63,6 +64,7 @@ export const RemotionRoot: React.FC = () => {
 			<Composition id="AmberR5" component={AmberR5} durationInFrames={R5_FRAMES} fps={30} width={1920} height={1080} />
 			<Composition id="AmberR6" component={AmberR6} durationInFrames={R6_FRAMES} fps={30} width={1920} height={1080} />
 			<Composition id="AmberS4" component={AmberS4} durationInFrames={S4_FRAMES} fps={30} width={1080} height={1920} />
+			<Composition id="AmberE" component={AmberE} durationInFrames={E_FRAMES} fps={30} width={1920} height={1080} />
 			<Composition id="AmberS2" component={AmberS2} durationInFrames={S2_FRAMES} fps={30} width={1080} height={1920} />
 			<Still id="SzThumbA" component={SzThumbA} width={1280} height={720} />
 			<Still id="SzThumbB" component={SzThumbB} width={1280} height={720} />
