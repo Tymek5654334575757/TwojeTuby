@@ -19,6 +19,11 @@ import {AmberHak, HAK_FRAMES} from './long/amber/AmberHak';
 import {AmberR1, R1_FRAMES} from './long/amber/AmberR1';
 import {GarDisney, GarDisneyS, D_FRAMES, DS_SCENE} from './long/garaze/GarDisney';
 import {CTA_FRAMES as G_CTA} from './long/garaze/gkit';
+import {GarHP, GarHPS, H_FRAMES as GH_FRAMES, HS_SCENE as GHS_SCENE, GarZ, Z_FRAMES as GZ_FRAMES} from './long/garaze/GarHP';
+import {GarApple, GarAppleS, A_FRAMES as GA_FRAMES, AS_SCENE as GAS_SCENE} from './long/garaze/GarApple';
+import {GarAmazon, GarAmazonS, M_FRAMES as GM_FRAMES, MS_SCENE as GMS_SCENE} from './long/garaze/GarAmazon';
+import {GarGoogle, GarGoogleS, O_FRAMES as GO_FRAMES, OS_SCENE as GOS_SCENE} from './long/garaze/GarGoogle';
+import {GarHak, HAK_FRAMES as GHAK_FRAMES, GarFinal, FINAL_FRAMES as GFIN_FRAMES} from './long/garaze/GarEnds';
 import {AmberR2, AmberS2, R2_FRAMES, S2_FRAMES} from './long/amber/AmberR2';
 import {AmberZ, Z_FRAMES} from './long/amber/AmberZ';
 import {AmberR3, AmberS1, R3_FRAMES, S1_FRAMES} from './long/amber/AmberR3';
@@ -74,6 +79,17 @@ export const RemotionRoot: React.FC = () => {
 			<Composition id="AmberS2" component={AmberS2} durationInFrames={S2_FRAMES} fps={30} width={1080} height={1920} />
 			<Composition id="GarDisney" component={GarDisney} durationInFrames={D_FRAMES} fps={30} width={1920} height={1080} />
 			<Composition id="GarDisneyS" component={GarDisneyS} durationInFrames={DS_SCENE + G_CTA} fps={30} width={1080} height={1920} />
+			<Composition id="GarHak" component={GarHak} durationInFrames={GHAK_FRAMES} fps={30} width={1920} height={1080} />
+			<Composition id="GarHP" component={GarHP} durationInFrames={GH_FRAMES} fps={30} width={1920} height={1080} />
+			<Composition id="GarHPS" component={GarHPS} durationInFrames={GHS_SCENE + G_CTA} fps={30} width={1080} height={1920} />
+			<Composition id="GarZ" component={GarZ} durationInFrames={GZ_FRAMES} fps={30} width={1920} height={1080} />
+			<Composition id="GarApple" component={GarApple} durationInFrames={GA_FRAMES} fps={30} width={1920} height={1080} />
+			<Composition id="GarAppleS" component={GarAppleS} durationInFrames={GAS_SCENE + G_CTA} fps={30} width={1080} height={1920} />
+			<Composition id="GarAmazon" component={GarAmazon} durationInFrames={GM_FRAMES} fps={30} width={1920} height={1080} />
+			<Composition id="GarAmazonS" component={GarAmazonS} durationInFrames={GMS_SCENE + G_CTA} fps={30} width={1080} height={1920} />
+			<Composition id="GarGoogle" component={GarGoogle} durationInFrames={GO_FRAMES} fps={30} width={1920} height={1080} />
+			<Composition id="GarGoogleS" component={GarGoogleS} durationInFrames={GOS_SCENE + G_CTA} fps={30} width={1080} height={1920} />
+			<Composition id="GarFinal" component={GarFinal} durationInFrames={GFIN_FRAMES} fps={30} width={1920} height={1080} />
 			<Still id="SzThumbA" component={SzThumbA} width={1280} height={720} />
 			<Still id="SzThumbB" component={SzThumbB} width={1280} height={720} />
 			<Still id="SzThumbC" component={SzThumbC} width={1280} height={720} />

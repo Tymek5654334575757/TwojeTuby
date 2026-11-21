@@ -4,14 +4,29 @@
 // oraz CutShort: short = ten sam film z wyciętymi zdaniami [tylko film] (dźwięk i obraz tną się razem).
 import React from 'react';
 import {AbsoluteFill, Sequence, useCurrentFrame} from 'remotion';
-import {AmberStage, ip, pk, EOUT, EIN, EIO, EBACK, P, G, FText, clamp01, prog, hsh, endOf, Room, VW, VH, HW, HH, type VoLine} from '../amber/kit';
+import {AmberStage, ip, pk, EIO, P, G, FText, clamp01, prog, hsh, endOf, Room, VW, VH, HW, HH, type VoLine, type CK} from '../amber/kit';
 import {Calendar, LAY, type Lay} from '../amber/AmberR2';
 import {LINES as CTA_LINES} from './gacta.gen';
 import {US_SHAPES, BAY_LAND, WORLD} from './geo.gen';
 
 export {AmberStage as Stage, WithCard, makeT, endOf, ip, pk, live, swing, hsh, arcPt, fmt, EIO, EOUT, EIN, EBACK, P, FFONT, G, Adult, Coin, FText, clamp01, prog, pop, Room, Plate, Mini, Crowd, Columns, Envelope, Gear, HW, HH, VW, VH, FPS} from '../amber/kit';
 export type {CK, Hit, VoLine, AdultLook} from '../amber/kit';
-export {LAY, kk, Calendar, Pile, fall, FloorDeco, type Lay} from '../amber/AmberR2';
+export {LAY, Calendar, Pile, fall, FloorDeco, type Lay} from '../amber/AmberR2';
+// Kamera z ograniczeniem (jak w Amber), ale w pionie wszystko o VZ większe: obiekty wypełniają szerokość kadru.
+export const VZ = 1.18;
+export const kk = (v: boolean, f: number, i: number, h: [number, number, number], vv: [number, number, number], e?: CK['e']): CK => {
+	const [dx, dy, z0] = v ? vv : h;
+	const z = v ? z0 * VZ : z0;
+	const W = v ? VW : HW;
+	const H = v ? VH : HH;
+	const vcy = v ? 760 : 470;
+	const mx = W / 2 - W / 2 / z;
+	const x = i * W + W / 2 + Math.max(-mx, Math.min(mx, dx));
+	let y = vcy + dy;
+	if (z < 1.6) y = Math.max(y, v ? 1120 - 370 / z : 800 - 400 / z);
+	y = Math.max(vcy / z, Math.min(H - (H - vcy) / z, y));
+	return {f, x, y, z, e};
+};
 export {Tag, Stamp, Banknote, FlatBurst} from '../../kit-flat/flat';
 
 // --- postacie (ogólne, bez podobieństwa do prawdziwych osób) -----------------------------------------

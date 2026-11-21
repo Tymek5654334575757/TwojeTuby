@@ -51,10 +51,10 @@ const keysFor = (v: boolean): CK[] => [
 	kk(v, K.anim + 4, 0, [0, -60, 1.04], [0, -80, 1.04]),
 	kk(v, K.l1 - 12, 0, [0, -80, 1.1], [0, -100, 1.08]),
 	kk(v, K.l1 + 14, 1, [0, 0, 1], [0, 0, 1]),
-	kk(v, K.przyj + 30, 1, [-120, 20, 1.12], [-60, 40, 1.08]),
-	kk(v, K.kc + 4, 1, [100, -20, 1.2], [60, -20, 1.14]),
-	kk(v, K.bankrut + 20, 1, [160, -10, 1.32], [120, -10, 1.24]),
-	kk(v, K.l4 - 12, 1, [100, 0, 1.2], [60, 0, 1.14]),
+	kk(v, K.przyj + 30, 1, [-120, 20, 1.12], [0, 40, 1.04]),
+	kk(v, K.kc + 4, 1, [100, -20, 1.2], [20, -20, 1.08]),
+	kk(v, K.bankrut + 20, 1, [160, -10, 1.32], [60, -10, 1.14]),
+	kk(v, K.l4 - 12, 1, [100, 0, 1.2], [40, 0, 1.1]),
 	kk(v, K.l4 + 14, 2, [-200, -40, 1.12], [-120, -40, 1.1]),
 	kk(v, K.kamera + 20, 2, [-220, -60, 1.18], [-140, -60, 1.14]),
 	kk(v, K.walizce + 6, 2, [150, -20, 1.08], [80, -40, 1.06]),
@@ -207,8 +207,8 @@ const R2: R = ({f, l}) => {
 			<Room w={W} h={l.H} floor={FL} tone="#DCCFB8" />
 			<FloorDeco l={l} />
 			{/* peron: tablica */}
-			<G x={v ? 540 : 360} y={v ? 230 : 120}>
-				<Sign text="Los Angeles" w={v ? 420 : 380} fill={P.navy} color={P.bg} />
+			<G x={v ? 300 : 360} y={v ? 340 : 120}>
+				<Sign text="Los Angeles" w={v ? 380 : 380} fill={P.navy} color={P.bg} />
 			</G>
 			<G x={wx} y={FL} s={v ? 1.25 : 1.15}>
 				<Adult look={LOOK.walt} mood={f > K.alicja ? 'smile' : 'neutral'} armR={f >= K.bilet - 10 ? 70 : 10} talk={false} seed={1} />
@@ -299,7 +299,7 @@ const R3: R = ({f, l}) => {
 					<Desk w={250} lamp={open} />
 				</Garage>
 			</G>
-			<G x={v ? 540 : cx} y={v ? 200 : 26} s={pk(f, K.d5 - 4) * (v ? 1.15 : 1)} r={swing(f, K.d5, 4)}>
+			<G x={v ? 540 : cx} y={v ? 320 : 26} s={pk(f, K.d5 - 4) * (v ? 1.05 : 1)} r={swing(f, K.d5, 4)}>
 				<Receipt items={['pokój: 5 $ / tydz.', 'garaż: +1 $ / tydz.']} shown={shown} total="6 $ / tydz." w={v ? 400 : 380} />
 			</G>
 		</g>

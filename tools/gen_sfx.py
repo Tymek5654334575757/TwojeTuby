@@ -57,6 +57,20 @@ PAL = {
  'power-down': ('Shop lights switching off, electric power down hum', 1.2),
  'sign-creak': ('Heavy metal shop sign creaking and swinging', 1.0),
  'cash-drawer': ('Cash register drawer opening with bell ding', 0.8),
+ 'garage-door': ('Metal up-and-over garage door being lifted open, rolling rattle and clunk at the end, short', 1.6),
+ 'garage-close': ('Metal garage door pulled down and closing with a firm clunk', 1.2),
+ 'chain-rattle': ('Heavy metal chain rattling and pulled taut, short', 1.0),
+ 'train-chug': ('Old steam train chugging past with a short whistle, cartoonish', 2.5),
+ 'ping-pong': ('Ping pong ball bouncing on a table back and forth, four hits', 1.5),
+ 'coin-flip': ('Coin flicked with a thumb, spinning ring in the air and caught in the hand', 1.0),
+ 'keys-jingle': ('Bunch of keys jingling handed over, short', 0.8),
+ 'typing-keys': ('Fast typing on an old mechanical computer keyboard, short burst', 1.2),
+ 'drill-whirr': ('Benchtop drill press motor spinning up briefly, workshop', 1.2),
+ 'truck-away': ('Moving truck engine starting and driving away, short', 2.0),
+ 'tape-box': ('Packing tape pulled and sealing a cardboard box', 0.8),
+ 'cardboard-crack': ('Big cardboard wall cracking and collapsing, comedic', 1.2),
+ 'music-flourish': ('Short whimsical orchestral flourish, strings and flute, 1940s cartoon style', 2.0),
+ 'boot-beep': ('Old 1970s computer powering on with a single soft beep', 1.0),
 }
 os.makedirs('media/sfx', exist_ok=True)
 for k,(p,d) in PAL.items():
