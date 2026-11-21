@@ -1,0 +1,246 @@
+{
+ "raw": "audio/ga2_raw.mp3",
+ "words": "audio/ga2_words.json",
+ "wav": "public/ga2_vo.wav",
+ "ts": "src/long/garaze/ga2.gen.ts",
+ "tempo": 1.0,
+ "cuts": [],
+ "groups": [
+  {
+   "spoken": "pierwszego stycznia tysiąc dziewięćset trzydziestego dziewiątego",
+   "shown": "1 stycznia 1939"
+  },
+  {
+   "spoken": "tysiąc dziewięćset trzydziesty ósmy",
+   "shown": "1938"
+  },
+  {
+   "spoken": "pięćset trzydzieści osiem dolarów",
+   "shown": "538 dolarów"
+  },
+  {
+   "spoken": "epl kompjuter kompani",
+   "shown": "Apple Computer Company"
+  },
+  {
+   "spoken": "trzysta sześćdziesiąt siedem",
+   "shown": "367"
+  },
+  {
+   "spoken": "dwa tysiące siódmego",
+   "shown": "2007"
+  },
+  {
+   "spoken": "łolt dyznej",
+   "shown": "Walt Disney"
+  },
+  {
+   "spoken": "ha pe",
+   "shown": "HP"
+  },
+  {
+   "spoken": "epl łan",
+   "shown": "Apple I"
+  },
+  {
+   "spoken": "los andżeles",
+   "shown": "Los Angeles"
+  },
+  {
+   "spoken": "kanzas siti",
+   "shown": "Kansas City"
+  },
+  {
+   "spoken": "kingsłel awenju",
+   "shown": "Kingswell Avenue"
+  },
+  {
+   "spoken": "margaret łinkler",
+   "shown": "Margaret Winkler"
+  },
+  {
+   "spoken": "bil hjulet",
+   "shown": "Bill Hewlett"
+  },
+  {
+   "spoken": "dejw pakard",
+   "shown": "Dave Packard"
+  },
+  {
+   "spoken": "edison awenju",
+   "shown": "Addison Avenue"
+  },
+  {
+   "spoken": "stiw woźniak",
+   "shown": "Steve Wozniak"
+  },
+  {
+   "spoken": "stiw dżobs",
+   "shown": "Steve Jobs"
+  },
+  {
+   "spoken": "ronald łejn",
+   "shown": "Ronald Wayne"
+  },
+  {
+   "spoken": "mauntejn wju",
+   "shown": "Mountain View"
+  },
+  {
+   "spoken": "pol terel",
+   "shown": "Paul Terrell"
+  },
+  {
+   "spoken": "majka markuli",
+   "shown": "Mike'a Markkuli"
+  },
+  {
+   "spoken": "dżef bezos",
+   "shown": "Jeff Bezos"
+  },
+  {
+   "spoken": "łol strit",
+   "shown": "Wall Street"
+  },
+  {
+   "spoken": "leri pejdż",
+   "shown": "Larry Page"
+  },
+  {
+   "spoken": "siergiej brin",
+   "shown": "Sergey Brin"
+  },
+  {
+   "spoken": "endi bechtolsheim",
+   "shown": "Andy Bechtolsheim"
+  },
+  {
+   "spoken": "san majkrosistems",
+   "shown": "Sun Microsystems"
+  },
+  {
+   "spoken": "siuzan wojcicki",
+   "shown": "Susan Wojcicki"
+  },
+  {
+   "spoken": "osiem generatorów",
+   "shown": "8 generatorów"
+  },
+  {
+   "spoken": "dyznej",
+   "shown": "Disney"
+  },
+  {
+   "spoken": "dyzneja",
+   "shown": "Disneya"
+  },
+  {
+   "spoken": "łolt",
+   "shown": "Walt"
+  },
+  {
+   "spoken": "łolta",
+   "shown": "Walta"
+  },
+  {
+   "spoken": "epl",
+   "shown": "Apple"
+  },
+  {
+   "spoken": "gugl",
+   "shown": "Google"
+  },
+  {
+   "spoken": "gugla",
+   "shown": "Google'a"
+  },
+  {
+   "spoken": "gugol",
+   "shown": "„googol”"
+  },
+  {
+   "spoken": "roj",
+   "shown": "Roy"
+  },
+  {
+   "spoken": "hjulet",
+   "shown": "Hewlett"
+  },
+  {
+   "spoken": "pakard",
+   "shown": "Packard"
+  },
+  {
+   "spoken": "lusil",
+   "shown": "Lucile"
+  },
+  {
+   "spoken": "holiłud",
+   "shown": "Hollywood"
+  },
+  {
+   "spoken": "woźniak",
+   "shown": "Wozniak"
+  },
+  {
+   "spoken": "kupertino",
+   "shown": "Cupertino"
+  },
+  {
+   "spoken": "dżobs",
+   "shown": "Jobs"
+  },
+  {
+   "spoken": "dżobsa",
+   "shown": "Jobsa"
+  },
+  {
+   "spoken": "folksłagena",
+   "shown": "volkswagena"
+  },
+  {
+   "spoken": "kadabra",
+   "shown": "Cadabra"
+  },
+  {
+   "spoken": "siatl",
+   "shown": "Seattle"
+  },
+  {
+   "spoken": "kadawer",
+   "shown": "„cadaver”"
+  },
+  {
+   "spoken": "belwju",
+   "shown": "Bellevue"
+  },
+  {
+   "spoken": "bekrab",
+   "shown": "BackRub"
+  },
+  {
+   "spoken": "siuzan",
+   "shown": "Susan"
+  },
+  {
+   "spoken": "jutuba",
+   "shown": "YouTube'a"
+  }
+ ],
+ "keys": [
+  "Doliny",
+  "Krzemowej",
+  "1938",
+  "367",
+  "szopie",
+  "1 stycznia 1939",
+  "538 dolarów",
+  "wiertarka",
+  "monetą",
+  "generator",
+  "Hollywood",
+  "8 generatorów",
+  "2007",
+  "Steve Wozniak."
+ ]
+}

@@ -17,6 +17,8 @@ import {BbShort, TOTAL_FRAMES as BB_FRAMES} from './shorts/bb/BbShort';
 import {BelfortShort, TOTAL_FRAMES as BELFORT_FRAMES} from './shorts/belfort/BelfortShort';
 import {AmberHak, HAK_FRAMES} from './long/amber/AmberHak';
 import {AmberR1, R1_FRAMES} from './long/amber/AmberR1';
+import {GarDisney, GarDisneyS, D_FRAMES, DS_SCENE} from './long/garaze/GarDisney';
+import {CTA_FRAMES as G_CTA} from './long/garaze/gkit';
 import {AmberR2, AmberS2, R2_FRAMES, S2_FRAMES} from './long/amber/AmberR2';
 import {AmberZ, Z_FRAMES} from './long/amber/AmberZ';
 import {AmberR3, AmberS1, R3_FRAMES, S1_FRAMES} from './long/amber/AmberR3';
@@ -70,6 +72,8 @@ export const RemotionRoot: React.FC = () => {
 			<Still id="AmberThumbB" component={AmberThumbB} width={1280} height={720} />
 			<Still id="AmberThumbC" component={AmberThumbC} width={1280} height={720} />
 			<Composition id="AmberS2" component={AmberS2} durationInFrames={S2_FRAMES} fps={30} width={1080} height={1920} />
+			<Composition id="GarDisney" component={GarDisney} durationInFrames={D_FRAMES} fps={30} width={1920} height={1080} />
+			<Composition id="GarDisneyS" component={GarDisneyS} durationInFrames={DS_SCENE + G_CTA} fps={30} width={1080} height={1920} />
 			<Still id="SzThumbA" component={SzThumbA} width={1280} height={720} />
 			<Still id="SzThumbB" component={SzThumbB} width={1280} height={720} />
 			<Still id="SzThumbC" component={SzThumbC} width={1280} height={720} />

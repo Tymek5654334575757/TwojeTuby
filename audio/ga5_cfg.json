@@ -1,0 +1,266 @@
+{
+ "raw": "audio/ga5_raw.mp3",
+ "words": "audio/ga5_words.json",
+ "wav": "public/ga5_vo.wav",
+ "ts": "src/long/garaze/ga5.gen.ts",
+ "tempo": 1.0,
+ "cuts": [],
+ "groups": [
+  {
+   "spoken": "tysiąc dziewięćset dziewięćdziesiątym piątym",
+   "shown": "1995"
+  },
+  {
+   "spoken": "tysiąc dziewięćset dziewięćdziesiątego ósmego",
+   "shown": "1998"
+  },
+  {
+   "spoken": "tysiąc dziewięćset dziewięćdziesiątego dziewiątego",
+   "shown": "1999"
+  },
+  {
+   "spoken": "epl kompjuter kompani",
+   "shown": "Apple Computer Company"
+  },
+  {
+   "spoken": "tysiąc siedemset dolarów",
+   "shown": "1700 dolarów"
+  },
+  {
+   "spoken": "sto tysięcy dolarów",
+   "shown": "100 tysięcy dolarów"
+  },
+  {
+   "spoken": "dwa tysiące szóstym",
+   "shown": "2006"
+  },
+  {
+   "spoken": "dwa tysiące czternastym",
+   "shown": "2014"
+  },
+  {
+   "spoken": "łolt dyznej",
+   "shown": "Walt Disney"
+  },
+  {
+   "spoken": "ha pe",
+   "shown": "HP"
+  },
+  {
+   "spoken": "epl łan",
+   "shown": "Apple I"
+  },
+  {
+   "spoken": "los andżeles",
+   "shown": "Los Angeles"
+  },
+  {
+   "spoken": "kanzas siti",
+   "shown": "Kansas City"
+  },
+  {
+   "spoken": "kingsłel awenju",
+   "shown": "Kingswell Avenue"
+  },
+  {
+   "spoken": "margaret łinkler",
+   "shown": "Margaret Winkler"
+  },
+  {
+   "spoken": "bil hjulet",
+   "shown": "Bill Hewlett"
+  },
+  {
+   "spoken": "dejw pakard",
+   "shown": "Dave Packard"
+  },
+  {
+   "spoken": "edison awenju",
+   "shown": "Addison Avenue"
+  },
+  {
+   "spoken": "stiw woźniak",
+   "shown": "Steve Wozniak"
+  },
+  {
+   "spoken": "stiw dżobs",
+   "shown": "Steve Jobs"
+  },
+  {
+   "spoken": "ronald łejn",
+   "shown": "Ronald Wayne"
+  },
+  {
+   "spoken": "mauntejn wju",
+   "shown": "Mountain View"
+  },
+  {
+   "spoken": "pol terel",
+   "shown": "Paul Terrell"
+  },
+  {
+   "spoken": "majka markuli",
+   "shown": "Mike'a Markkuli"
+  },
+  {
+   "spoken": "dżef bezos",
+   "shown": "Jeff Bezos"
+  },
+  {
+   "spoken": "łol strit",
+   "shown": "Wall Street"
+  },
+  {
+   "spoken": "leri pejdż",
+   "shown": "Larry Page"
+  },
+  {
+   "spoken": "siergiej brin",
+   "shown": "Sergey Brin"
+  },
+  {
+   "spoken": "endi bechtolsheim",
+   "shown": "Andy Bechtolsheim"
+  },
+  {
+   "spoken": "san majkrosistems",
+   "shown": "Sun Microsystems"
+  },
+  {
+   "spoken": "siuzan wojcicki",
+   "shown": "Susan Wojcicki"
+  },
+  {
+   "spoken": "sto zer",
+   "shown": "100 zer"
+  },
+  {
+   "spoken": "czwartego września",
+   "shown": "4 września"
+  },
+  {
+   "spoken": "dyznej",
+   "shown": "Disney"
+  },
+  {
+   "spoken": "dyzneja",
+   "shown": "Disneya"
+  },
+  {
+   "spoken": "łolt",
+   "shown": "Walt"
+  },
+  {
+   "spoken": "łolta",
+   "shown": "Walta"
+  },
+  {
+   "spoken": "epl",
+   "shown": "Apple"
+  },
+  {
+   "spoken": "gugl",
+   "shown": "Google"
+  },
+  {
+   "spoken": "gugla",
+   "shown": "Google'a"
+  },
+  {
+   "spoken": "gugol",
+   "shown": "„googol”"
+  },
+  {
+   "spoken": "roj",
+   "shown": "Roy"
+  },
+  {
+   "spoken": "hjulet",
+   "shown": "Hewlett"
+  },
+  {
+   "spoken": "pakard",
+   "shown": "Packard"
+  },
+  {
+   "spoken": "lusil",
+   "shown": "Lucile"
+  },
+  {
+   "spoken": "holiłud",
+   "shown": "Hollywood"
+  },
+  {
+   "spoken": "woźniak",
+   "shown": "Wozniak"
+  },
+  {
+   "spoken": "kupertino",
+   "shown": "Cupertino"
+  },
+  {
+   "spoken": "dżobs",
+   "shown": "Jobs"
+  },
+  {
+   "spoken": "dżobsa",
+   "shown": "Jobsa"
+  },
+  {
+   "spoken": "folksłagena",
+   "shown": "volkswagena"
+  },
+  {
+   "spoken": "kadabra",
+   "shown": "Cadabra"
+  },
+  {
+   "spoken": "siatl",
+   "shown": "Seattle"
+  },
+  {
+   "spoken": "kadawer",
+   "shown": "„cadaver”"
+  },
+  {
+   "spoken": "belwju",
+   "shown": "Bellevue"
+  },
+  {
+   "spoken": "bekrab",
+   "shown": "BackRub"
+  },
+  {
+   "spoken": "siuzan",
+   "shown": "Susan"
+  },
+  {
+   "spoken": "jutuba",
+   "shown": "YouTube'a"
+  },
+  {
+   "spoken": "szesnastą",
+   "shown": "16."
+  }
+ ],
+ "keys": [
+  "garażu",
+  "1700 dolarów",
+  "1995",
+  "głos",
+  "BackRub",
+  "„googol”",
+  "100 tysięcy dolarów",
+  "nie",
+  "istnieje.",
+  "4 września",
+  "1998",
+  "Susan",
+  "Wojcicki",
+  "1999",
+  "16.",
+  "2006",
+  "2014",
+  "szefową"
+ ]
+}

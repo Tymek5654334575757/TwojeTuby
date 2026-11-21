@@ -89,7 +89,7 @@ export const G: React.FC<{x?: number; y?: number; s?: number; r?: number; sq?: n
 // --- postać dziecka ---------------------------------------------------------
 export type KidLook = {shirt: string; hair: string; skin?: string; cap?: boolean; shades?: boolean};
 // --- Dorosła postać (kanał biznesowy). (0,0) = stopy, wysokość ok. 480. ---
-export type AdultLook = {suit: string; hair: string; skin?: string; tie?: string; shirt?: string; hairStyle?: 'short' | 'side' | 'bald'; glasses?: boolean};
+export type AdultLook = {suit: string; hair: string; skin?: string; tie?: string; shirt?: string; hairStyle?: 'short' | 'side' | 'bald' | 'long'; glasses?: boolean};
 export const ADULTS: Record<string, AdultLook> = {
 	szef: {suit: '#2E3B4E', hair: '#8A8A8A', tie: '#B5503A', hairStyle: 'side'},
 	szef2: {suit: '#3A4A5E', hair: '#3B2A20', tie: '#C9A043', hairStyle: 'short', glasses: true},
@@ -155,12 +155,13 @@ export const Adult: React.FC<{
 			{tie && <path d="M -9 -366 L 9 -366 L 13 -300 L 0 -284 L -13 -300 Z" fill={tie} stroke={P.navy} strokeWidth={4} strokeLinejoin="round" />}
 			<line x1={0} y1={-300} x2={0} y2={-190} stroke={dark} strokeWidth={4} />
 			{!phone && arm(1, armR, holdR)}
-			{/* głowa */}
+			{/* głowa (włosy długie: tył za głową) */}
+			{look.hairStyle === 'long' && <path d="M -58 -446 Q -70 -360 -44 -330 L 44 -330 Q 70 -360 58 -446 Q 0 -470 -58 -446 Z" fill={look.hair} stroke={P.navy} strokeWidth={5} strokeLinejoin="round" />}
 			<rect x={-16} y={-392} width={32} height={26} fill={skin} stroke={P.navy} strokeWidth={5} />
 			<circle cx={0} cy={-438} r={52} fill={skin} stroke={P.navy} strokeWidth={OL} />
 			{look.hairStyle !== 'bald' && (
 				<path
-					d={look.hairStyle === 'side' ? 'M -54 -440 Q -56 -500 0 -496 Q 50 -496 54 -446 Q 30 -478 -20 -470 Q -40 -466 -54 -440 Z' : 'M -53 -444 Q -50 -498 0 -496 Q 50 -498 53 -444 Q 40 -470 0 -472 Q -40 -470 -53 -444 Z'}
+					d={look.hairStyle === 'side' || look.hairStyle === 'long' ? 'M -54 -440 Q -56 -500 0 -496 Q 50 -496 54 -446 Q 30 -478 -20 -470 Q -40 -466 -54 -440 Z' : 'M -53 -444 Q -50 -498 0 -496 Q 50 -498 53 -444 Q 40 -470 0 -472 Q -40 -470 -53 -444 Z'}
 					fill={look.hair}
 					stroke={P.navy}
 					strokeWidth={5}

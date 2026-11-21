@@ -1,0 +1,270 @@
+{
+ "raw": "audio/ga3_raw.mp3",
+ "words": "audio/ga3_words.json",
+ "wav": "public/ga3_vo.wav",
+ "ts": "src/long/garaze/ga3.gen.ts",
+ "tempo": 1.0,
+ "cuts": [],
+ "groups": [
+  {
+   "spoken": "pierwszego kwietnia tysiąc dziewięćset siedemdziesiątego szóstego",
+   "shown": "1 kwietnia 1976"
+  },
+  {
+   "spoken": "tysiąc dziewięćset siedemdziesiąty piąty",
+   "shown": "1975"
+  },
+  {
+   "spoken": "sześćset sześćdziesiąt sześć dolarów",
+   "shown": "666 dolarów"
+  },
+  {
+   "spoken": "tysiąc dziewięćset siedemdziesiątego siódmego",
+   "shown": "1977"
+  },
+  {
+   "spoken": "epl kompjuter kompani",
+   "shown": "Apple Computer Company"
+  },
+  {
+   "spoken": "tysiąca trzystu dolarów",
+   "shown": "1300 dolarów"
+  },
+  {
+   "spoken": "sześćdziesiąt sześć centów",
+   "shown": "66 centów"
+  },
+  {
+   "spoken": "łolt dyznej",
+   "shown": "Walt Disney"
+  },
+  {
+   "spoken": "ha pe",
+   "shown": "HP"
+  },
+  {
+   "spoken": "epl łan",
+   "shown": "Apple I"
+  },
+  {
+   "spoken": "los andżeles",
+   "shown": "Los Angeles"
+  },
+  {
+   "spoken": "kanzas siti",
+   "shown": "Kansas City"
+  },
+  {
+   "spoken": "kingsłel awenju",
+   "shown": "Kingswell Avenue"
+  },
+  {
+   "spoken": "margaret łinkler",
+   "shown": "Margaret Winkler"
+  },
+  {
+   "spoken": "bil hjulet",
+   "shown": "Bill Hewlett"
+  },
+  {
+   "spoken": "dejw pakard",
+   "shown": "Dave Packard"
+  },
+  {
+   "spoken": "edison awenju",
+   "shown": "Addison Avenue"
+  },
+  {
+   "spoken": "stiw woźniak",
+   "shown": "Steve Wozniak"
+  },
+  {
+   "spoken": "stiw dżobs",
+   "shown": "Steve Jobs"
+  },
+  {
+   "spoken": "ronald łejn",
+   "shown": "Ronald Wayne"
+  },
+  {
+   "spoken": "mauntejn wju",
+   "shown": "Mountain View"
+  },
+  {
+   "spoken": "pol terel",
+   "shown": "Paul Terrell"
+  },
+  {
+   "spoken": "majka markuli",
+   "shown": "Mike'a Markkuli"
+  },
+  {
+   "spoken": "dżef bezos",
+   "shown": "Jeff Bezos"
+  },
+  {
+   "spoken": "łol strit",
+   "shown": "Wall Street"
+  },
+  {
+   "spoken": "leri pejdż",
+   "shown": "Larry Page"
+  },
+  {
+   "spoken": "siergiej brin",
+   "shown": "Sergey Brin"
+  },
+  {
+   "spoken": "endi bechtolsheim",
+   "shown": "Andy Bechtolsheim"
+  },
+  {
+   "spoken": "san majkrosistems",
+   "shown": "Sun Microsystems"
+  },
+  {
+   "spoken": "siuzan wojcicki",
+   "shown": "Susan Wojcicki"
+  },
+  {
+   "spoken": "dziesięć procent",
+   "shown": "10%"
+  },
+  {
+   "spoken": "osiemset dolarów",
+   "shown": "800 dolarów"
+  },
+  {
+   "spoken": "pięćdziesiąt komputerów",
+   "shown": "50 komputerów"
+  },
+  {
+   "spoken": "pięćset dolarów",
+   "shown": "500 dolarów"
+  },
+  {
+   "spoken": "osiemnaście lat",
+   "shown": "18 lat"
+  },
+  {
+   "spoken": "dyznej",
+   "shown": "Disney"
+  },
+  {
+   "spoken": "dyzneja",
+   "shown": "Disneya"
+  },
+  {
+   "spoken": "łolt",
+   "shown": "Walt"
+  },
+  {
+   "spoken": "łolta",
+   "shown": "Walta"
+  },
+  {
+   "spoken": "epl",
+   "shown": "Apple"
+  },
+  {
+   "spoken": "gugl",
+   "shown": "Google"
+  },
+  {
+   "spoken": "gugla",
+   "shown": "Google'a"
+  },
+  {
+   "spoken": "gugol",
+   "shown": "„googol”"
+  },
+  {
+   "spoken": "roj",
+   "shown": "Roy"
+  },
+  {
+   "spoken": "hjulet",
+   "shown": "Hewlett"
+  },
+  {
+   "spoken": "pakard",
+   "shown": "Packard"
+  },
+  {
+   "spoken": "lusil",
+   "shown": "Lucile"
+  },
+  {
+   "spoken": "holiłud",
+   "shown": "Hollywood"
+  },
+  {
+   "spoken": "woźniak",
+   "shown": "Wozniak"
+  },
+  {
+   "spoken": "kupertino",
+   "shown": "Cupertino"
+  },
+  {
+   "spoken": "dżobs",
+   "shown": "Jobs"
+  },
+  {
+   "spoken": "dżobsa",
+   "shown": "Jobsa"
+  },
+  {
+   "spoken": "folksłagena",
+   "shown": "volkswagena"
+  },
+  {
+   "spoken": "kadabra",
+   "shown": "Cadabra"
+  },
+  {
+   "spoken": "siatl",
+   "shown": "Seattle"
+  },
+  {
+   "spoken": "kadawer",
+   "shown": "„cadaver”"
+  },
+  {
+   "spoken": "belwju",
+   "shown": "Bellevue"
+  },
+  {
+   "spoken": "bekrab",
+   "shown": "BackRub"
+  },
+  {
+   "spoken": "siuzan",
+   "shown": "Susan"
+  },
+  {
+   "spoken": "jutuba",
+   "shown": "YouTube'a"
+  },
+  {
+   "spoken": "dwustu",
+   "shown": "200"
+  }
+ ],
+ "keys": [
+  "mit",
+  "1975",
+  "1300 dolarów",
+  "1 kwietnia 1976",
+  "10%",
+  "800 dolarów",
+  "50 komputerów",
+  "500 dolarów",
+  "złożone",
+  "666 dolarów",
+  "200",
+  "garaż",
+  "mit.",
+  "1977"
+ ]
+}
