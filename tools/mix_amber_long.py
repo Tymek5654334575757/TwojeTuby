@@ -242,9 +242,22 @@ def bed_and_master(mix_wav, video, out, total, outro_at=None, bed_db=-15):
         fc.append(f'[2:a]volume=-6dB,adelay={ms}|{ms}[ou]')
         labs += '[ou]'
         n = 3
-    fc.append(f'{labs}amix=inputs={n}:normalize=0:dropout_transition=0:duration=first,loudnorm=I=-15:TP=-1.5:LRA=11[a]')
+    # 21.11: bez dynamicznego loudnorm (ściskał dynamikę i dawał wrażenie przesteru).
+    # Najpierw miks bez normalizacji (float), potem pomiar EBU R128, stałe wzmocnienie i limiter tylko na szczyty.
+    fc.append(f'{labs}amix=inputs={n}:normalize=0:dropout_transition=0:duration=first[a]')
     master = out.replace('.mp4', '_master.wav').replace(f'{OUT}/', f'{TMP}/')
-    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', *ins, '-filter_complex', ';'.join(fc), '-map', '[a]', '-ar', '48000', '-ac', '2', master], check=True)
+    pre = master.replace('_master.wav', '_premaster.wav')
+    subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', *ins, '-filter_complex', ';'.join(fc), '-map', '[a]', '-ar', '48000', '-ac', '2', '-c:a', 'pcm_f32le', pre], check=True)
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from voice_chain import measure
+    gain = -15.0 - float(measure(pre, 'anull')['input_i'])
+    for _ in range(3):
+        subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', pre, '-af', f'volume={gain:.2f}dB,alimiter=limit=0.79:attack=3:release=80:level=false',
+                        '-ar', '48000', '-ac', '2', master], check=True)
+        got = float(measure(master, 'anull')['input_i'])
+        if abs(got + 15.0) < 0.3:
+            break
+        gain += -15.0 - got
     subprocess.run(['ffmpeg', '-y', '-loglevel', 'error', '-i', video, '-i', master, '-map', '0:v', '-map', '1:a', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-shortest', out], check=True)
     print('gotowe', out)
 

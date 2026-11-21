@@ -8,8 +8,16 @@ for c,sil in cuts:
     fc.append(f"anullsrc=r=44100:cl=mono,atrim=0:{sil}[s{i}]"); parts.append(f"[s{i}]")
     prev=c;i+=1
 fc.append(f"[0:a]atrim={prev},asetpts=PTS-STARTPTS[a{i}]"); parts.append(f"[a{i}]")
-fc.append(f"{''.join(parts)}concat=n={len(parts)}:v=0:a=1,aformat=channel_layouts=mono,atempo={T},deesser=i=0.5:m=0.5:f=0.5,equalizer=f=6500:t=q:w=1.4:g=-3,loudnorm=I=-16:TP=-1.5:LRA=11[out]")
-subprocess.run(['ffmpeg','-y','-loglevel','error','-i',src,'-filter_complex',';'.join(fc),'-map','[out]','-ar','44100',cfg['wav']],check=True)
+# 21.11: stara obróbka (de-esser, -3 dB przy 6,5 kHz, dynamiczny loudnorm) dawała głuchy, dudniący i ściśnięty głos.
+# Teraz: cięcia i ewentualne tempo tutaj, cała barwa i głośność w tools/voice_chain.py.
+fc.append(f"{''.join(parts)}concat=n={len(parts)}:v=0:a=1,aformat=channel_layouts=mono" + (f",atempo={T}" if abs(T-1)>1e-3 else "") + "[out]")
+import os
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from voice_chain import process
+tmp = cfg['wav'].replace('.wav', '_cut.wav')
+subprocess.run(['ffmpeg','-y','-loglevel','error','-i',src,'-filter_complex',';'.join(fc),'-map','[out]','-ar','48000','-c:a','pcm_f32le',tmp],check=True)
+process(tmp, cfg['wav'], lufs=cfg.get('lufs', -16.0))
+os.remove(tmp)
 W=json.load(open(cfg['words']))
 m=lambda t: round((t+sum(s for c,s in cuts if t>=c))/T,3)
 W=[[w,m(a),m(b)] for w,a,b in W]
