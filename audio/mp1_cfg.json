@@ -1,0 +1,60 @@
+{
+ "raw": "audio/mp1_raw.mp3",
+ "words": "audio/mp1_words.json",
+ "wav": "public/mp1_vo.wav",
+ "ts": "src/long/manip/mp1.gen.ts",
+ "tempo": 1.0,
+ "cuts": [],
+ "groups": [
+  {
+   "spoken": "tysiąc dziewięćset siedemdziesiątym pierwszym",
+   "shown": "1971"
+  },
+  {
+   "spoken": "tysiąc dziewięćset siedemdziesiątym szóstym",
+   "shown": "1976"
+  },
+  {
+   "spoken": "dwa tysiące piętnastego",
+   "shown": "2015"
+  },
+  {
+   "spoken": "denis rigan",
+   "shown": "Dennis Regan"
+  },
+  {
+   "spoken": "robert czialdini",
+   "shown": "Robert Cialdini"
+  },
+  {
+   "spoken": "dżo",
+   "shown": "Joe"
+  },
+  {
+   "spoken": "pięćset procent",
+   "shown": "500%"
+  },
+  {
+   "spoken": "pięciuset siedemdziesięciu ośmiu",
+   "shown": "578"
+  },
+  {
+   "spoken": "dwa procent",
+   "shown": "2%"
+  }
+ ],
+ "keys": [
+  "próbka",
+  "winien",
+  "1971",
+  "Joe",
+  "pomocnik",
+  "500%",
+  "sympatia",
+  "wzajemności",
+  "578",
+  "2%",
+  "prezent",
+  "umowy"
+ ]
+}

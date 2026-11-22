@@ -157,11 +157,11 @@ const R1: R = ({f, l}) => {
 			</G>
 			<G x={(v ? 200 : cx - 640) + meet * (v ? 120 : 360)} y={FL} s={(v ? 1.05 : 1.1) * pk(f, K.larry - 6)}>
 				<Adult look={LOOK.page} walk={meet > 0 && meet < 1} armR={meet >= 1 ? 50 : 10} mood="smile" seed={16} />
-				<FText text="Larry Page" x={0} y={70} size={40} fill={P.navy} />
+				<FText text="Larry Page" x={v ? 0 : -250} y={v ? 200 : -300} size={40} fill={P.navy} />
 			</G>
 			<G x={(v ? 880 : cx + 640) - meet * (v ? 120 : 360)} y={FL} s={(v ? 1.05 : 1.1) * pk(f, K.sergey - 6)}>
 				<Adult look={LOOK.brin} walk={meet > 0 && meet < 1} armL={meet >= 1 ? 50 : 10} mood="smile" seed={17} />
-				<FText text="Sergey Brin" x={0} y={70} size={40} fill={P.navy} />
+				<FText text="Sergey Brin" x={v ? 0 : 250} y={v ? 200 : -300} size={40} fill={P.navy} />
 			</G>
 		</g>
 	);

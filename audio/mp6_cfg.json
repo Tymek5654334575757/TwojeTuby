@@ -1,0 +1,19 @@
+{
+ "raw": "audio/mp6_raw.mp3",
+ "words": "audio/mp6_words.json",
+ "wav": "public/mp6_vo.wav",
+ "ts": "src/long/manip/mp6.gen.ts",
+ "tempo": 1.0,
+ "cuts": [],
+ "groups": [],
+ "keys": [
+  "dług",
+  "ustąpić",
+  "skalę",
+  "pogania",
+  "pytanie",
+  "tak",
+  "sztuczka",
+  "komentarzu"
+ ]
+}

@@ -229,15 +229,15 @@ def dur(path):
     return float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', path], capture_output=True, text=True).stdout)
 
 
-def bed_and_master(mix_wav, video, out, total, outro_at=None, bed_db=-15):
+def bed_and_master(mix_wav, video, out, total, outro_at=None, bed_db=-15, bed='media/music/bed-docu-calm.wav', outro='media/music/bed-outro.wav'):
     # podkład w pętli pod całością (cichszy pod głosem: sidechain), na końcu outro; potem -15 LUFS
-    ins = ['-i', mix_wav, '-stream_loop', '-1', '-i', 'media/music/bed-docu-calm.wav']
+    ins = ['-i', mix_wav, '-stream_loop', '-1', '-i', bed]
     fc = [f'[1:a]atrim=0:{total:.3f},volume={bed_db}dB,afade=t=in:d=2,afade=t=out:st={max(0, total - (16 if outro_at else 3)):.3f}:d={14 if outro_at else 3}[bed]',
           '[0:a]asplit=2[v1][v2]', '[bed][v2]sidechaincompress=threshold=0.02:ratio=4:attack=30:release=500[bd]']
     labs = '[v1][bd]'
     n = 2
     if outro_at is not None:
-        ins += ['-i', 'media/music/bed-outro.wav']
+        ins += ['-i', outro]
         ms = int(outro_at * 1000)
         fc.append(f'[2:a]volume=-6dB,adelay={ms}|{ms}[ou]')
         labs += '[ou]'

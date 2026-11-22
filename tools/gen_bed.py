@@ -5,6 +5,8 @@ KEY = env['ELEVENLABS_API_KEY']
 BEDS = {
     'bed-docu-calm': ('Calm minimal documentary underscore loop, soft felt piano notes over warm muted strings pad, slightly curious and serious mood, slow tempo, no drums, no vocals, seamless loop', 30, True),
     'bed-outro': ('Gentle resolving outro music, soft felt piano and warm strings, hopeful ending chord, slow, no drums, no vocals', 14, False),
+    'bed-psy-curious': ('Light curious underscore loop for a hand-drawn psychology explainer, soft pizzicato strings and gentle marimba, playful but calm, quiet, medium-slow tempo, no drums, no vocals, seamless loop', 30, True),
+    'bed-psy-outro': ('Short warm outro for a hand-drawn explainer, gentle marimba and pizzicato resolving to a soft final chord, calm and friendly, no drums, no vocals', 14, False),
 }
 os.makedirs('media/music', exist_ok=True)
 for k, (p, d, loop) in BEDS.items():

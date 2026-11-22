@@ -1,0 +1,13 @@
+{
+ "raw": "audio/mpz_raw.mp3",
+ "words": "audio/mpz_words.json",
+ "wav": "public/mpz_vo.wav",
+ "ts": "src/long/manip/mpz.gen.ts",
+ "tempo": 1.0,
+ "cuts": [],
+ "groups": [],
+ "keys": [
+  "subskrybuj",
+  "psychorożka"
+ ]
+}

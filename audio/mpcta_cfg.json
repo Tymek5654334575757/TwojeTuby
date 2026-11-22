@@ -1,0 +1,13 @@
+{
+ "raw": "audio/mpcta_raw.mp3",
+ "words": "audio/mpcta_words.json",
+ "wav": "public/mpcta_vo.wav",
+ "ts": "src/long/manip/mpcta.gen.ts",
+ "tempo": 1.0,
+ "cuts": [],
+ "groups": [],
+ "keys": [
+  "całym",
+  "filmie"
+ ]
+}

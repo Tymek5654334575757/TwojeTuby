@@ -1,0 +1,56 @@
+{
+ "raw": "audio/mp2_raw.mp3",
+ "words": "audio/mp2_words.json",
+ "wav": "public/mp2_vo.wav",
+ "ts": "src/long/manip/mp2.gen.ts",
+ "tempo": 1.0,
+ "cuts": [],
+ "groups": [
+  {
+   "spoken": "tysiąc dziewięćset siedemdziesiątym piątym",
+   "shown": "1975"
+  },
+  {
+   "spoken": "dwa tysiące dwudziestym",
+   "shown": "2020"
+  },
+  {
+   "spoken": "tysiąc złotych",
+   "shown": "1000 zł"
+  },
+  {
+   "spoken": "roberta czialdiniego",
+   "shown": "Roberta Cialdiniego"
+  },
+  {
+   "spoken": "siedemnaście procent",
+   "shown": "17%"
+  },
+  {
+   "spoken": "dwadzieścia pięć procent",
+   "shown": "25%"
+  },
+  {
+   "spoken": "dwieście",
+   "shown": "200"
+  },
+  {
+   "spoken": "tysiącu",
+   "shown": "tysiącu"
+  }
+ ],
+ "keys": [
+  "absurdalnego",
+  "200",
+  "1975",
+  "17%",
+  "połowa",
+  "25%",
+  "odmowa",
+  "ustąpił",
+  "kontrast",
+  "nosem",
+  "2020",
+  "pierwsza"
+ ]
+}

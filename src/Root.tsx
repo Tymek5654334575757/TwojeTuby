@@ -34,6 +34,7 @@ import {AmberR5, R5_FRAMES} from './long/amber/AmberR5';
 import {AmberR6, AmberS4, R6_FRAMES, S4_FRAMES} from './long/amber/AmberR6';
 import {AmberE, E_FRAMES} from './long/amber/AmberE';
 import {AmberThumbA, AmberThumbB, AmberThumbC} from './long/amber/AmberThumb';
+import {GarThumbA, GarThumbB, GarThumbC} from './long/garaze/GarThumb';
 
 export const RemotionRoot: React.FC = () => {
 	return (
@@ -73,6 +74,9 @@ export const RemotionRoot: React.FC = () => {
 			<Composition id="AmberR6" component={AmberR6} durationInFrames={R6_FRAMES} fps={30} width={1920} height={1080} />
 			<Composition id="AmberS4" component={AmberS4} durationInFrames={S4_FRAMES} fps={30} width={1080} height={1920} />
 			<Composition id="AmberE" component={AmberE} durationInFrames={E_FRAMES} fps={30} width={1920} height={1080} />
+			<Still id="GarThumbA" component={GarThumbA} width={1280} height={720} />
+			<Still id="GarThumbB" component={GarThumbB} width={1280} height={720} />
+			<Still id="GarThumbC" component={GarThumbC} width={1280} height={720} />
 			<Still id="AmberThumbA" component={AmberThumbA} width={1280} height={720} />
 			<Still id="AmberThumbB" component={AmberThumbB} width={1280} height={720} />
 			<Still id="AmberThumbC" component={AmberThumbC} width={1280} height={720} />

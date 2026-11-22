@@ -1,0 +1,118 @@
+{
+ "raw": "audio/mp3_raw.mp3",
+ "words": "audio/mp3_words.json",
+ "wav": "public/mp3_vo.wav",
+ "ts": "src/long/manip/mp3.gen.ts",
+ "tempo": 1.0,
+ "cuts": [],
+ "groups": [
+  {
+   "spoken": "tysiąc dziewięćset siedemdziesiątym czwartym",
+   "shown": "1974"
+  },
+  {
+   "spoken": "dwa tysiące dwudziestego trzeciego",
+   "shown": "2023"
+  },
+  {
+   "spoken": "dziewięćset dziewięćdziesiąt dziewięć złotych",
+   "shown": "999 zł"
+  },
+  {
+   "spoken": "dziewięćset dziewięćdziesiąt dziewięć",
+   "shown": "999"
+  },
+  {
+   "spoken": "czterysta dziewięćdziesiąt dziewięć",
+   "shown": "499"
+  },
+  {
+   "spoken": "pięćset dwanaście",
+   "shown": "512"
+  },
+  {
+   "spoken": "pięćset",
+   "shown": "500"
+  },
+  {
+   "spoken": "amos twerski",
+   "shown": "Amos Tversky"
+  },
+  {
+   "spoken": "daniel kaneman",
+   "shown": "Daniel Kahneman"
+  },
+  {
+   "spoken": "od zera do stu",
+   "shown": "od 0 do 100"
+  },
+  {
+   "spoken": "sześćdziesiąt pięć",
+   "shown": "65"
+  },
+  {
+   "spoken": "dziesięć",
+   "shown": "10"
+  },
+  {
+   "spoken": "o en zet",
+   "shown": "ONZ"
+  },
+  {
+   "spoken": "dwadzieścia pięć procent",
+   "shown": "25%"
+  },
+  {
+   "spoken": "czterdzieści pięć procent",
+   "shown": "45%"
+  },
+  {
+   "spoken": "dwadzieścia punktów",
+   "shown": "20 punktów"
+  },
+  {
+   "spoken": "pięć sekund",
+   "shown": "5 sekund"
+  },
+  {
+   "spoken": "osiem razy siedem razy sześć",
+   "shown": "8 × 7 × 6"
+  },
+  {
+   "spoken": "od jedynki do ośmiu",
+   "shown": "od 1 do 8"
+  },
+  {
+   "spoken": "do jedynki",
+   "shown": "do 1"
+  },
+  {
+   "spoken": "dwa tysiące dwieście pięćdziesiąt",
+   "shown": "2250"
+  },
+  {
+   "spoken": "czterdzieści tysięcy trzysta dwadzieścia",
+   "shown": "40 320"
+  },
+  {
+   "spoken": "trzydziestu dni",
+   "shown": "30 dni"
+  }
+ ],
+ "keys": [
+  "kotwicą",
+  "999",
+  "499",
+  "1974",
+  "10",
+  "65",
+  "25%",
+  "45%",
+  "2250",
+  "512",
+  "40 320",
+  "zakotwiczenia",
+  "kwotę",
+  "najniższą"
+ ]
+}

@@ -7,7 +7,7 @@ import path from 'node:path';
 import fs from 'node:fs';
 const [, , specPath, outDir = 'out/qa', scale = '0.3'] = process.argv;
 const spec = JSON.parse(fs.readFileSync(specPath, 'utf8'));
-const serveUrl = await bundle({entryPoint: path.resolve('src/index.ts')});
+const serveUrl = await bundle({entryPoint: path.resolve(process.env.ENTRY || 'src/index.ts')});
 const browser = await openBrowser('chrome', {browserExecutable: '/opt/pw-browsers/chromium-1243/chrome-linux64/chrome'});
 for (const [id, frames] of Object.entries(spec)) {
 	const comp = await selectComposition({serveUrl, id, puppeteerInstance: browser});
@@ -25,3 +25,4 @@ for (const [id, frames] of Object.entries(spec)) {
 	console.log('ok', id, comp.durationInFrames);
 }
 await browser.close({silent: true});
+fs.rmSync(serveUrl, {recursive: true, force: true});

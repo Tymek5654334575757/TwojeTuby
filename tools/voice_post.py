@@ -22,7 +22,9 @@ W=json.load(open(cfg['words']))
 m=lambda t: round((t+sum(s for c,s in cuts if t>=c))/T,3)
 W=[[w,m(a),m(b)] for w,a,b in W]
 groups=[(g['spoken'].split(),g['shown']) for g in cfg['groups']]
-strip=lambda x: x.lower().strip(',.?:')
+Q='„”"'
+strip=lambda x: x.lower().strip(',.?:!'+Q)
+isend=lambda w: w.rstrip(Q)[-1:] in ('.','?','!')
 # end = czy słowo kończy zdanie (liczone z mówionego słowa, więc skrót „P.” w pokazanym tekście nie tnie linii)
 disp=[];i=0
 while i<len(W):
@@ -30,10 +32,11 @@ while i<len(W):
     for pat,rep in groups:
         n=len(pat)
         if [strip(x[0]) for x in W[i:i+n]]==pat:
-            tail=W[i+n-1][0]; punct=tail[len(tail.rstrip(',.?:')):]
-            shown=rep+(punct[1:] if rep.endswith('.') and punct.startswith('.') else punct)
-            disp.append([shown,W[i][1],W[i+n-1][2],bool(punct) and punct[-1] in '.?']); i+=n; hit=True; break
-    if not hit: disp.append([*W[i],W[i][0][-1] in '.?']); i+=1
+            tail=W[i+n-1][0]; punct=tail[len(tail.rstrip(',.?:!'+Q)):]
+            head=W[i][0]; lead=head[:len(head)-len(head.lstrip(Q))]
+            shown=lead+rep+(punct[1:] if rep.endswith('.') and punct.startswith('.') else punct)
+            disp.append([shown,W[i][1],W[i+n-1][2],isend(tail)]); i+=n; hit=True; break
+    if not hit: disp.append([*W[i],isend(W[i][0])]); i+=1
 KEYS=set(k.lower() for k in cfg['keys'])
 lines=[];cur=[]
 for w,s,e,end in disp:

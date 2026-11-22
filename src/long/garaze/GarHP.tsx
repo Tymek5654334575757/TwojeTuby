@@ -185,7 +185,7 @@ const R2: R = ({f, l}) => {
 					<g transform="translate(0 -500)">
 						<Cap />
 					</g>
-					<FText text={i === 0 ? 'Bill Hewlett' : 'Dave Packard'} x={0} y={70} size={40} fill={P.navy} opacity={prog(f, at as number, 8)} />
+					<FText text={i === 0 ? 'Bill Hewlett' : 'Dave Packard'} x={v ? 0 : i === 0 ? -250 : 250} y={v ? 200 : -300} size={40} fill={P.navy} opacity={prog(f, at as number, 8)} />
 				</G>
 			))}
 			{f >= K.firme && (

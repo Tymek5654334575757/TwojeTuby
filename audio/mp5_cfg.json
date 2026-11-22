@@ -1,0 +1,57 @@
+{
+ "raw": "audio/mp5_raw.mp3",
+ "words": "audio/mp5_words.json",
+ "wav": "public/mp5_vo.wav",
+ "ts": "src/long/manip/mp5.gen.ts",
+ "tempo": 1.0,
+ "cuts": [],
+ "groups": [
+  {
+   "spoken": "tysiąc dziewięćset siedemdziesiątym ósmym",
+   "shown": "1978"
+  },
+  {
+   "spoken": "robert czialdini",
+   "shown": "Robert Cialdini"
+  },
+  {
+   "spoken": "trzy tysiące",
+   "shown": "3000 zł"
+  },
+  {
+   "spoken": "o siódmej rano",
+   "shown": "o 7:00 rano"
+  },
+  {
+   "spoken": "o siódmej",
+   "shown": "o 7:00"
+  },
+  {
+   "spoken": "trzydzieści jeden procent",
+   "shown": "31%"
+  },
+  {
+   "spoken": "pięćdziesiąt sześć procent",
+   "shown": "56%"
+  },
+  {
+   "spoken": "dwadzieścia cztery procent",
+   "shown": "24%"
+  },
+  {
+   "spoken": "pięćdziesiąt trzy",
+   "shown": "53%"
+  }
+ ],
+ "keys": [
+  "tak",
+  "1978",
+  "31%",
+  "56%",
+  "24%",
+  "53%",
+  "piłka",
+  "konsekwentni",
+  "innej"
+ ]
+}

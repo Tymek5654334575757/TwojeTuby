@@ -1,0 +1,61 @@
+{
+ "raw": "audio/mp4_raw.mp3",
+ "words": "audio/mp4_words.json",
+ "wav": "public/mp4_vo.wav",
+ "ts": "src/long/manip/mp4.gen.ts",
+ "tempo": 1.0,
+ "cuts": [],
+ "groups": [
+  {
+   "spoken": "tysiąc dziewięćset siedemdziesiątym piątym",
+   "shown": "1975"
+  },
+  {
+   "spoken": "stiwen worczel",
+   "shown": "Stephen Worchel"
+  },
+  {
+   "spoken": "sto trzydzieści cztery",
+   "shown": "134"
+  },
+  {
+   "spoken": "dwanaście osób",
+   "shown": "12 osób"
+  },
+  {
+   "spoken": "dziewięć minut",
+   "shown": "9 minut"
+  },
+  {
+   "spoken": "dziesięcioma",
+   "shown": "10"
+  },
+  {
+   "spoken": "dziesięć",
+   "shown": "10"
+  },
+  {
+   "spoken": "osiem",
+   "shown": "8"
+  },
+  {
+   "spoken": "dwie",
+   "shown": "2"
+  },
+  {
+   "spoken": "dwa",
+   "shown": "2"
+  }
+ ],
+ "keys": [
+  "2",
+  "rzadkość",
+  "134",
+  "wyżej",
+  "8",
+  "niedoboru",
+  "cenniejsze",
+  "zawsze",
+  "słoiku"
+ ]
+}

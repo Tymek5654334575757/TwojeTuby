@@ -1,0 +1,23 @@
+{
+ "raw": "audio/mp0_raw.mp3",
+ "words": "audio/mp0_words.json",
+ "wav": "public/mp0_vo.wav",
+ "ts": "src/long/manip/mp0.gen.ts",
+ "tempo": 1.0,
+ "cuts": [],
+ "groups": [
+  {
+   "spoken": "o siódmej rano",
+   "shown": "o 7:00 rano"
+  }
+ ],
+ "keys": [
+  "manipulacja",
+  "uprzejmość",
+  "okazja",
+  "cena",
+  "pięć",
+  "coli",
+  "pytanie"
+ ]
+}
